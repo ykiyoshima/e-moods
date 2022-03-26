@@ -126,7 +126,7 @@ app.post('/regist', (req, res, next) => {
   const idsArray = ids.split(',');
 
   myknex('users')
-    .insert({ 'username': sessionUsername, 'email': sessionEmail, 'password': sessionPassword, 'favorite_id_1': idsArray[0], 'favorite_id_2': idsArray[1], 'favorite_id_3': idsArray[2], 'favorite_id_4': idsArray[3], 'favorite_id_5': idsArray[4] })
+    .insert({ 'username': sessionUsername, 'email': sessionEmail, 'password': sessionPassword, 'favorite_id_1': idsArray[0], 'favorite_id_2': idsArray[1], 'favorite_id_3': idsArray[2], 'favorite_id_4': idsArray[3], 'favorite_id_5': idsArray[4], 'created_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })), 'updated_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })) })
     .then(() => {
       res.end();
     });
@@ -220,7 +220,7 @@ app.get('/insert_emotions_and_tracks', (req, res) => {
   const { anger, contempt, disgust, fear, happiness, neutral, sadness, surprise } = req.session.results;
   const tracks = req.session.tracks;
   myknex('emotions_and_tracks')
-    .insert({ 'user_id': req.user[0].id, 'anger': anger, 'contempt': contempt, 'disgust': disgust, 'fear': fear, 'neutral': neutral, 'happiness': happiness, 'sadness': sadness, 'surprise': surprise, 'track_id1': tracks[0], 'track_id2': tracks[1], 'track_id3': tracks[2] })
+    .insert({ 'user_id': req.user[0].id, 'anger': anger, 'contempt': contempt, 'disgust': disgust, 'fear': fear, 'neutral': neutral, 'happiness': happiness, 'sadness': sadness, 'surprise': surprise, 'track_id1': tracks[0], 'track_id2': tracks[1], 'track_id3': tracks[2], 'created_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })), 'updated_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })) })
     .then(() => {
       console.log('Data was created successfully!');
       res.end();
