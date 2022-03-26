@@ -3,9 +3,6 @@
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const knexfile = {
 
