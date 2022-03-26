@@ -45,7 +45,7 @@ export const Analysed = () => {
 
   window.onload = async () => {
     refreshToken();
-    emotionsResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/emotions`, { withCredentials: true });
+    emotionsResponse = await axios.get('/emotions', { withCredentials: true });
     const { anger, contempt, disgust, fear, happiness, neutral, sadness, surprise } = emotionsResponse.data;
     document.getElementById('analysis_result').innerHTML = `<p>あなたの感情は以下のようです</p><p class="my-4">怒り：${anger * 100}%  軽蔑：${contempt * 100}%  嫌悪：${disgust * 100}%  恐怖：${fear * 100}%<br/>幸せ：${happiness * 100}%  中立：${neutral * 100}%  悲しみ：${sadness * 100}%  驚き：${surprise * 100}%</p>`;
   }
