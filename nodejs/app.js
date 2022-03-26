@@ -150,8 +150,16 @@ app.post('/first_get_token', async (req, res) => {
   res.end(JSON.stringify({ data: response.data }));
 });
 
-app.post('/login_confirm', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login', failureFlash: true }), function (req, res) {
-  res.send(req.flash());
+app.post('/login_confirm', passport.authenticate('local',
+  { successRedirect: '/success', failureRedirect: '/failure', failureFlash: true }
+));
+
+app.get('/success', (req, res) => {
+  res.send({ status: 'OK' });
+});
+
+app.get('/failure', (req, res) => {
+  res.send({ message: req.flash('error') });
 });
 
 
