@@ -2,7 +2,7 @@ import express from "express";
 import path from "path";
 import cors from "cors";
 import bcrypt from "bcrypt";
-import crypto from "crypto";
+import flash from "connect-flash";
 import knex from "knex";
 import knexfile from "./knexfile.js";
 import session from "express-session";
@@ -40,6 +40,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(fileUpload());
 app.use(express.static(path.join(__dirname, './react/build')));
+app.use(flash());
 
 const sess = {
   secret: process.env.SESSION_SECRET,
@@ -149,7 +150,9 @@ app.post('/first_get_token', async (req, res) => {
   res.end(JSON.stringify({ data: response.data }));
 });
 
-app.post('/login_confirm', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login', failureFlash: true }));
+app.post('/login_confirm', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login', failureFlash: true }), function (req, res) {
+  res.send(req.flash());
+});
 
 
 app.get('/index', (req, res) => {
