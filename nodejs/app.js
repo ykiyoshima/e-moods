@@ -134,7 +134,7 @@ app.post('/regist', (req, res, next) => {
     });
 });
 
-app.post('/first_get_token', async (req, res) => {
+app.get('/first_get_token', async (req, res) => {
   const { code } = req.query;
   const params = new URLSearchParams();
   params.append('grant_type', 'authorization_code');
