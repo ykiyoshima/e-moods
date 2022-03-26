@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const Imported = () => {
-  axios.get(`${process.env.REACT_APP_SERVER_URL}/tracks`, { withCredentials: true })
+  axios.get('/tracks', { withCredentials: true })
     .then(response => {
       console.log(response);
       const playlistTrackIdArray = response.data;

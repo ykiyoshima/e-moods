@@ -10,7 +10,7 @@ export const Selected = () => {
         const params = new URLSearchParams();
         params.append('client_id', process.env.REACT_APP_CLIENT_ID);
         params.append('response_type', 'code');
-        params.append('redirect_uri', 'http://localhost:3000/');
+        params.append('redirect_uri', 'https://e-moods.herokuapp.com/');
         params.append('scope', scopes.join(' '));
         params.append('state', 'state');
         document.getElementById('signin_btn').innerHTML = '';
@@ -30,7 +30,7 @@ export const Selected = () => {
         return decodeURIComponent(results[2].replace(/\+/g, " "));
       }
       if (getParam('code')) {
-        await axios.post(`${process.env.REACT_APP_SERVER_URL}/get_token`, {code: getParam('code')}, { withCredentials: true }).then((response) => {
+        await axios.post('/get_token', {code: getParam('code')}, { withCredentials: true }).then((response) => {
           console.log(response.data);
           localStorage.setItem('accessToken', response.data.data.access_token);
           localStorage.setItem('tokenGetTime', Date.now());
@@ -45,7 +45,7 @@ export const Selected = () => {
     refreshToken();
   }
 
-  axios.get(`${process.env.REACT_APP_SERVER_URL}/tracks`, { withCredentials: true })
+  axios.get('/tracks', { withCredentials: true })
     .then(response => {
       playlistTrackIdArray = response.data;
       let playlistTagArray = '<span class="ml-2"></span>';

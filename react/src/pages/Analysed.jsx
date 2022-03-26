@@ -12,7 +12,7 @@ export const Analysed = () => {
         const params = new URLSearchParams();
         params.append('client_id', process.env.REACT_APP_CLIENT_ID);
         params.append('response_type', 'code');
-        params.append('redirect_uri', 'http://localhost:3000/');
+        params.append('redirect_uri', 'https://e-moods.herokuapp.com/');
         params.append('scope', scopes.join(' '));
         params.append('state', 'state');
         document.getElementById('signin_btn').innerHTML = '';
@@ -32,7 +32,7 @@ export const Analysed = () => {
         return decodeURIComponent(results[2].replace(/\+/g, " "));
       }
       if (getParam('code')) {
-        await axios.post(`${process.env.REACT_APP_SERVER_URL}/get_token`, { code: getParam('code') }, { withCredentials: true }).then((response) => {
+        await axios.post('/get_token', { code: getParam('code') }, { withCredentials: true }).then((response) => {
           console.log(response.data);
           localStorage.setItem('accessToken', response.data.data.access_token);
           localStorage.setItem('tokenGetTime', Date.now());
@@ -54,7 +54,7 @@ export const Analysed = () => {
     playlistTrackIdArray.length = 0;
     refreshToken();
 
-    const tracksResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tracks`, { withCredentials: true });
+    const tracksResponse = await axios.get('/tracks', { withCredentials: true });
     if (tracksResponse.data) {
       previousPlaylistTrackIdArray = tracksResponse.data.concat();
     }
@@ -162,7 +162,7 @@ export const Analysed = () => {
       }
     } while (playlistTrackIdArray.length < 3 && (Date.now() - localStorage.getItem('tokenGetTime')) < 3600000);
 
-    await axios.post(`${process.env.REACT_APP_SERVER_URL}/tracks`, playlistTrackIdArray, { withCredentials: true });
+    await axios.post('/tracks', playlistTrackIdArray, { withCredentials: true });
     window.location.href = '/selected';
   };
 

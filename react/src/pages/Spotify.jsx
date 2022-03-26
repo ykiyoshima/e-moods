@@ -7,7 +7,7 @@ export const Spotify = ({ title }) => {
     const params = new URLSearchParams();
     params.append('client_id', process.env.REACT_APP_CLIENT_ID);
     params.append('response_type', 'code');
-    params.append('redirect_uri', 'http://localhost:3000/spotify' || '');
+    params.append('redirect_uri', 'https://e-moods.herokuapp.com/spotify' || '');
     params.append('scope', scopes.join(' '));
     params.append('state', 'state');
     window.location.href = `${endpoint}?${params.toString()}`;
@@ -24,7 +24,7 @@ export const Spotify = ({ title }) => {
   }
   window.onload = () => {
     if (getParam('code') && ((Date.now() - localStorage.getItem('tokenGetTime')) >= 3600000 || localStorage.getItem('tokenGetTime') === null)) {
-      axios.post(`${process.env.REACT_APP_SERVER_URL}/first_get_token`, {code: getParam('code')}).then((response) => {
+      axios.post('/first_get_token', {code: getParam('code')}).then((response) => {
         console.log(response.data);
         localStorage.setItem('accessToken', response.data.data.access_token);
         localStorage.setItem('tokenGetTime', Date.now());

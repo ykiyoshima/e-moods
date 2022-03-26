@@ -16,7 +16,7 @@ const App = () => {
         <Route path="/setting" element={<Processes process={processes[2]} />} />
         <Route path="/finish" element={<Processes process={processes[3]} />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/index" element={<Index />} />
+        <Route path="/" element={<Index />} />
         <Route path="/analysed" element={<Analysed />} />
         <Route path="/selected" element={<Selected />} />
         <Route path="/imported" element={<Imported />} />
