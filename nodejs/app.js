@@ -137,7 +137,7 @@ app.post('/first_get_token', async (req, res) => {
   const params = new URLSearchParams();
   params.append('grant_type', 'authorization_code');
   params.append('code', code);
-  params.append('redirect_uri', `https://e-moods-front.vercel.app/spotify`);
+  params.append('redirect_uri', 'https://e-moods.herokuapp.com/spotify');
   const response = await axios.post('https://accounts.spotify.com/api/token',
     params,
     {
@@ -167,7 +167,7 @@ app.post('/get_token', async (req, res) => {
   const params = new URLSearchParams();
   params.append('grant_type', 'authorization_code');
   params.append('code', code);
-  params.append('redirect_uri', `https://e-moods-front.vercel.app/`);
+  params.append('redirect_uri', `https://e-moods.herokuapp.com/`);
   const response = await axios.post('https://accounts.spotify.com/api/token',
     params,
     {
