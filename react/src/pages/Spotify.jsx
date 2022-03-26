@@ -35,7 +35,7 @@ export const Spotify = ({ title }) => {
     }
   }
   return (
-    <div id="main" className="w-1/3 mx-auto">
+    <div id="main" className="w-1/3 sm:w-full mx-auto">
       <h1 className="text-3xl font-bold pt-24 pb-16">{title}</h1>
       <p>あなたのSpotifyアカウントと連携します</p>
       <p>よろしければ「Spotifyと連携」ボタンをクリックしてください</p>

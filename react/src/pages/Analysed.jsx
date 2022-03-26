@@ -171,7 +171,7 @@ export const Analysed = () => {
   };
 
   return (
-    <div id="main" className="w-1/3 mx-auto">
+    <div id="main" className="w-1/3 sm:w-full mx-auto">
       <h1 className="text-3xl font-bold pt-24 pb-16">分析完了</h1>
       <div id="analysis_result"></div>
       <p className="pt-4 mb-4">プレイリスト作成で重視したいポイントを選んでください</p>
