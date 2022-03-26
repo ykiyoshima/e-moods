@@ -7,7 +7,7 @@ export const Login = () => {
       password: document.getElementById('password').value
     };
     console.log(process.env.REACT_APP_SERVER_URL);
-    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/login_confirm`, data, {withCredentials: true});
+    const response = await axios.post('/login_confirm', data, {withCredentials: true});
     if (response.data.status === 'OK') {
       window.location.href = '/';
     } else {
