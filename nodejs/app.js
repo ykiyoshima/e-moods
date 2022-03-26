@@ -135,11 +135,11 @@ app.post('/regist', (req, res, next) => {
 });
 
 app.post('/first_get_token', async (req, res) => {
-  const { code } = req.body;
+  const { code } = req.query;
   const params = new URLSearchParams();
   params.append('grant_type', 'authorization_code');
   params.append('code', code);
-  params.append('redirect_uri', 'https://e-moods.herokuapp.com/spotify');
+  params.append('redirect_uri', 'https://e-moods.herokuapp.com/first_get_token');
   const response = await axios.post('https://accounts.spotify.com/api/token',
     params,
     {
@@ -147,8 +147,13 @@ app.post('/first_get_token', async (req, res) => {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': `Basic ${Buffer.from(`${process.env.CLIENT_ID}:${process.env.SECRET_ID}`, 'utf-8').toString('base64')}`
       }
-    });
-  res.end(JSON.stringify({ data: response.data }));
+    }
+  );
+  req.session.set('user', {
+    accessToken: response.data.access_token,
+    tokenGetTime: new Date()
+  });
+  res.redirect('/setting');
 });
 
 app.post('/login_confirm', passport.authenticate('local',
