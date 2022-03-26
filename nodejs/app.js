@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path";
 import cors from "cors";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
@@ -27,14 +28,18 @@ app.set("trust proxy", 1);
 let sessionUsername, sessionEmail, sessionPassword;
 
 const corsOptions = {
-  origin: process.env.FRONT_URL,  //Your Client, do not write '*'
+  origin: 'https://e-moods-front.vercel.app/',  //Your Client, do not write '*'
   credentials: true,
 };
+
+const __dirname = path.resolve();
+
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(fileUpload());
+app.use(express.static(path.join(__dirname, './react/build')));
 
 const sess = {
   secret: process.env.SESSION_SECRET,
@@ -44,7 +49,7 @@ const sess = {
 }
 
 app.use(session(sess));
-const port = 3002;
+app.set('port', (process.env.PORT || 3002));
 
 const myknex = knex(knexfile['development']);
 
@@ -132,7 +137,7 @@ app.post('/first_get_token', async (req, res) => {
   const params = new URLSearchParams();
   params.append('grant_type', 'authorization_code');
   params.append('code', code);
-  params.append('redirect_uri', `${process.env.FRONT_URL}spotify`);
+  params.append('redirect_uri', `https://e-moods-front.vercel.app/spotify`);
   const response = await axios.post('https://accounts.spotify.com/api/token',
     params,
     {
@@ -153,7 +158,7 @@ app.get('/', (req, res) => {
   if (req.user) {
     res.send({ 'username': req.user[0].username, 'favorite_id_1': req.user[0].favorite_id_1, 'favorite_id_2': req.user[0].favorite_id_2, 'favorite_id_3': req.user[0].favorite_id_3, 'favorite_id_4': req.user[0].favorite_id_4, 'favorite_id_5': req.user[0].favorite_id_5 });
   } else {
-    res.send({'hasSession': 'No'});
+    res.send({ 'hasSession': 'No' });
   }
 });
 
@@ -162,7 +167,7 @@ app.post('/get_token', async (req, res) => {
   const params = new URLSearchParams();
   params.append('grant_type', 'authorization_code');
   params.append('code', code);
-  params.append('redirect_uri', process.env.FRONT_URL);
+  params.append('redirect_uri', `https://e-moods-front.vercel.app/`);
   const response = await axios.post('https://accounts.spotify.com/api/token',
     params,
     {
@@ -219,6 +224,10 @@ app.get('/insert_emotions_and_tracks', (req, res) => {
     .catch(err => console.log(err));
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname,'./react/build/index.html'));
+});
+
+app.listen(app.get('port'), function() {
+  console.log("Node app is running at localhost:" + app.get('port'));
 });

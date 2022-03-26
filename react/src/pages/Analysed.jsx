@@ -32,7 +32,7 @@ export const Analysed = () => {
         return decodeURIComponent(results[2].replace(/\+/g, " "));
       }
       if (getParam('code')) {
-        await axios.post('http://localhost:3002/get_token', { code: getParam('code') }, { withCredentials: true }).then((response) => {
+        await axios.post(`${process.env.REACT_APP_SERVER_URL}/get_token`, { code: getParam('code') }, { withCredentials: true }).then((response) => {
           console.log(response.data);
           localStorage.setItem('accessToken', response.data.data.access_token);
           localStorage.setItem('tokenGetTime', Date.now());
@@ -45,7 +45,7 @@ export const Analysed = () => {
 
   window.onload = async () => {
     refreshToken();
-    emotionsResponse = await axios.get('http://localhost:3002/emotions', { withCredentials: true });
+    emotionsResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/emotions`, { withCredentials: true });
     const { anger, contempt, disgust, fear, happiness, neutral, sadness, surprise } = emotionsResponse.data;
     document.getElementById('analysis_result').innerHTML = `<p>あなたの感情は以下のようです</p><p class="my-4">怒り：${anger * 100}%  軽蔑：${contempt * 100}%  嫌悪：${disgust * 100}%  恐怖：${fear * 100}%<br/>幸せ：${happiness * 100}%  中立：${neutral * 100}%  悲しみ：${sadness * 100}%  驚き：${surprise * 100}%</p>`;
   }
@@ -54,14 +54,14 @@ export const Analysed = () => {
     playlistTrackIdArray.length = 0;
     refreshToken();
 
-    const tracksResponse = await axios.get('http://localhost:3002/tracks', { withCredentials: true });
+    const tracksResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tracks`, { withCredentials: true });
     if (tracksResponse.data) {
       previousPlaylistTrackIdArray = tracksResponse.data.concat();
     }
 
     const selectedOption = document.querySelector('input[type=radio]:checked').value;
     document.getElementById('main').innerHTML = '<p class="pt-24">選曲中...</p>';
-    const favoritesResponse = await axios.get('http://localhost:3002/', { withCredentials: true });
+    const favoritesResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/`, { withCredentials: true });
     const { favorite_id_1, favorite_id_2, favorite_id_3, favorite_id_4, favorite_id_5 } = favoritesResponse.data;
     const { anger, contempt, disgust, fear, happiness, neutral, sadness, surprise } = emotionsResponse.data;
     const sumOfEmotions = {
@@ -162,7 +162,7 @@ export const Analysed = () => {
       }
     } while (playlistTrackIdArray.length < 3 && (Date.now() - localStorage.getItem('tokenGetTime')) < 3600000);
 
-    await axios.post('http://localhost:3002/tracks', playlistTrackIdArray, { withCredentials: true });
+    await axios.post(`${process.env.REACT_APP_SERVER_URL}/tracks`, playlistTrackIdArray, { withCredentials: true });
     window.location.href = '/selected';
   };
 

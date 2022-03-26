@@ -11,7 +11,7 @@ export const Signup = ({ title }) => {
     // const headers = {
     //   'Access-Control-Allow-Origin': '*'
     // };
-    const response = await axios.post('http://localhost:3002/signup', data);
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/signup`, data);
     if (response.data.status === 'OK') {
       window.location.href = '/spotify';
     } else {

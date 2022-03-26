@@ -3,7 +3,7 @@ import axios from "axios";
 export const Finish = ({ title }) => {
   window.onload = () => {
     const ids = localStorage.getItem('favorite');
-    axios.post('http://localhost:3002/regist', { ids: ids });
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/regist`, { ids: ids });
     setTimeout(() => {
       window.location.href = '/login';
     }, 3000);

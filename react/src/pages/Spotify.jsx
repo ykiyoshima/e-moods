@@ -24,7 +24,7 @@ export const Spotify = ({ title }) => {
   }
   window.onload = () => {
     if (getParam('code') && ((Date.now() - localStorage.getItem('tokenGetTime')) >= 3600000 || localStorage.getItem('tokenGetTime') === null)) {
-      axios.post('http://localhost:3002/first_get_token', {code: getParam('code')}).then((response) => {
+      axios.post(`${process.env.REACT_APP_SERVER_URL}/first_get_token`, {code: getParam('code')}).then((response) => {
         console.log(response.data);
         localStorage.setItem('accessToken', response.data.data.access_token);
         localStorage.setItem('tokenGetTime', Date.now());

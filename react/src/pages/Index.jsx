@@ -25,14 +25,14 @@ export const Index = () => {
   const file = acceptedFiles[0];
 
   let imageUrl;
-  axios.get('http://localhost:3002/', { withCredentials: true })
+  axios.get(`${process.env.REACT_APP_SERVER_URL}/`, { withCredentials: true })
     .then((response) => {
       if (response.data.hasSession === 'No') {
         window.location.href = '/login';
       }
     });
   window.onload = () => {
-    axios.get('http://localhost:3002/', { withCredentials: true })
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/`, { withCredentials: true })
       .then(response => {
         const username = response.data.username;
         if (username) {
@@ -71,7 +71,7 @@ export const Index = () => {
         return decodeURIComponent(results[2].replace(/\+/g, " "));
       }
       if (getParam('code')) {
-        await axios.post('http://localhost:3002/get_token', {code: getParam('code')}, { withCredentials: true }).then((response) => {
+        await axios.post(`${process.env.REACT_APP_SERVER_URL}/get_token`, {code: getParam('code')}, { withCredentials: true }).then((response) => {
           console.log(response.data);
           localStorage.setItem('accessToken', response.data.data.access_token);
           localStorage.setItem('tokenGetTime', Date.now());
@@ -93,9 +93,9 @@ export const Index = () => {
     const form = new FormData();
     form.append('file', blob);
     const headers = { "content-type": "multipart/form-data", "withCredentials": true };
-    axios.post('http://localhost:3002/save_image', form, { headers })
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/save_image`, form, { headers })
       .then(async (response) => {
-        await axios.post('http://localhost:3002/emotions', response.data, { withCredentials: true });
+        await axios.post(`${process.env.REACT_APP_SERVER_URL}/emotions`, response.data, { withCredentials: true });
         window.location.href = '/analysed';
       });
   };

@@ -30,7 +30,7 @@ export const Selected = () => {
         return decodeURIComponent(results[2].replace(/\+/g, " "));
       }
       if (getParam('code')) {
-        await axios.post('http://localhost:3002/get_token', {code: getParam('code')}, { withCredentials: true }).then((response) => {
+        await axios.post(`${process.env.REACT_APP_SERVER_URL}/get_token`, {code: getParam('code')}, { withCredentials: true }).then((response) => {
           console.log(response.data);
           localStorage.setItem('accessToken', response.data.data.access_token);
           localStorage.setItem('tokenGetTime', Date.now());
@@ -45,7 +45,7 @@ export const Selected = () => {
     refreshToken();
   }
 
-  axios.get('http://localhost:3002/tracks', { withCredentials: true })
+  axios.get(`${process.env.REACT_APP_SERVER_URL}/tracks`, { withCredentials: true })
     .then(response => {
       playlistTrackIdArray = response.data;
       let playlistTagArray = '<span class="ml-2"></span>';
@@ -85,7 +85,7 @@ export const Selected = () => {
     };
 
     document.getElementById('main').innerHTML = '<p class="pt-24">インポート中...</p>';
-    await axios.get('http://localhost:3002/insert_emotions_and_tracks', { withCredentials: true });
+    await axios.get(`${process.env.REACT_APP_SERVER_URL}/insert_emotions_and_tracks`, { withCredentials: true });
     const meResponse = await axios.get('https://api.spotify.com/v1/me', { headers: headers });
     const makePlaylistResponse = await axios.post(`https://api.spotify.com/v1/users/${meResponse.data.id}/playlists`, data, { headers: headers });
     await axios.post(`https://api.spotify.com/v1/playlists/${makePlaylistResponse.data.id}/tracks`, tracks, { headers: headers });

@@ -8,6 +8,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -42,5 +46,8 @@
     "redis-server": "^1.2.2",
     "require": "^0.4.4",
     "uuid": "^8.3.2"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }
