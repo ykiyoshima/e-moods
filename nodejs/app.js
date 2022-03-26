@@ -94,7 +94,7 @@ passport.deserializeUser(function(email, done) {
     });
 });
 
-app.post('/signup', (req, res, next) => {
+app.post('/signup_confirm', (req, res, next) => {
   if (req.method === 'OPTIONS') {
     res.status(200).end();
   }
