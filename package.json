@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node nodejs/app.js"
+    "start": "node nodejs/app.js",
+    "heroku-postbuild": "cd frontend && npm install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -14,6 +15,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3"
+  },
   "bugs": {
     "url": "https://github.com/ykiyoshima/e-moods/issues"
   },
