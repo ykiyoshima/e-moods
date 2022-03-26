@@ -149,9 +149,7 @@ app.post('/first_get_token', async (req, res) => {
   res.end(JSON.stringify({ data: response.data }));
 });
 
-app.post('/login_confirm', passport.authenticate('local', { failureFlash: true }), function (req, res) {
-  res.send({ message: failureFlash });
-});
+app.post('/login_confirm', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login', failureFlash: true }));
 
 
 app.get('/index', (req, res) => {
