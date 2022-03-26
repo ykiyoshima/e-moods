@@ -37,7 +37,7 @@
     "html": "^1.0.0",
     "http": "^0.0.1-security",
     "ioredis": "^4.28.5",
-    "knex": "^1.0.3",
+    "knex": "^1.0.4",
     "mysql": "^2.18.1",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
