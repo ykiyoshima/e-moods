@@ -204,7 +204,11 @@ app.post('/emotions', (req, res) => {
 });
 
 app.get('/tracks', (req, res) => {
-  res.send(req.session.tracks);
+  if (req.session.tracks) {
+    res.send(req.session.tracks);
+  } else {
+    res.end();
+  }
 });
 
 app.post('/tracks', (req, res) => {
