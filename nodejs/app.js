@@ -49,7 +49,7 @@ const sess = {
 }
 
 app.use(session(sess));
-app.set('port', (process.env.PORT || 3002));
+app.set('port', (process.env.PORT || 80));
 
 const myknex = knex(knexfile['development']);
 
