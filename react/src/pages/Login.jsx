@@ -29,7 +29,7 @@ export const Login = () => {
       <label htmlFor="email">メールアドレス</label><br/>
       <input type="email" id="email" className="text-gray-900 rounded-md px-2 mb-4" name="email" required /><br/>
       <label htmlFor="password">パスワード</label><br/>
-      <input type="password" id="password" className="text-gray-900 rounded-md px-2 mb-8" name="password" required /><br/>
+      <input type="password" id="password" className="text-gray-900 rounded-md px-2" name="password" required /><br/>
       <div id="message" className="mt-4 mb-8"></div>
       <button className="bg-green-500 rounded-lg py-2 px-4" onClick={() => execLogin()}>ログイン</button>
 
