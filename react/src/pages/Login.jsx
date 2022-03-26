@@ -30,8 +30,8 @@ export const Login = () => {
       <input type="email" id="email" className="text-gray-900 rounded-md px-2 mb-4" name="email" required /><br/>
       <label htmlFor="password">パスワード</label><br/>
       <input type="password" id="password" className="text-gray-900 rounded-md px-2 mb-8" name="password" required /><br/>
+      <div id="message" className="mt-4 mb-8"></div>
       <button className="bg-green-500 rounded-lg py-2 px-4" onClick={() => execLogin()}>ログイン</button>
-      <div id="message" className="mb-16"></div>
 
       <p>アカウントをお持ちでない方</p>
       <button id="signup_btn" className="bg-green-500 rounded-lg py-2 px-4 mt-4">新規登録</button>
