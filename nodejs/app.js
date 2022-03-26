@@ -64,10 +64,10 @@ passport.use(new LocalStrategy(
       .where({ 'email': email })
       .then(async (user) => {
         if (user == null) {
-          return done(null, false);
+          return done(null, false, { message: 'メールアドレスが正しくありません'});
         }
         if (! await bcrypt.compare(password, user[0].password)) {
-          return done(null, false);
+          return done(null, false, { message: 'パスワードが正しくありません'});
         }
         return done(null, user);
       });
@@ -149,8 +149,8 @@ app.post('/first_get_token', async (req, res) => {
   res.end(JSON.stringify({ data: response.data }));
 });
 
-app.post('/login_confirm', passport.authenticate('local'), function (req, res) {
-  res.send({ status: 'OK' });
+app.post('/login_confirm', passport.authenticate('local', { failureFlash: true }), function (req, res) {
+  res.send({ message: failureFlash });
 });
 
 
