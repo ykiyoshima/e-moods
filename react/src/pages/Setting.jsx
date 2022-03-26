@@ -65,7 +65,7 @@ export const Setting = ({ title }) => {
 
 
   return (
-    <div id="main" className="w-1/3 sm:w-full mx-auto">
+    <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <h1 className="text-3xl font-bold pt-24 pb-16">{title}</h1>
       <p>好きなアーティストを5組選んでください</p>
       <p>※アルファベットで検索してください</p>

@@ -21,7 +21,7 @@ export const Login = () => {
   }
 
   return (
-    <div id="main" className="w-1/3 sm:w-full mx-auto">
+    <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <h1 className="text-5xl font-bold pt-24 pb-16">e-moods</h1>
       <p>あなたの<strong>"表情"</strong>で楽曲を自動分類</p>
       <p className="mb-8">今の気分に合う音楽を簡単に探せます！</p>

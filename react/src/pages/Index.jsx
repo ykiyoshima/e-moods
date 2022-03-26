@@ -101,7 +101,7 @@ export const Index = () => {
   };
 
   return (
-    <div id="main" className="w-1/3 sm:w-full mx-auto">
+    <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <h1 className="text-5xl font-bold pt-24 pb-16">e-moods</h1>
       <p><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
       <div id="signin_btn" className="my-8"></div>

@@ -20,7 +20,7 @@ export const Signup = ({ title }) => {
   };
 
   return (
-    <div id="main" className="w-1/3 sm:w-full mx-auto">
+    <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <h1 className="text-3xl font-bold pt-24 pb-16">{title}</h1>
       <label htmlFor="username">ユーザー名</label><br/>
       <input type="text" id="username" className="text-gray-900 rounded-md px-2 mb-4" /><br />
