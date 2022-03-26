@@ -3,12 +3,12 @@
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
-
 const knexfile = {
 
   development: {
     client: "mysql",
     connection: {
+      host: process.env.DB_HOSTNAME,
       database: process.env.DB_NAME,
       user: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
@@ -26,6 +26,7 @@ const knexfile = {
   staging: {
     client: "mysql",
     connection: {
+      host: process.env.DB_HOSTNAME,
       database: process.env.DB_NAME,
       user: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
@@ -43,6 +44,7 @@ const knexfile = {
   production: {
     client: "mysql",
     connection: {
+      host: process.env.DB_HOSTNAME,
       database: process.env.DB_NAME,
       user: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
