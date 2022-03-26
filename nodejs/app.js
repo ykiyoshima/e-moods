@@ -64,6 +64,7 @@ passport.use(new LocalStrategy(
       .select('*')
       .where({ 'email': email })
       .then(async (user) => {
+        console.log(user);
         if (!user) {
           return done(null, false, { message: 'メールアドレスが正しくありません'});
         }
