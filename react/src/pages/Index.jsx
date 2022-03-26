@@ -95,7 +95,7 @@ export const Index = () => {
     const headers = { "content-type": "multipart/form-data", "withCredentials": true };
     axios.post(`${process.env.REACT_APP_SERVER_URL}/save_image`, form, { headers })
       .then(async (response) => {
-        await axios.post(`${process.env.REACT_APP_SERVER_URL}/emotions`, response.data, { withCredentials: true });
+        await axios.post('/emotions', response.data, { withCredentials: true });
         window.location.href = '/analysed';
       });
   };
