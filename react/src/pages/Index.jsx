@@ -32,7 +32,7 @@ export const Index = () => {
       }
     });
   window.onload = () => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/`, { withCredentials: true })
+    axios.get('/index', { withCredentials: true })
       .then(response => {
         const username = response.data.username;
         if (username) {
