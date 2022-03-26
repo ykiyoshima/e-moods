@@ -61,7 +61,7 @@ export const Analysed = () => {
 
     const selectedOption = document.querySelector('input[type=radio]:checked').value;
     document.getElementById('main').innerHTML = '<p class="pt-24">選曲中...</p>';
-    const favoritesResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/`, { withCredentials: true });
+    const favoritesResponse = await axios.get('/', { withCredentials: true });
     const { favorite_id_1, favorite_id_2, favorite_id_3, favorite_id_4, favorite_id_5 } = favoritesResponse.data;
     const { anger, contempt, disgust, fear, happiness, neutral, sadness, surprise } = emotionsResponse.data;
     const sumOfEmotions = {

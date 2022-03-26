@@ -85,7 +85,7 @@ export const Selected = () => {
     };
 
     document.getElementById('main').innerHTML = '<p class="pt-24">インポート中...</p>';
-    await axios.get(`${process.env.REACT_APP_SERVER_URL}/insert_emotions_and_tracks`, { withCredentials: true });
+    await axios.get('/insert_emotions_and_tracks', { withCredentials: true });
     const meResponse = await axios.get('https://api.spotify.com/v1/me', { headers: headers });
     const makePlaylistResponse = await axios.post(`https://api.spotify.com/v1/users/${meResponse.data.id}/playlists`, data, { headers: headers });
     await axios.post(`https://api.spotify.com/v1/playlists/${makePlaylistResponse.data.id}/tracks`, tracks, { headers: headers });
