@@ -28,8 +28,7 @@ app.set("trust proxy", 1);
 let sessionUsername, sessionEmail, sessionPassword;
 
 const corsOptions = {
-  origin: 'https://e-moods-front.vercel.app/',  //Your Client, do not write '*'
-  credentials: true,
+  origin: 'https://e-moods.herokuapp.com'
 };
 
 const __dirname = path.resolve();
@@ -149,7 +148,6 @@ app.get('/first_get_token', async (req, res) => {
       }
     }
   );
-  console.log(response);
   req.session.token = {
     accessToken: response.data.access_token,
     tokenGetTime: Date.now()
@@ -158,6 +156,7 @@ app.get('/first_get_token', async (req, res) => {
 });
 
 app.get('/token', (req, res) => {
+  console.log(req.session);
   res.send(req.session.token);
 });
 
@@ -197,6 +196,7 @@ app.post('/get_token', async (req, res) => {
       }
     }
   );
+  console.log(response);
   req.session.token = {
     accessToken: response.data.access_token,
     tokenGetTime: Date.now()
