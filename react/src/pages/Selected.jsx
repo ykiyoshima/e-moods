@@ -3,15 +3,17 @@ import axios from 'axios';
 export const Selected = () => {
   let playlistTrackIdArray;
 
-  let accessToken, tokenGetTime;
   const token = async () => {
     const response = await axios.get('/token', { withCredentials: true });
-    accessToken = response.data.accessToken;
-    tokenGetTime = response.data.tokenGetTime;
+    return {
+      accessToken: response.data.accessToken,
+      tokenGetTime: response.data.tokenGetTime
+    }
   };
 
   const refreshToken = async () => {
-    token();
+    const accessToken = (await token()).accessToken;
+    const tokenGetTime = (await token()).tokenGetTime;
     if ((Date.now() - tokenGetTime) >= 3600000) {
       const signin = () => {
       const endpoint = 'https://accounts.spotify.com/authorize';
@@ -75,7 +77,8 @@ export const Selected = () => {
       document.getElementById('caution').innerHTML = 'プレイリスト名を入力してください';
       return;
     }
-    token();
+    const accessToken = (await token()).accessToken;
+    const tokenGetTime = (await token()).tokenGetTime;
     refreshToken();
     const headers = {
       'Content-Type': 'application/json',

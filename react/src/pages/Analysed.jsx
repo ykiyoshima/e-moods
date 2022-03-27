@@ -5,16 +5,18 @@ export const Analysed = () => {
   const playlistTrackIdArray = [];
   let previousPlaylistTrackIdArray = [];
 
-  let accessToken
-  let tokenGetTime = 0;
   const token = async () => {
     const response = await axios.get('/token', { withCredentials: true });
-    accessToken = response.data.accessToken;
-    tokenGetTime = response.data.tokenGetTime;
+    return {
+      accessToken: response.data.accessToken,
+      tokenGetTime: response.data.tokenGetTime
+    }
   };
 
   const refreshToken = async () => {
-    token();
+    const accessToken = (await token()).accessToken;
+    const tokenGetTime = (await token()).tokenGetTime;
+
     if ((Date.now() - tokenGetTime) >= 3600000) {
       const signin = () => {
         const endpoint = 'https://accounts.spotify.com/authorize';
@@ -22,7 +24,7 @@ export const Analysed = () => {
         const params = new URLSearchParams();
         params.append('client_id', process.env.REACT_APP_CLIENT_ID);
         params.append('response_type', 'code');
-        params.append('redirect_uri', 'https://e-moods.herokuapp.com/');
+        params.append('redirect_uri', 'https://e-moods.herokuapp.com/get_token');
         params.append('scope', scopes.join(' '));
         params.append('state', 'state');
         document.getElementById('signin_btn').innerHTML = '';
@@ -46,7 +48,8 @@ export const Analysed = () => {
 
   const selectTracks = async (e) => {
     playlistTrackIdArray.length = 0;
-    token();
+    const accessToken = (await token()).accessToken;
+    const tokenGetTime = (await token()).tokenGetTime;
     refreshToken();
 
     const tracksResponse = await axios.get('/tracks', { withCredentials: true });
