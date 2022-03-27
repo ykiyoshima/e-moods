@@ -4,8 +4,17 @@ export const Analysed = () => {
   let emotionsResponse;
   const playlistTrackIdArray = [];
   let previousPlaylistTrackIdArray = [];
+
+  let accessToken, tokenGetTime;
+  const token = async () => {
+    const response = await axios.get('/token', { withCredentials: true });
+    accessToken = response.data.accessToken;
+    tokenGetTime = response.data.tokenGetTime;
+  };
+  token();
+
   const refreshToken = async () => {
-    if ((Date.now() - localStorage.getItem('tokenGetTime')) >= 3600000) {
+    if ((Date.now() - tokenGetTime) >= 3600000) {
       const signin = () => {
         const endpoint = 'https://accounts.spotify.com/authorize';
         const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private', 'user-library-modify'];
@@ -22,22 +31,6 @@ export const Analysed = () => {
       document.getElementById('signin').addEventListener('click', () => {
         signin();
       });
-      function getParam(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\]]/g, "\\$&");
-        const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-          results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
-      }
-      if (getParam('code')) {
-        await axios.post('/get_token', { code: getParam('code') }, { withCredentials: true }).then((response) => {
-          console.log(response.data);
-          localStorage.setItem('accessToken', response.data.data.access_token);
-          localStorage.setItem('tokenGetTime', Date.now());
-        });
-      }
     } else {
       document.getElementById('signin_btn').innerHTML = '';
     }
@@ -77,7 +70,7 @@ export const Analysed = () => {
     let instrumentalness;
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+      'Authorization': `Bearer ${accessToken}`
     };
 
     const trackFeaturesFromEmotions = {};
@@ -160,7 +153,7 @@ export const Analysed = () => {
         console.log(error);
         break;
       }
-    } while (playlistTrackIdArray.length < 3 && (Date.now() - localStorage.getItem('tokenGetTime')) < 3600000);
+    } while (playlistTrackIdArray.length < 3 && (Date.now() - tokenGetTime) < 3600000);
 
     await axios.post('/tracks', playlistTrackIdArray, { withCredentials: true });
     window.location.href = '/selected';

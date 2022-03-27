@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export const Spotify = ({ title }) => {
   const signin = () => {
     const endpoint = 'https://accounts.spotify.com/authorize';
@@ -12,21 +10,7 @@ export const Spotify = ({ title }) => {
     params.append('state', 'state');
     window.location.href = `${endpoint}?${params.toString()}`;
   }
-
-  function getParam(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\]]/g, "\\$&");
-    const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-      results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-  }
-  window.onload = () => {
-    if ((Date.now() - localStorage.getItem('tokenGetTime')) < 3600000) {
-      document.getElementById('next').innerHTML = '<a class="bg-green-500 rounded-lg py-2 px-4" href="/setting">次へ進む</a>';
-    }
-  }
+  
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <h1 className="text-3xl font-bold pt-24 pb-16">{title}</h1>

@@ -43,8 +43,17 @@ export const Index = () => {
       });
     refreshToken();
   }
+
+  let accessToken, tokenGetTime;
+  const token = async () => {
+    const response = await axios.get('/token', { withCredentials: true });
+    accessToken = response.data.accessToken;
+    tokenGetTime = response.data.tokenGetTime;
+  };
+  token();
+  
   const refreshToken = async () => {
-    if ((Date.now() - localStorage.getItem('tokenGetTime')) >= 3600000) {
+    if ((Date.now() - tokenGetTime) >= 3600000) {
       const signin = () => {
         const endpoint = 'https://accounts.spotify.com/authorize';
         const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private', 'user-library-modify'];
@@ -57,27 +66,10 @@ export const Index = () => {
         document.getElementById('signin_btn').innerHTML = '';
         window.location.href = `${endpoint}?${params.toString()}`;
       }
-      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 rounded-lg py-2 px-4">Spotifyと連携</button>';
+      document.getElementById('signin_btn').innerHTML = '<button id="signin">Spotifyと連携</button>';
       document.getElementById('signin').addEventListener('click', () => {
         signin();
       });
-      function getParam(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\]]/g, "\\$&");
-        const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-          results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
-      }
-      if (getParam('code')) {
-        await axios.post('/get_token', {code: getParam('code')}, { withCredentials: true }).then((response) => {
-          console.log(response.data);
-          localStorage.setItem('accessToken', response.data.data.access_token);
-          localStorage.setItem('tokenGetTime', Date.now());
-          document.getElementById('signin_btn').innerHTML = '';
-        });
-      }
     } else {
       document.getElementById('signin_btn').innerHTML = '';
     }

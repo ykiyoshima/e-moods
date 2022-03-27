@@ -156,6 +156,10 @@ app.get('/first_get_token', async (req, res) => {
   res.redirect('/setting');
 });
 
+app.get('/token', (req, res) => {
+  res.send(req.session.token);
+});
+
 app.post('/login_confirm', passport.authenticate('local',
   { successRedirect: '/success', failureRedirect: '/failure', failureFlash: true }
 ));
@@ -178,11 +182,11 @@ app.get('/index', (req, res) => {
 });
 
 app.post('/get_token', async (req, res) => {
-  const { code } = req.body;
+  const { code } = req.query;
   const params = new URLSearchParams();
   params.append('grant_type', 'authorization_code');
   params.append('code', code);
-  params.append('redirect_uri', `https://e-moods.herokuapp.com/`);
+  params.append('redirect_uri', 'https://e-moods.herokuapp.com/first_get_token');
   const response = await axios.post('https://accounts.spotify.com/api/token',
     params,
     {
@@ -190,8 +194,13 @@ app.post('/get_token', async (req, res) => {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': `Basic ${Buffer.from(`${process.env.CLIENT_ID}:${process.env.SECRET_ID}`, 'utf-8').toString('base64')}`
       }
-    });
-  res.end(JSON.stringify({ data: response.data }));
+    }
+  );
+  req.session.token = {
+    accessToken: response.data.access_token,
+    tokenGetTime: new Date()
+  };
+  res.send(req.session.token);
 });
 
 app.post('/save_image', (req, res) => {

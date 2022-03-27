@@ -2,20 +2,28 @@ import axios from 'axios';
 
 export const Selected = () => {
   let playlistTrackIdArray;
+
+  let accessToken, tokenGetTime;
+  const token = async () => {
+    const response = await axios.get('/token', { withCredentials: true });
+    accessToken = response.data.accessToken;
+    tokenGetTime = response.data.tokenGetTime;
+  };
+  token();
+
   const refreshToken = async () => {
-    if ((Date.now() - localStorage.getItem('tokenGetTime')) >= 3600000) {
+    if ((Date.now() - tokenGetTime) >= 3600000) {
       const signin = () => {
-        const endpoint = 'https://accounts.spotify.com/authorize';
-        const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private', 'user-library-modify'];
-        const params = new URLSearchParams();
-        params.append('client_id', process.env.REACT_APP_CLIENT_ID);
-        params.append('response_type', 'code');
-        params.append('redirect_uri', 'https://e-moods.herokuapp.com/');
-        params.append('scope', scopes.join(' '));
-        params.append('state', 'state');
-        document.getElementById('signin_btn').innerHTML = '';
-        window.location.href = `${endpoint}?${params.toString()}`;
-      }
+      const endpoint = 'https://accounts.spotify.com/authorize';
+      const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private', 'user-library-modify'];
+      const params = new URLSearchParams();
+      params.append('client_id', process.env.REACT_APP_CLIENT_ID || '');
+      params.append('response_type', 'code');
+      params.append('redirect_uri', 'https://e-moods.herokuapp.com/get_token' || '');
+      params.append('scope', scopes.join(' '));
+      params.append('state', 'state');
+      window.location.href = `${endpoint}?${params.toString()}`;
+    }
       document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 rounded-lg py-2 px-4">Spotifyと連携</button>';
       document.getElementById('signin').addEventListener('click', () => {
         signin();

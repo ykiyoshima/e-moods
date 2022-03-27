@@ -6,6 +6,15 @@ export const Setting = ({ title }) => {
   const artistImagesArray = [];
   const artistNamesArray = [];
   const selectedArtistIdsArray = [];
+  let accessToken, tokenGetTime;
+
+  const token = async () => {
+    const response = await axios.get('/token', { withCredentials: true });
+    accessToken = response.data.accessToken;
+    tokenGetTime = response.data.tokenGetTime;
+  };
+  token();
+
   const searchArtist = async () => {
     artistIdsArray.length = 0;
     artistImagesArray.length = 0;
@@ -13,7 +22,7 @@ export const Setting = ({ title }) => {
     const keyword = document.getElementById('keyword').value;
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+      'Authorization': `Bearer ${accessToken}`
     };
     try {
       const response = await axios.get(`https://api.spotify.com/v1/search?q=artist:${keyword}&type=artist&include_external=audio&limit=6`, { headers: headers });
@@ -42,7 +51,7 @@ export const Setting = ({ title }) => {
         selectedArtistIdsArray.push(e.target.dataset.id);
         const headers = {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+          'Authorization': `Bearer ${accessToken}`
         };
         const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${selectedArtistIdsArray.join(',')}`, {headers: headers});
         let selectedArtistTags = '<span class="mr-6"></span>';
