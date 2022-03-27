@@ -54,10 +54,11 @@ export const Index = () => {
 
   const refreshToken = async () => {
     token();
+    console.log(tokenGetTime);
     if ((Date.now() - tokenGetTime) >= 3600000) {
       const signin = () => {
         const endpoint = 'https://accounts.spotify.com/authorize';
-        const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private', 'user-library-modify'];
+        const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private'];
         const params = new URLSearchParams();
         params.append('client_id', process.env.REACT_APP_CLIENT_ID);
         params.append('response_type', 'code');
