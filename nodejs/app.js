@@ -149,10 +149,8 @@ app.get('/first_get_token', async (req, res) => {
       }
     }
   );
-  req.session.token = {
-    accessToken: response.data.access_token,
-    tokenGetTime: Date.now()
-  };
+  req.session.accessToken = response.data.access_token;
+  req.session.tokenGetTime = Date.now();
   res.redirect('/setting');
 });
 
