@@ -46,6 +46,7 @@ export const Index = () => {
 
   const token = async () => {
     const response = await axios.get('/token', { withCredentials: true });
+    console.log(response);
     return {
       accessToken: response.data.accessToken,
       tokenGetTime: response.data.tokenGetTime
