@@ -1,7 +1,7 @@
 export const Spotify = ({ title }) => {
   const signin = () => {
     const endpoint = 'https://accounts.spotify.com/authorize';
-    const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private', 'user-library-modify'];
+    const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private'];
     const params = new URLSearchParams();
     params.append('client_id', process.env.REACT_APP_CLIENT_ID || '');
     params.append('response_type', 'code');
@@ -10,7 +10,7 @@ export const Spotify = ({ title }) => {
     params.append('state', 'state');
     window.location.href = `${endpoint}?${params.toString()}`;
   }
-  
+
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <h1 className="text-3xl font-bold pt-24 pb-16">{title}</h1>

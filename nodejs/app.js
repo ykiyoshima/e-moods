@@ -152,7 +152,7 @@ app.get('/first_get_token', async (req, res) => {
   console.log(response);
   req.session.token = {
     accessToken: response.data.access_token,
-    tokenGetTime: new Date()
+    tokenGetTime: Date.now()
   };
   res.redirect('/setting');
 });
@@ -199,7 +199,7 @@ app.post('/get_token', async (req, res) => {
   );
   req.session.token = {
     accessToken: response.data.access_token,
-    tokenGetTime: new Date()
+    tokenGetTime: Date.now()
   };
   res.send(req.session.token);
 });
