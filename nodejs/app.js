@@ -149,6 +149,7 @@ app.get('/first_get_token', async (req, res) => {
       }
     }
   );
+  console.log(response);
   req.session.token = {
     accessToken: response.data.access_token,
     tokenGetTime: new Date()
@@ -186,7 +187,7 @@ app.post('/get_token', async (req, res) => {
   const params = new URLSearchParams();
   params.append('grant_type', 'authorization_code');
   params.append('code', code);
-  params.append('redirect_uri', 'https://e-moods.herokuapp.com/first_get_token');
+  params.append('redirect_uri', 'https://e-moods.herokuapp.com/get_token');
   const response = await axios.post('https://accounts.spotify.com/api/token',
     params,
     {
