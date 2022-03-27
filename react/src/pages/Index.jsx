@@ -44,14 +44,15 @@ export const Index = () => {
     refreshToken();
   }
 
-  let accessToken, tokenGetTime;
+  let accessToken
+  let tokenGetTime = 0;
   const token = async () => {
     const response = await axios.get('/token', { withCredentials: true });
     accessToken = response.data.accessToken;
     tokenGetTime = response.data.tokenGetTime;
   };
   token();
-  
+
   const refreshToken = async () => {
     if ((Date.now() - tokenGetTime) >= 3600000) {
       const signin = () => {
