@@ -67,7 +67,7 @@ export const Index = () => {
         document.getElementById('signin_btn').innerHTML = '';
         window.location.href = `${endpoint}?${params.toString()}`;
       }
-      document.getElementById('signin_btn').innerHTML = '<button id="signin">Spotifyと連携</button>';
+      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 rounded-lg py-2 px-4">Spotifyと連携</button>';
       document.getElementById('signin').addEventListener('click', () => {
         signin();
       });
