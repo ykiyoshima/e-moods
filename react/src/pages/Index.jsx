@@ -51,9 +51,9 @@ export const Index = () => {
     accessToken = response.data.accessToken;
     tokenGetTime = response.data.tokenGetTime;
   };
-  token();
 
   const refreshToken = async () => {
+    token();
     if ((Date.now() - tokenGetTime) >= 3600000) {
       const signin = () => {
         const endpoint = 'https://accounts.spotify.com/authorize';

@@ -9,9 +9,9 @@ export const Selected = () => {
     accessToken = response.data.accessToken;
     tokenGetTime = response.data.tokenGetTime;
   };
-  token();
 
   const refreshToken = async () => {
+    token();
     if ((Date.now() - tokenGetTime) >= 3600000) {
       const signin = () => {
       const endpoint = 'https://accounts.spotify.com/authorize';
@@ -75,10 +75,11 @@ export const Selected = () => {
       document.getElementById('caution').innerHTML = 'プレイリスト名を入力してください';
       return;
     }
+    token();
     refreshToken();
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+      'Authorization': `Bearer ${accessToken}`
     };
     const data = {
       'name': `${document.getElementById('playlist_name').value}`,

@@ -12,9 +12,9 @@ export const Analysed = () => {
     accessToken = response.data.accessToken;
     tokenGetTime = response.data.tokenGetTime;
   };
-  token();
 
   const refreshToken = async () => {
+    token();
     if ((Date.now() - tokenGetTime) >= 3600000) {
       const signin = () => {
         const endpoint = 'https://accounts.spotify.com/authorize';
@@ -46,6 +46,7 @@ export const Analysed = () => {
 
   const selectTracks = async (e) => {
     playlistTrackIdArray.length = 0;
+    token();
     refreshToken();
 
     const tracksResponse = await axios.get('/tracks', { withCredentials: true });
