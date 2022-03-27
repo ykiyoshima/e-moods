@@ -180,7 +180,7 @@ app.get('/index', (req, res) => {
   }
 });
 
-app.post('/get_token', async (req, res) => {
+app.get('/get_token', async (req, res) => {
   const { code } = req.query;
   const params = new URLSearchParams();
   params.append('grant_type', 'authorization_code');
@@ -195,6 +195,7 @@ app.post('/get_token', async (req, res) => {
       }
     }
   );
+  console.log('hoge');
   console.log(response);
   req.session.accessToken = response.data.access_token;
   req.session.tokenGetTime = Date.now();
