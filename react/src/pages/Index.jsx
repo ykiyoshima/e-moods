@@ -54,7 +54,8 @@ export const Index = () => {
   };
 
   const refreshToken = async () => {
-    const { accessToken, tokenGetTime } = token();
+    const accessToken = (await token()).accessToken;
+    const tokenGetTime = (await token()).tokenGetTime;
     console.log(tokenGetTime);
     if ((Date.now() - tokenGetTime) >= 3600000 || !tokenGetTime) {
       const signin = () => {
