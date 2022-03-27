@@ -41,8 +41,8 @@ export const Signup = ({ title }) => {
       <label htmlFor="repassword">パスワード再入力</label><br/>
       <input type="password" required id="repassword" className="text-gray-900 rounded-md px-2 mb-4" /><br />
 
-      <button className="bg-green-500 rounded-lg py-2 px-4 mt-4" onClick={() => execSignup()}>次へ進む</button>
       <p id="message"></p>
+      <button className="bg-green-500 rounded-lg py-2 px-4 mt-4" onClick={() => execSignup()}>次へ進む</button>
     </div>
   );
 };
