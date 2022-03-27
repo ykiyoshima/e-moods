@@ -16,6 +16,7 @@ export const Setting = ({ title }) => {
   token();
 
   const searchArtist = async () => {
+    console.log(accessToken);
     artistIdsArray.length = 0;
     artistImagesArray.length = 0;
     artistNamesArray.length = 0;
