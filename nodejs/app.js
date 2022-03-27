@@ -156,7 +156,7 @@ app.get('/first_get_token', async (req, res) => {
 
 app.get('/token', (req, res) => {
   console.log(req.session);
-  res.send(req.session.token);
+  res.send(req.session);
 });
 
 app.post('/login_confirm', passport.authenticate('local',

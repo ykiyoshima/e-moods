@@ -63,7 +63,7 @@ export const Index = () => {
         const params = new URLSearchParams();
         params.append('client_id', process.env.REACT_APP_CLIENT_ID);
         params.append('response_type', 'code');
-        params.append('redirect_uri', 'https://e-moods.herokuapp.com/');
+        params.append('redirect_uri', 'https://e-moods.herokuapp.com/get_token');
         params.append('scope', scopes.join(' '));
         params.append('state', 'state');
         document.getElementById('signin_btn').innerHTML = '';
