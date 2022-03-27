@@ -2,10 +2,10 @@ import axios from "axios";
 
 export const Signup = ({ title }) => {
   const execSignup = async () => {
-    username = document.getElementById('username').value;
-    email = document.getElementById('email').value;
-    password = document.getElementById('password').value;
-    repassword = document.getElementById('repassword').value;
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const repassword = document.getElementById('repassword').value;
     if (!(username && email && password && repassword)) {
       document.getElementById('message').innerHTML = '未入力の項目があります';
       return;
