@@ -50,7 +50,6 @@ export const Analysed = () => {
     playlistTrackIdArray.length = 0;
     const accessToken = (await token()).accessToken;
     const tokenGetTime = (await token()).tokenGetTime;
-    refreshToken();
 
     const tracksResponse = await axios.get('/tracks', { withCredentials: true });
     if (tracksResponse.data) {
