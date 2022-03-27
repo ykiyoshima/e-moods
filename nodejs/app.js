@@ -28,7 +28,8 @@ app.set("trust proxy", 1);
 let sessionUsername, sessionEmail, sessionPassword;
 
 const corsOptions = {
-  origin: 'https://e-moods.herokuapp.com'
+  origin: 'https://e-moods.herokuapp.com',
+  credentials: true,
 };
 
 const __dirname = path.resolve();
