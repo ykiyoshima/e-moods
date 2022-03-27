@@ -79,7 +79,6 @@ export const Selected = () => {
     }
     const accessToken = (await token()).accessToken;
     const tokenGetTime = (await token()).tokenGetTime;
-    refreshToken();
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${accessToken}`
