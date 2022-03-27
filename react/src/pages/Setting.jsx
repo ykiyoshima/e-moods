@@ -10,12 +10,16 @@ export const Setting = ({ title }) => {
 
   const token = async () => {
     const response = await axios.get('/token', { withCredentials: true });
-    accessToken = response.data.accessToken;
-    tokenGetTime = response.data.tokenGetTime;
-  };
-  token();
+    return {
+      accessToken: response.data.accessToken,
+      tokenGetTime: response.data.tokenGetTime
+    }
+  }
 
   const searchArtist = async () => {
+    const accessToken = (await token()).accessToken;
+    const tokenGetTime = (await token()).tokenGetTime;
+    
     artistIdsArray.length = 0;
     artistImagesArray.length = 0;
     artistNamesArray.length = 0;
