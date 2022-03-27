@@ -195,11 +195,9 @@ app.get('/get_token', async (req, res) => {
       }
     }
   );
-  console.log('hoge');
-  console.log(response);
   req.session.accessToken = response.data.access_token;
   req.session.tokenGetTime = Date.now();
-  res.send({accessToken: req.session.accessToken, tokenGetTime: req.session.tokenGetTime});
+  res.redirect('/');
 });
 
 app.post('/save_image', (req, res) => {
