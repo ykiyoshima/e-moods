@@ -196,10 +196,8 @@ app.post('/get_token', async (req, res) => {
     }
   );
   console.log(response);
-  req.session.token = {
-    accessToken: response.data.access_token,
-    tokenGetTime: Date.now()
-  };
+  req.session.accessToken = response.data.access_token;
+  req.session.tokenGetTime = Date.now();
   res.send(req.session.token);
 });
 
