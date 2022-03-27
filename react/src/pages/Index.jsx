@@ -56,7 +56,7 @@ export const Index = () => {
   const refreshToken = async () => {
     const { accessToken, tokenGetTime } = token();
     console.log(tokenGetTime);
-    if ((Date.now() - tokenGetTime) >= 3600000) {
+    if ((Date.now() - tokenGetTime) >= 3600000 || !tokenGetTime) {
       const signin = () => {
         const endpoint = 'https://accounts.spotify.com/authorize';
         const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private'];
