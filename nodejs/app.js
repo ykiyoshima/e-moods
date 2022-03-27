@@ -198,7 +198,7 @@ app.post('/get_token', async (req, res) => {
   console.log(response);
   req.session.accessToken = response.data.access_token;
   req.session.tokenGetTime = Date.now();
-  res.send(req.session.token);
+  res.send({accessToken: req.session.accessToken, tokenGetTime: req.session.tokenGetTime});
 });
 
 app.post('/save_image', (req, res) => {
