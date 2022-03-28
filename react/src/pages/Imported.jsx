@@ -8,7 +8,7 @@ export const Imported = () => {
       let playlistTagArray = '<span class="mb-2"></span>';
       playlistTrackIdArray.forEach(value => {
         playlistTagArray += `<iframe id="${value} class="px-4" style="border-radius:12px"
-          src="https://open.spotify.com/embed/track/${value}?utm_source=generator" width="320" height="80"
+          src="https://open.spotify.com/embed/track/${value}?utm_source=generator" width="240" height="320"
           frameBorder="0" allowfullscreen=""
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe><span class="mb-2"></span>`;
       });
