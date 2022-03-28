@@ -16,7 +16,7 @@ export const Spotify = ({ title }) => {
       <h1 className="text-3xl font-bold pt-24 pb-16">{title}</h1>
       <p>あなたのSpotifyアカウントと連携します</p>
       <p>よろしければ「Spotifyと連携」ボタンをクリックしてください</p>
-      <button className="bg-green-500 rounded-lg py-2 px-4 mt-8 mb-16" onClick={() => signin()}>Spotifyと連携</button>
+      <button className="bg-green-500 rounded-lg w-48 py-2 px-4 mt-8 mb-16" onClick={() => signin()}>Spotifyと連携</button>
       <div id="next"></div>
     </div>
   );

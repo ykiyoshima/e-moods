@@ -28,7 +28,7 @@ export const Selected = () => {
         document.getElementById('signin_btn').innerHTML = '';
         window.location.href = `${endpoint}?${params.toString()}`;
       }
-      document.getElementById('signin_btn').innerHTML = '<button id="signin">Spotifyと連携</button>';
+      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 rounded-lg w-48 py-2 px-4">Spotifyと連携</button>';
       document.getElementById('signin').addEventListener('click', () => {
         signin();
       });
@@ -101,9 +101,9 @@ export const Selected = () => {
       <div id="signin_btn"></div>
       <div id="caution"></div>
       <input type="text" id="playlist_name" className="text-gray-900 rounded-md px-2" placeholder="プレイリスト名" /><br/>
-      <button id="playlist_btn" className="bg-green-500 rounded-lg py-2 px-4 mt-4 mb-6" onClick={() => makePlaylist()}>プレイリスト作成</button><br />
-      <button className="bg-green-500 rounded-lg py-2 px-4" onClick={() => selectTracksAgain()}>選曲をやり直す</button><br />
-      <button className="bg-green-500 rounded-lg py-2 px-4 my-12" onClick={() => backToIndex()}>トップへ戻る</button>
+      <button id="playlist_btn" className="bg-green-500 rounded-lg w-48 py-2 px-4 mt-4 mb-6" onClick={() => makePlaylist()}>プレイリスト作成</button><br />
+      <button className="bg-green-500 rounded-lg w-48 py-2 px-4" onClick={() => selectTracksAgain()}>選曲をやり直す</button><br />
+      <button className="bg-green-500 rounded-lg w-48 py-2 px-4 my-12" onClick={() => backToIndex()}>トップへ戻る</button>
     </div>
   );
 }

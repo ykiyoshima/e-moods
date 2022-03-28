@@ -19,7 +19,7 @@ export const Setting = ({ title }) => {
   const searchArtist = async () => {
     const accessToken = (await token()).accessToken;
     const tokenGetTime = (await token()).tokenGetTime;
-    
+
     artistIdsArray.length = 0;
     artistImagesArray.length = 0;
     artistNamesArray.length = 0;
@@ -64,7 +64,7 @@ export const Setting = ({ title }) => {
         }
         document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
         if (selectedArtistIdsArray.length === 5) {
-          document.getElementById('next').innerHTML = '<button id="next_link" class="bg-green-500 rounded-lg py-2 px-4 mt-16">次へ進む</button>';
+          document.getElementById('next').innerHTML = '<button id="next_link" class="bg-green-500 rounded-lg w-48 py-2 px-4 mt-16">次へ進む</button>';
           document.getElementById('next_link').addEventListener('click', () => {
             localStorage.setItem('favorite', selectedArtistIdsArray);
             window.location.href = '/finish';
@@ -83,7 +83,7 @@ export const Setting = ({ title }) => {
       <p>好きなアーティストを5組選んでください</p>
       <p>※アルファベットで検索してください</p>
       <input className="text-gray-900 px-2 rounded-mb mt-8" type="text" id="keyword" /><br/>
-      <button className="bg-green-500 rounded-lg py-2 px-4 mt-4 mb-8" type="submit" value="検索" onClick={() => searchArtist()}>検索</button>
+      <button className="bg-green-500 rounded-lg w-48 py-2 px-4 mt-4 mb-8" type="submit" value="検索" onClick={() => searchArtist()}>検索</button>
       <div className="border-solid border-b-2 border-gray-100 w-2/3 h-62 mx-auto">
         <p>選んだアーティスト</p>
         <div id="selectedArtists" className="flex overflow-scroll mx-auto"></div>

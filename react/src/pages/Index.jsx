@@ -70,7 +70,7 @@ export const Index = () => {
         document.getElementById('signin_btn').innerHTML = '';
         window.location.href = `${endpoint}?${params.toString()}`;
       }
-      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 rounded-lg py-2 px-4">Spotifyと連携</button>';
+      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 rounded-lg w-48 py-2 px-4">Spotifyと連携</button>';
       document.getElementById('signin').addEventListener('click', () => {
         signin();
       });
@@ -111,7 +111,7 @@ export const Index = () => {
         }
       </div>
       <div id="image_area" className="my-8 w-full"></div>
-      <button id="make_recommendations" className="bg-green-500 rounded-lg py-2 px-4" onClick={() => startEmotionAnalysis()}>感情分析を開始</button><br/><br/>
+      <button id="make_recommendations" className="bg-green-500 rounded-lg w-48 py-2 px-4" onClick={() => startEmotionAnalysis()}>感情分析を開始</button><br/><br/>
     </div>
   );
 };

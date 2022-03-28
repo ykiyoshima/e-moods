@@ -30,7 +30,7 @@ export const Analysed = () => {
         document.getElementById('signin_btn').innerHTML = '';
         window.location.href = `${endpoint}?${params.toString()}`;
       }
-      document.getElementById('signin_btn').innerHTML = '<button id="signin">Spotifyと連携</button>';
+      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 rounded-lg w-48 py-2 px-4">Spotifyと連携</button>';
       document.getElementById('signin').addEventListener('click', () => {
         signin();
       });
@@ -49,7 +49,7 @@ export const Analysed = () => {
   const selectTracks = async (e) => {
     const selectedOption = document.querySelector('input[type=radio]:checked').value;
     document.getElementById('main').innerHTML = '<p class="pt-24">選曲中...</p>';
-    
+
     playlistTrackIdArray.length = 0;
     const accessToken = (await token()).accessToken;
     const tokenGetTime = (await token()).tokenGetTime;
@@ -176,11 +176,11 @@ export const Analysed = () => {
       <input type="radio" id="inst_ok" name="inst_option" value="inst_ok" /><label htmlFor="inst_ok" className="mr-2">インストあり</label>
       <input type="radio" id="inst_ng" name="inst_option" value="inst_ng" /><label htmlFor="inst_ng" className="mr-2">インストなし</label>
       <input type="radio" id="inst_only" name="inst_option" value="inst_only" /><label htmlFor="inst_only">インストのみ</label><br/>
-      <button className="bg-green-500 rounded-lg py-2 px-4 my-6" value="yes" onClick={(e) => selectTracks(e)}>気分に合う曲だけ</button><br/>
-      <button className="bg-green-500 rounded-lg py-2 px-4" value="no" onClick={(e) => selectTracks(e)}>気分と逆の曲だけ</button><br/>
-      <button className="bg-green-500 rounded-lg py-2 px-4 my-6" value="auto" onClick={(e) => selectTracks(e)}>おまかせ</button>
+      <button className="bg-green-500 rounded-lg w-48 py-2 px-4 my-6" value="yes" onClick={(e) => selectTracks(e)}>気分に合う曲だけ</button><br/>
+      <button className="bg-green-500 rounded-lg w-48 py-2 px-4" value="no" onClick={(e) => selectTracks(e)}>気分と逆の曲だけ</button><br/>
+      <button className="bg-green-500 rounded-lg w-48 py-2 px-4 my-6" value="auto" onClick={(e) => selectTracks(e)}>おまかせ</button>
       <div id="signin_btn"></div>
-      <button className="bg-green-500 rounded-lg py-2 px-4 mt-8" onClick={() => backToIndex()}>トップへ戻る</button>
+      <button className="bg-green-500 rounded-lg w-48 py-2 px-4 mt-8" onClick={() => backToIndex()}>トップへ戻る</button>
     </div>
   );
 }
