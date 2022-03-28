@@ -44,7 +44,7 @@ export const Selected = () => {
         playlistTrackIdArray = response.data;
         let playlistTagArray = '<span class="ml-2"></span>';
         playlistTrackIdArray.forEach(value => {
-          playlistTagArray += `<iframe id="${value} class="px-4 w-1/4" style="border-radius:12px"
+          playlistTagArray += `<iframe id="${value} class="px-4" style="border-radius:12px" width="80" height="100"
             src="https://open.spotify.com/embed/track/${value}?utm_source=generator"
             frameBorder="0" allowfullscreen=""
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe><span class="ml-2"></span>`;
