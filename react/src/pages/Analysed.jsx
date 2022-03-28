@@ -47,6 +47,9 @@ export const Analysed = () => {
   }
 
   const selectTracks = async (e) => {
+    const selectedOption = document.querySelector('input[type=radio]:checked').value;
+    document.getElementById('main').innerHTML = '<p class="pt-24">選曲中...</p>';
+    
     playlistTrackIdArray.length = 0;
     const accessToken = (await token()).accessToken;
     const tokenGetTime = (await token()).tokenGetTime;
@@ -56,8 +59,6 @@ export const Analysed = () => {
       previousPlaylistTrackIdArray = tracksResponse.data.concat();
     }
 
-    const selectedOption = document.querySelector('input[type=radio]:checked').value;
-    document.getElementById('main').innerHTML = '<p class="pt-24">選曲中...</p>';
     const favoritesResponse = await axios.get('/index', { withCredentials: true });
     const { favorite_id_1, favorite_id_2, favorite_id_3, favorite_id_4, favorite_id_5 } = favoritesResponse.data;
     const { anger, contempt, disgust, fear, happiness, neutral, sadness, surprise } = emotionsResponse.data;
