@@ -52,10 +52,12 @@ export const Setting = ({ title }) => {
       item.addEventListener('click', async (e) => {
         document.getElementById('result').innerHTML = null;
         for (let i = 0; i < selectedArtistIdsArray.length; i++) {
-          if (selectedArtistIdsArray[i] === '') {
+          if (selectedArtistIdsArray[i] !== '') {
+            continue;
+          } else {
             selectedArtistIdsArray.splice(i, 1, e.target.dataset.id);
+            break;
           }
-          continue;
         }
         const headers = {
           'Content-Type': 'application/json',
