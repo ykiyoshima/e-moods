@@ -16,6 +16,8 @@ export const Setting = ({ title }) => {
   }
 
   window.onload = async () => {
+    const accessToken = (await token()).accessToken;
+    const tokenGetTime = (await token()).tokenGetTime;
     if (document.getElementById('selectedArtists')) {
       const selectedArtists = document.getElementById('selectedArtists').getElementsByClassName('artist');
       for (let item of selectedArtists) {
