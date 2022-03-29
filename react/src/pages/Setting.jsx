@@ -5,7 +5,7 @@ export const Setting = ({ title }) => {
   const artistIdsArray = [];
   const artistImagesArray = [];
   const artistNamesArray = [];
-  const selectedArtistIdsArray = [];
+  const selectedArtistIdsArray = ['', '', '', '', ''];
 
   const token = async () => {
     const response = await axios.get('/token', { withCredentials: true });
@@ -51,7 +51,11 @@ export const Setting = ({ title }) => {
     for (let item of artists) {
       item.addEventListener('click', async (e) => {
         document.getElementById('result').innerHTML = null;
-        selectedArtistIdsArray.push(e.target.dataset.id);
+        for (let i = 0; i < selectedArtistIdsArray.length; i++) {
+          if (selectedArtistIdsArray[i] === '') {
+            selectedArtistIdsArray.splice(i, 1, e.target.dataset.id);
+          }
+        }
         const headers = {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${accessToken}`
@@ -62,25 +66,27 @@ export const Setting = ({ title }) => {
           selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-6" id=${value.id}><img src=${value.images[1].url} class="w-48 h-48 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
         }
         document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
-        do {
-          for (let i = 0; i < selectedArtistIdsArray.length; i++) {
-            document.getElementById(selectedArtistIdsArray[i]).addEventListener('click', async () => {
-              selectedArtistIdsArray.splice(i, 1);
-              const headers = {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
-              };
-              if (selectedArtistIdsArray.length > 0) {
-                const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${selectedArtistIdsArray.join(',')}`, { headers: headers });
-                let selectedArtistTags = '<span class="mr-6"></span>';
-                for (let value of response.data.artists) {
-                  selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-6"><img src=${value.images[1].url} class="w-48 h-48 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
-                }
-                document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
+
+        for (let i = 0; i < selectedArtistIdsArray.length; i++) {
+          document.getElementById(selectedArtistIdsArray[i]).addEventListener('click', async () => {
+            selectedArtistIdsArray.splice(i, 1, '');
+            const headers = {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${accessToken}`
+            };
+            if (selectedArtistIdsArray.join(',') !== '') {
+              const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${selectedArtistIdsArray.join(',')}`, {headers: headers});
+              let selectedArtistTags = '<span class="mr-6"></span>';
+              for (let value of response.data.artists) {
+                selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-6"><img src=${value.images[1].url} class="w-48 h-48 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
               }
-            });
-          }
-        } while (selectedArtistIdsArray.length > 0);
+              document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
+            } else {
+              let selectedArtistTags = '';
+              document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
+            }
+          });
+        }
 
         if (selectedArtistIdsArray.length === 5) {
           document.getElementById('next').innerHTML = '<button id="next_link" class="bg-green-500 rounded-lg w-48 py-2 px-4 mt-16">次へ進む</button>';
