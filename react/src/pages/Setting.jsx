@@ -96,6 +96,23 @@ export const Setting = ({ title }) => {
         }
       });
     }
+
+    const selectedArtists = document.getElementById('selectedArtists').getElementsByClassName('artist');
+    for (let item of selectedArtists) {
+      item.addEventListener('click', async () => {
+        selectedArtistIdsArray = selectedArtistIdsArray.filter(value => !value.includes(item));
+        const headers = {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+        };
+        const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${selectedArtistIdsArray.join(',')}`, {headers: headers});
+        let selectedArtistTags = '<span class="mr-6"></span>';
+        for (let value of response.data.artists) {
+          selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-6"><img src=${value.images[1].url} class="w-48 h-48 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
+        }
+        document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
+      });
+    }
   }
 
 
