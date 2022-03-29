@@ -67,6 +67,7 @@ export const Setting = ({ title }) => {
         for (let i = 0; i < selectedArtistIdsArray.length; i++) {
           selectedArtists[i].addEventListener('click', async () => {
             selectedArtistIdsArray.splice(i, 1);
+            console.log(selectedArtistIdsArray);
             const headers = {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${accessToken}`
