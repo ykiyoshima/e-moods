@@ -107,19 +107,19 @@ export const Setting = ({ title }) => {
                   }
                   document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
                   query2 = '';
-                  if (selectedArtistIdsArray[4] !== '') {
-                    document.getElementById('next').innerHTML = '<button id="next_link" class="bg-green-500 rounded-lg w-48 py-2 px-4 mt-16">次へ進む</button>';
-                    document.getElementById('next_link').addEventListener('click', () => {
-                      localStorage.setItem('favorite', selectedArtistIdsArray);
-                      window.location.href = '/finish';
-                    });
-                  }
                   onClick();
                 } else {
                   document.getElementById('selectedArtists').innerHTML = null;
                 }
               });
             }
+          }
+          if (selectedArtistIdsArray[4] !== '') {
+            document.getElementById('next').innerHTML = '<button id="next_link" class="bg-green-500 rounded-lg w-48 py-2 px-4 mt-16">次へ進む</button>';
+            document.getElementById('next_link').addEventListener('click', () => {
+              localStorage.setItem('favorite', selectedArtistIdsArray);
+              window.location.href = '/finish';
+            });
           }
         };
         onClick();
