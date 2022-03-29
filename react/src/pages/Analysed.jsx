@@ -173,9 +173,9 @@ export const Analysed = () => {
       <h1 className="text-3xl font-bold pt-24 pb-16">分析完了</h1>
       <div id="analysis_result"></div>
       <p className="pt-4 mb-4">プレイリスト作成で重視したいポイントを選んでください</p>
-      <input type="radio" id="inst_ok" name="inst_option" value="inst_ok" /><label htmlFor="inst_ok" className="mr-2">インストあり</label>
-      <input type="radio" id="inst_ng" name="inst_option" value="inst_ng" /><label htmlFor="inst_ng" className="mr-2">インストなし</label>
-      <input type="radio" id="inst_only" name="inst_option" value="inst_only" /><label htmlFor="inst_only">インストのみ</label><br/>
+      <input type="radio" id="inst_ok" name="inst_option" value="inst_ok" /><label htmlFor="inst_ok" className="mr-2">ボーカルなしも含む</label>
+      <input type="radio" id="inst_ng" name="inst_option" value="inst_ng" /><label htmlFor="inst_ng" className="mr-2">ボーカルありだけ</label>
+      <input type="radio" id="inst_only" name="inst_option" value="inst_only" /><label htmlFor="inst_only">ボーカルなしだけ</label><br/>
       <button className="bg-green-500 rounded-lg w-48 py-2 px-4 my-6" value="yes" onClick={(e) => selectTracks(e)}>気分に合う曲だけ</button><br/>
       <button className="bg-green-500 rounded-lg w-48 py-2 px-4" value="no" onClick={(e) => selectTracks(e)}>気分と逆の曲だけ</button><br/>
       <button className="bg-green-500 rounded-lg w-48 py-2 px-4 my-6" value="auto" onClick={(e) => selectTracks(e)}>おまかせ</button>

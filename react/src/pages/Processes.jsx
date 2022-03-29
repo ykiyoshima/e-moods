@@ -17,7 +17,7 @@ export const Processes = ({ process }) => {
           <Spotify title={process} />
         </>
       );
-    case '初期設定':
+    case '好きなアーティスト設定':
       return (
         <>
           <Setting title={process} />

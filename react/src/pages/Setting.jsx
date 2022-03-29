@@ -6,7 +6,6 @@ export const Setting = ({ title }) => {
   const artistImagesArray = [];
   const artistNamesArray = [];
   const selectedArtistIdsArray = [];
-  let accessToken, tokenGetTime;
 
   const token = async () => {
     const response = await axios.get('/token', { withCredentials: true });
