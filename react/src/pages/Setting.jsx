@@ -90,8 +90,8 @@ export const Setting = ({ title }) => {
             localStorage.setItem('favorite', selectedArtistIdsArray);
             window.location.href = '/finish';
           });
-        } else {
-          document.getElementById('next').innerHTML = '';
+        } else if (selectedArtistIdsArray !== 5) {
+          document.getElementById('next').innerHTML = null;
         }
       });
     }
