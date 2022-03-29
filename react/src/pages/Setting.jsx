@@ -64,7 +64,6 @@ export const Setting = ({ title }) => {
         document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
 
         const selectedArtists = document.getElementById('selectedArtists').getElementsByClassName('artist');
-        console.log(selectedArtists);
         for (let i = 0; i < selectedArtistIdsArray.length; i++) {
           selectedArtists[i].addEventListener('click', async () => {
             selectedArtistIdsArray.splice(i, 1);
@@ -81,7 +80,7 @@ export const Setting = ({ title }) => {
               }
               document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
             } else {
-              selectedArtistTags = '';
+              let selectedArtistTags = '';
               document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
             }
           });
