@@ -21,7 +21,7 @@ export const Index = () => {
     reader.readAsDataURL(file);
   }
 
-  const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: 'image/*' });
+  const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: 'image/*', multiple: false });
   const file = acceptedFiles[0];
 
   let imageUrl;
