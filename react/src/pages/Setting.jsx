@@ -85,7 +85,8 @@ export const Setting = ({ title }) => {
           for (let i = 0; i < selectedArtistIdsArray.length; i++) {
             if (selectedArtistIdsArray[i] !== '') {
               document.getElementById(selectedArtistIdsArray[i]).addEventListener('click', async () => {
-                selectedArtistIdsArray[i] = '';
+                selectedArtistIdsArray.splice(i, 1);
+                selectedArtistIdsArray[4] = '';
                 const headers = {
                   'Content-Type': 'application/json',
                   'Authorization': `Bearer ${accessToken}`
@@ -114,7 +115,7 @@ export const Setting = ({ title }) => {
               });
             }
           }
-          if (selectedArtistIdsArray[0] && selectedArtistIdsArray[1] && selectedArtistIdsArray[2] && selectedArtistIdsArray[3] && selectedArtistIdsArray[4]) {
+          if (selectedArtistIdsArray[4]) {
             document.getElementById('next').innerHTML = '<button id="next_link" class="bg-green-500 rounded-lg w-48 py-2 px-4 mt-16">次へ進む</button>';
             document.getElementById('next_link').addEventListener('click', () => {
               localStorage.setItem('favorite', selectedArtistIdsArray);
