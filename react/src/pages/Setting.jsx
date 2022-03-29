@@ -71,12 +71,16 @@ export const Setting = ({ title }) => {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${accessToken}`
             };
-            const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${selectedArtistIdsArray.join(',')}`, {headers: headers});
-            let selectedArtistTags = '<span class="mr-6"></span>';
-            for (let value of response.data.artists) {
-              selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-6"><img src=${value.images[1].url} class="w-48 h-48 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
+            if (selectedArtistIdsArray.length > 0) {
+              const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${selectedArtistIdsArray.join(',')}`, {headers: headers});
+              let selectedArtistTags = '<span class="mr-6"></span>';
+              for (let value of response.data.artists) {
+                selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-6"><img src=${value.images[1].url} class="w-48 h-48 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
+              }
+              document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
+            } else {
+              document.getElementById('selectedArtists').innerHTML = null;
             }
-            document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
           });
         }
 
