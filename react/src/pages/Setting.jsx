@@ -19,7 +19,7 @@ export const Setting = ({ title }) => {
     if (document.getElementById('selectedArtists')) {
       const selectedArtists = document.getElementById('selectedArtists').getElementsByClassName('artist');
       for (let item of selectedArtists) {
-        item.addEventListener('click', () => {
+        item.addEventListener('click', async () => {
           selectedArtistIdsArray = selectedArtistIdsArray.filter(value => !value.includes(item));
           const headers = {
             'Content-Type': 'application/json',
