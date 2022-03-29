@@ -90,7 +90,7 @@ export const Setting = ({ title }) => {
             localStorage.setItem('favorite', selectedArtistIdsArray);
             window.location.href = '/finish';
           });
-        } else if (selectedArtistIdsArray !== 5) {
+        } else if (selectedArtistIdsArray.length !== 5) {
           document.getElementById('next').innerHTML = null;
         }
       });
