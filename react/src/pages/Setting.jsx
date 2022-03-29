@@ -64,7 +64,7 @@ export const Setting = ({ title }) => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${accessToken}`
         };
-        let query;
+        let query = '';
         for (let i = 0; i < selectedArtistIdsArray.length; i++) {
           const value = selectedArtistIdsArray[i];
           if (value !== '' && i === 0) {
