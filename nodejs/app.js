@@ -210,7 +210,7 @@ app.post('/save_image', (req, res) => {
       res.send(response[0].faceAttributes.emotion)
     }).catch(err => {
       console.log(err);
-      res.send(err);
+      res.send({ 'error': err });
     });
   };
 

@@ -92,8 +92,8 @@ export const Index = () => {
     axios.post('/save_image', form, { headers })
       .then(async (response) => {
         const result = await axios.post('/emotions', response.data, { withCredentials: true });
-        if (result.data.anger) {
-          document.getElementById('message').innerHTML = `<p>${result.data}</p>`;
+        if (result.data.error) {
+          document.getElementById('message').innerHTML = `<p>${result.data.error}</p>`;
         } else {
           window.location.href = '/analysed';
         }
