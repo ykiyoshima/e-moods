@@ -15,7 +15,7 @@ export const Setting = ({ title }) => {
     }
   }
 
-  window.onload = () => {
+  window.onload = async () => {
     if (document.getElementById('selectedArtists')) {
       const selectedArtists = document.getElementById('selectedArtists').getElementsByClassName('artist');
       for (let item of selectedArtists) {
