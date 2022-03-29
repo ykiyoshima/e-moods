@@ -106,8 +106,7 @@ export const Setting = ({ title }) => {
                 }
                 document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
               } else {
-                let selectedArtistTags = '';
-                document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
+                document.getElementById('selectedArtists').innerHTML = null;
               }
             });
           }
