@@ -55,7 +55,7 @@ export const Setting = ({ title }) => {
           if (selectedArtistIdsArray[i] !== '') {
             continue;
           } else {
-            selectedArtistIdsArray.splice(i, 1, e.target.dataset.id);
+            selectedArtistIdsArray[0] = e.target.dataset.id;
             break;
           }
         }
