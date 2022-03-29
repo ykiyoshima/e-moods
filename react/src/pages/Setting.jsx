@@ -64,22 +64,26 @@ export const Setting = ({ title }) => {
         document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
 
         const selectedArtists = document.getElementById('selectedArtists').getElementsByClassName('artist');
-        for (let i = 0; i < selectedArtistIdsArray.length; i++) {
+        for (let i = 0; i < selectedArtists.length; i++) {
           selectedArtists[i].addEventListener('click', async () => {
             selectedArtistIdsArray.splice(i, 1);
             console.log(selectedArtistIdsArray);
+            const headers = {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${accessToken}`
+            };
+            if (selectedArtistIdsArray.length > 0) {
+              const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${selectedArtistIdsArray.join(',')}`, {headers: headers});
+              let selectedArtistTags = '<span class="mr-6"></span>';
+              for (let value of response.data.artists) {
+                selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-6"><img src=${value.images[1].url} class="w-48 h-48 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
+              }
+              document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
+            } else {
+              let selectedArtistTags = '';
+              document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
+            }
           });
-        }
-        if (selectedArtistIdsArray.length > 0) {
-          const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${selectedArtistIdsArray.join(',')}`, {headers: headers});
-          let selectedArtistTags = '<span class="mr-6"></span>';
-          for (let value of response.data.artists) {
-            selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-6"><img src=${value.images[1].url} class="w-48 h-48 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
-          }
-          document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
-        } else {
-          let selectedArtistTags = '';
-          document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
         }
 
         if (selectedArtistIdsArray.length === 5) {
