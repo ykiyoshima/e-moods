@@ -76,6 +76,7 @@ export const Setting = ({ title }) => {
         const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${query}`, {headers: headers});
         let selectedArtistTags = '<span class="mr-6"></span>';
         for (let value of response.data.artists) {
+          console.log(value);
           selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-6" id=${value.id}><img src=${value.images[1].url} class="w-48 h-48 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
         }
         document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
