@@ -55,7 +55,7 @@ export const Setting = ({ title }) => {
           if (selectedArtistIdsArray[i] === '') {
             selectedArtistIdsArray.splice(i, 1, e.target.dataset.id);
           }
-          break;
+          continue;
         }
         const headers = {
           'Content-Type': 'application/json',
