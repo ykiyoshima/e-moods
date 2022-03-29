@@ -90,10 +90,11 @@ export const Setting = ({ title }) => {
                 'Authorization': `Bearer ${accessToken}`
               };
               for (let i = 0; i < selectedArtistIdsArray.length; i++) {
+                const found = selectedArtistIdsArray.find(element => element !== '');
                 const value = selectedArtistIdsArray[i];
-                if (value !== '' && i === 0) {
+                if (value === found) {
                   query2 += value;
-                } else if (value !== '' && i > 0) {
+                } else if (value !== '') {
                   query2 += `,${value}`;
                 }
               }
