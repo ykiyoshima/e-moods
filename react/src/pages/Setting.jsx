@@ -120,6 +120,8 @@ export const Setting = ({ title }) => {
               localStorage.setItem('favorite', selectedArtistIdsArray);
               window.location.href = '/finish';
             });
+          } else {
+            document.getElementById('next').innerHTML = null;
           }
         };
         onClick();
