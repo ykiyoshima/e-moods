@@ -79,7 +79,8 @@ export const Setting = ({ title }) => {
               }
               document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
             } else {
-              document.getElementById('selectedArtists').innerHTML = null;
+              selectedArtistTags = '';
+              document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
             }
           });
         }
