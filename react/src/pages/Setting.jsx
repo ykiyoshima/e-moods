@@ -64,8 +64,10 @@ export const Setting = ({ title }) => {
         document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
 
         const selectedArtists = document.getElementById('selectedArtists').getElementsByClassName('artist');
+        console.log(selectedArtists);
         for (let i = 0; i < selectedArtists.length; i++) {
           selectedArtists[i].addEventListener('click', async () => {
+            console.log(selectedArtistIdsArray);
             selectedArtistIdsArray.splice(i, 1);
             console.log(selectedArtistIdsArray);
             const headers = {
