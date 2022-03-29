@@ -73,6 +73,7 @@ export const Setting = ({ title }) => {
             query += `,${value}`;
           }
         }
+        console.log(query);
         const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${query}`, {headers: headers});
         let selectedArtistTags = '<span class="mr-6"></span>';
         for (let value of response.data.artists) {
