@@ -67,10 +67,10 @@ export const Setting = ({ title }) => {
         let query;
         for (let i = 0; i < selectedArtistIdsArray.length; i++) {
           const value = selectedArtistIdsArray[i];
-          if (value !== '' && i === 4) {
+          if (value !== '' && i === 0) {
             query += value;
-          } else if (value !== '' && i < 4) {
-            query += `${value},`;
+          } else if (value !== '' && i > 0) {
+            query += `,${value}`;
           }
         }
         const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${query}`, {headers: headers});
