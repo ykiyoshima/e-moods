@@ -82,41 +82,40 @@ export const Setting = ({ title }) => {
 
         let query2 = '';
         const onClick = () => {
-          document.getElementById(selectedArtistIdsArray[i]).addEventListener('click', async () => {
-            selectedArtistIdsArray[i] = '';
-            const headers = {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${accessToken}`
-            };
-            for (let i = 0; i < selectedArtistIdsArray.length; i++) {
-              const found = selectedArtistIdsArray.find(element => element !== '');
-              const value = selectedArtistIdsArray[i];
-              if (value === found) {
-                query2 += value;
-              } else if (value !== '') {
-                query2 += `,${value}`;
-              }
+          for (let i = 0; i < selectedArtistIdsArray.length; i++) {
+            if (selectedArtistIdsArray[i] !== '') {
+              document.getElementById(selectedArtistIdsArray[i]).addEventListener('click', async () => {
+                selectedArtistIdsArray[i] = '';
+                const headers = {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${accessToken}`
+                };
+                for (let i = 0; i < selectedArtistIdsArray.length; i++) {
+                  const found = selectedArtistIdsArray.find(element => element !== '');
+                  const value = selectedArtistIdsArray[i];
+                  if (value === found) {
+                    query2 += value;
+                  } else if (value !== '') {
+                    query2 += `,${value}`;
+                  }
+                }
+                if (query2 !== '') {
+                  const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${query2}`, {headers: headers});
+                  let selectedArtistTags = '<span class="mr-6"></span>';
+                  for (let value of response.data.artists) {
+                    selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-6" id=${value.id}><img src=${value.images[1].url} class="w-48 h-48 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
+                  }
+                  document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
+                  query2 = '';
+                  onClick();
+                } else {
+                  document.getElementById('selectedArtists').innerHTML = null;
+                }
+              });
             }
-            if (query2 !== '') {
-              const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${query2}`, {headers: headers});
-              let selectedArtistTags = '<span class="mr-6"></span>';
-              for (let value of response.data.artists) {
-                selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-6" id=${value.id}><img src=${value.images[1].url} class="w-48 h-48 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
-              }
-              document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
-              query2 = '';
-              onClick();
-            } else {
-              document.getElementById('selectedArtists').innerHTML = null;
-            }
-          });
-        };
-
-        for (let i = 0; i < selectedArtistIdsArray.length; i++) {
-          if (selectedArtistIdsArray[i] !== '') {
-            onClick();
           }
-        }
+        };
+        onClick();
 
         if (selectedArtistIdsArray[4] !== '') {
           document.getElementById('next').innerHTML = '<button id="next_link" class="bg-green-500 rounded-lg w-48 py-2 px-4 mt-16">次へ進む</button>';
