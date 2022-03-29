@@ -208,6 +208,8 @@ app.post('/save_image', (req, res) => {
       detectionModel: 'detection_01'
     }).then(response => {
       res.send(response[0].faceAttributes.emotion)
+    }).catch(err => {
+      console.log(err);
     });
   };
 
