@@ -5,7 +5,7 @@ export const Setting = ({ title }) => {
   const artistIdsArray = [];
   const artistImagesArray = [];
   const artistNamesArray = [];
-  const selectedArtistIdsArray = ['', '', '', '', ''];
+  let selectedArtistIdsArray = ['', '', '', '', ''];
 
   const token = async () => {
     const response = await axios.get('/token', { withCredentials: true });
@@ -84,7 +84,7 @@ export const Setting = ({ title }) => {
         for (let i = 0; i < selectedArtistIdsArray.length; i++) {
           if (selectedArtistIdsArray[i] !== '') {
             document.getElementById(selectedArtistIdsArray[i]).addEventListener('click', async () => {
-              selectedArtistIdsArray[i] = '';
+              selectedArtistIdsArray.splice(i, 1);
               const headers = {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
@@ -105,6 +105,7 @@ export const Setting = ({ title }) => {
                   selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-6"><img src=${value.images[1].url} class="w-48 h-48 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
                 }
                 document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
+                query2 = '';
               } else {
                 document.getElementById('selectedArtists').innerHTML = null;
               }
