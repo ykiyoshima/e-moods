@@ -91,9 +91,9 @@ export const Index = () => {
     const headers = { "content-type": "multipart/form-data", "withCredentials": true };
     axios.post('/save_image', form, { headers })
       .then(async (response) => {
-        const response = await axios.post('/emotions', response.data, { withCredentials: true });
-        if (response.data) {
-          document.getElementById('message').innerHTML = `<p>${response.data}</p>`;
+        const result = await axios.post('/emotions', response.data, { withCredentials: true });
+        if (result.data) {
+          document.getElementById('message').innerHTML = `<p>${result.data}</p>`;
         } else {
           window.location.href = '/analysed';
         }
