@@ -79,6 +79,7 @@ export const Setting = ({ title }) => {
           selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-6" id=${value.id}><img src=${value.images[1].url} class="w-48 h-48 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
         }
         document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
+        document.getElementById('selectedArtists').scrollLeft = 1000;
 
         let query2 = '';
         const onClick = () => {
