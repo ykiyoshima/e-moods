@@ -127,7 +127,7 @@ app.post('/signup_confirm', (req, res, next) => {
 app.post('/regist', (req, res, next) => {
   const { ids } = req.body;
   console.log(req.user);
-  if (req.user[0]) {
+  if (req.user) {
     myknex('users')
       .where({'email': req.user[0].email})
       .update({ 'favorite_id_1': ids[0], 'favorite_id_2': ids[1], 'favorite_id_3': ids[2], 'favorite_id_4': ids[3], 'favorite_id_5': ids[4], 'updated_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })) })
