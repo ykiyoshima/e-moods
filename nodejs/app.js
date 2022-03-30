@@ -127,13 +127,12 @@ app.post('/regist', (req, res, next) => {
   const { ids } = req.body;
   const idsArray = ids.split(',');
   console.log(req.user);
-  console.log(req.session);
-  if (req.session.user) {
+  if (req.user[0]) {
     myknex('users')
-      .where({'email': req.session.user.email})
+      .where({'email': req.user[0].email})
       .update({ 'favorite_id_1': idsArray[0], 'favorite_id_2': idsArray[1], 'favorite_id_3': idsArray[2], 'favorite_id_4': idsArray[3], 'favorite_id_5': idsArray[4], 'updated_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })) })
       .then(() => {
-        res.end();
+        res.redirect('/');
       });
   }
   myknex('users')
