@@ -42,12 +42,12 @@ export const Selected = () => {
     axios.get('/tracks', { withCredentials: true })
       .then(response => {
         playlistTrackIdArray = response.data;
-        let playlistTagArray = '<span class="ml-2"></span>';
+        let playlistTagArray = '<span class="mt-2"></span>';
         playlistTrackIdArray.forEach(value => {
-          playlistTagArray += `<iframe id="${value} class="px-4" style="border-radius:12px" width="160" height="240"
+          playlistTagArray += `<iframe id="${value} class="px-4" style="border-radius:12px" width="240" height="240"
             src="https://open.spotify.com/embed/track/${value}?utm_source=generator"
             frameBorder="0" allowfullscreen=""
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe><span class="ml-2"></span>`;
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe><span class="mt-2"></span>`;
         });
         document.getElementById('playlist_result').innerHTML = playlistTagArray;
       });
@@ -97,7 +97,7 @@ export const Selected = () => {
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <h1 className="text-3xl font-bold pt-24 pb-16">選曲完了</h1>
       <p>あなたにピッタリな曲をご用意しました！</p>
-      <div id="playlist_result" className="w-3/4 my-8 mx-auto flex overflow-scroll"></div>
+      <div id="playlist_result" className="w-3/4 my-8 mx-auto flex flex-col"></div>
       <div id="signin_btn"></div>
       <div id="caution"></div>
       <input type="text" id="playlist_name" className="text-gray-900 rounded-md px-2" placeholder="プレイリスト名" /><br/>
