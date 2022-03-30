@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const Finish = ({ title }) => {
     const ids = localStorage.getItem('favorite');
-    const response = await axios.post('/regist', { ids: ids });
+    const response = axios.post('/regist', { ids: ids });
 
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
