@@ -15,16 +15,12 @@ export const Imported = () => {
       document.getElementById('playlist_result').innerHTML = playlistTagArray;
     });
 
-  const backToIndex = () => {
-    window.location.href = '/';
-  };
-
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <h1 className="text-3xl font-bold pt-24 pb-16">インポート完了</h1>
       <p>選ばれた曲をプレイリストとして<br />Spotifyにインポートしました！</p>
       <div id="playlist_result" className="w-3/4 my-8 mx-auto flex overflow-scroll"></div>
-      <button className="bg-green-500 rounded-lg w-48 py-2 px-4" onClick={() => backToIndex()}>トップへ戻る</button>
+      <a href="/" className="bg-green-500 rounded-lg w-48 py-2 px-4">トップへ戻る</a>
     </div>
   );
 };

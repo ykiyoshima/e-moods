@@ -95,13 +95,9 @@ export const Index = () => {
         if (result.data.error) {
           document.getElementById('message').innerHTML = `<p>${result.data.error}</p>`;
         } else {
-          window.location.href = '/analysed';
+          document.getElementById('main').innerHTML = '<span class="pt-24"></span><br/><a href="/analysed" class="bg-green-500 rounded-lg w-48 py-2 px-4 mt-24">分析結果を表示</a>';
         }
       });
-  };
-
-  const moveToSetting = () => {
-    window.location.href = "/setting";
   };
 
   return (
@@ -109,7 +105,7 @@ export const Index = () => {
       <h1 className="text-5xl font-bold pt-24 pb-16">e-moods</h1>
       <p><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
       <div id="signin_btn" className="my-8"></div>
-      <button className="bg-green-500 rounded-lg w-48 py-2 px-4" onClick={() => moveToSetting()}>設定アーティスト変更</button>
+      <a href="/setting" className="bg-green-500 rounded-lg w-48 py-2 px-4">設定アーティスト変更</a>
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
         <FontAwesomeIcon className="text-6xl mt-6 mb-4" icon={faImage} />

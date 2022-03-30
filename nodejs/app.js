@@ -15,6 +15,7 @@ import fileUpload from "express-fileupload";
 import { FaceClient } from "@azure/cognitiveservices-face";
 import { CognitiveServicesCredentials } from "@azure/ms-rest-azure-js";
 
+
 dotenv.config();
 
 const faceKey = process.env.FACE_KEY; //個人のKey

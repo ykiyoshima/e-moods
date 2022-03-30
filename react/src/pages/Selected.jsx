@@ -86,11 +86,7 @@ export const Selected = () => {
     const meResponse = await axios.get('https://api.spotify.com/v1/me', { headers: headers });
     const makePlaylistResponse = await axios.post(`https://api.spotify.com/v1/users/${meResponse.data.id}/playlists`, data, { headers: headers });
     await axios.post(`https://api.spotify.com/v1/playlists/${makePlaylistResponse.data.id}/tracks`, tracks, { headers: headers });
-    window.location.href = '/imported';
-  };
-
-  const backToIndex = () => {
-    window.location.href = '/';
+    document.getElementById('main').innerHTML = '<span class="pt-24"></span><br/><a href="/imported" class="bg-green-500 rounded-lg w-48 py-2 px-4">インポート結果を表示</a>'
   };
 
   return (
@@ -103,7 +99,7 @@ export const Selected = () => {
       <input type="text" id="playlist_name" className="text-gray-900 rounded-md px-2" placeholder="プレイリスト名" /><br/>
       <button id="playlist_btn" className="bg-green-500 rounded-lg w-48 py-2 px-4 mt-4 mb-6" onClick={() => makePlaylist()}>プレイリスト作成</button><br />
       <button className="bg-green-500 rounded-lg w-48 py-2 px-4" onClick={() => selectTracksAgain()}>選曲をやり直す</button><br />
-      <button className="bg-green-500 rounded-lg w-48 py-2 px-4 my-12" onClick={() => backToIndex()}>トップへ戻る</button>
+      <a href="/" className="bg-green-500 rounded-lg w-48 py-2 px-4 my-12">トップへ戻る</a>
     </div>
   );
 }

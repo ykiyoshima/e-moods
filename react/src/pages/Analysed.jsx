@@ -161,11 +161,7 @@ export const Analysed = () => {
     } while (playlistTrackIdArray.length < 3 && (Date.now() - tokenGetTime) < 3600000);
 
     await axios.post('/tracks', playlistTrackIdArray, { withCredentials: true });
-    window.location.href = '/selected';
-  };
-
-  const backToIndex = () => {
-    window.location.href = '/';
+    document.getElementById('main').innerHTML = '<span class="pt-24"></span><br/><a href="/selected" class="bg-green-500 rounded-lg w-48 py-2 px-4">選曲結果を表示</a>'
   };
 
   return (
@@ -180,7 +176,7 @@ export const Analysed = () => {
       <button className="bg-green-500 rounded-lg w-48 py-2 px-4" value="no" onClick={(e) => selectTracks(e)}>気分と逆の曲だけ</button><br/>
       <button className="bg-green-500 rounded-lg w-48 py-2 px-4 my-6" value="auto" onClick={(e) => selectTracks(e)}>おまかせ</button>
       <div id="signin_btn"></div>
-      <button className="bg-green-500 rounded-lg w-48 py-2 px-4 mt-8" onClick={() => backToIndex()}>トップへ戻る</button>
+      <a href="/" className="bg-green-500 rounded-lg w-48 py-2 px-4 mt-8">トップへ戻る</a>
     </div>
   );
 }

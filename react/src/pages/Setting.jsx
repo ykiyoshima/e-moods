@@ -117,10 +117,14 @@ export const Setting = ({ title }) => {
             }
           }
           if (selectedArtistIdsArray[4]) {
-            document.getElementById('next').innerHTML = '<button id="next_link" class="bg-green-500 rounded-lg w-48 py-2 px-4 mt-16">次へ進む</button>';
-            document.getElementById('next_link').addEventListener('click', () => {
-              localStorage.setItem('favorite', selectedArtistIdsArray);
-              window.location.href = '/finish';
+            document.getElementById('next').innerHTML = '<button id="next_link" class="bg-green-500 rounded-lg w-48 py-2 px-4 mt-16">選択完了</button>';
+            document.getElementById('next_link').addEventListener('click', async () => {
+              const response = await axios.post('/regist', { ids: ids });
+              if (response.data.status === 'not first') {
+                document.getElementById('main').innerHTML = '<h1 class="text-3xl font-bold pt-24 pb-16">設定変更完了</h1><a href="/" class="bg-green-500 rounded-lg w-48 py-2 px-4">トップへ戻る</a>';
+              } else {
+                document.getElementById('main').innerHTML = '<h1 class="text-3xl font-bold pt-24 pb-16">新規登録完了</h1><a href="/" class="bg-green-500 rounded-lg w-48 py-2 px-4">ログインページへ</a>';
+              }
             });
           } else {
             document.getElementById('next').innerHTML = null;
