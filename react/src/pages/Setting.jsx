@@ -123,7 +123,7 @@ export const Setting = ({ title }) => {
               if (response.data.status === 'not first') {
                 document.getElementById('main').innerHTML = '<h1 class="text-3xl font-bold pt-24 pb-16">設定変更完了</h1><a href="/" class="bg-green-500 rounded-lg w-48 py-2 px-4">トップへ戻る</a>';
               } else {
-                document.getElementById('main').innerHTML = '<h1 class="text-3xl font-bold pt-24 pb-16">新規登録完了</h1><a href="/" class="bg-green-500 rounded-lg w-48 py-2 px-4">ログインページへ</a>';
+                document.getElementById('main').innerHTML = '<h1 class="text-3xl font-bold pt-24 pb-16">新規登録完了</h1><a href="/login" class="bg-green-500 rounded-lg w-48 py-2 px-4">ログインページへ</a>';
               }
             });
           } else {
