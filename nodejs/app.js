@@ -126,18 +126,17 @@ app.post('/signup_confirm', (req, res, next) => {
 
 app.post('/regist', (req, res, next) => {
   const { ids } = req.body;
-  const idsArray = ids.split(',');
   console.log(req.user);
   if (req.user[0]) {
     myknex('users')
       .where({'email': req.user[0].email})
-      .update({ 'favorite_id_1': idsArray[0], 'favorite_id_2': idsArray[1], 'favorite_id_3': idsArray[2], 'favorite_id_4': idsArray[3], 'favorite_id_5': idsArray[4], 'updated_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })) })
+      .update({ 'favorite_id_1': ids[0], 'favorite_id_2': ids[1], 'favorite_id_3': ids[2], 'favorite_id_4': ids[3], 'favorite_id_5': ids[4], 'updated_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })) })
       .then(() => {
         res.send({'status': 'not first'});
       });
   } else {
     myknex('users')
-      .insert({ 'username': sessionUsername, 'email': sessionEmail, 'password': sessionPassword, 'favorite_id_1': idsArray[0], 'favorite_id_2': idsArray[1], 'favorite_id_3': idsArray[2], 'favorite_id_4': idsArray[3], 'favorite_id_5': idsArray[4], 'created_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })), 'updated_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })) })
+      .insert({ 'username': sessionUsername, 'email': sessionEmail, 'password': sessionPassword, 'favorite_id_1': ids[0], 'favorite_id_2': ids[1], 'favorite_id_3': ids[2], 'favorite_id_4': ids[3], 'favorite_id_5': ids[4], 'created_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })), 'updated_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })) })
       .then(() => {
         res.send({'status': 'first'});
       });
