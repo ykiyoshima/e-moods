@@ -7,7 +7,7 @@ export const Index = () => {
   const style = {
     width: 200,
     height: 150,
-    margin: '0 auto',
+    margin: '16px auto',
     border: '1px dotted #888',
     cursor: 'pointer'
   };
