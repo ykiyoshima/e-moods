@@ -1,11 +1,15 @@
 import axios from "axios";
 
 export const Finish = ({ title }) => {
-  window.onload = () => {
+  window.onload = async () => {
     const ids = localStorage.getItem('favorite');
-    axios.post('/regist', { ids: ids });
+    const response = await axios.post('/regist', { ids: ids });
     setTimeout(() => {
-      window.location.href = '/login';
+      if (response.data.status === 'not first') {
+        window.location.href = '/';
+      } else {
+        window.location.href = '/login';
+      }
     }, 3000);
   }
 
