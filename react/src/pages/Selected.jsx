@@ -42,12 +42,12 @@ export const Selected = () => {
     axios.get('/tracks', { withCredentials: true })
       .then(response => {
         playlistTrackIdArray = response.data;
-        let playlistTagArray = '<span class="mt-2"></span>';
+        let playlistTagArray = '<span class="ml-2"></span>';
         playlistTrackIdArray.forEach(value => {
           playlistTagArray += `<iframe id="${value} class="px-4" style="border-radius:12px" width="240" height="320"
             src="https://open.spotify.com/embed/track/${value}?utm_source=generator"
             frameBorder="0" allowfullscreen=""
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe><span class="mt-2"></span>`;
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe><span class="ml-2"></span>`;
         });
         document.getElementById('playlist_result').innerHTML = playlistTagArray;
       });
