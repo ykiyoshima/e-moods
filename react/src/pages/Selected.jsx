@@ -98,8 +98,8 @@ export const Selected = () => {
       <div id="caution"></div>
       <input type="text" id="playlist_name" className="text-gray-900 rounded-md px-2" placeholder="プレイリスト名" /><br/>
       <button id="playlist_btn" className="bg-green-500 rounded-lg w-48 py-2 px-4 mt-4 mb-6" onClick={() => makePlaylist()}>プレイリスト作成</button><br />
-      <button className="bg-green-500 rounded-lg w-48 py-2 px-4" onClick={() => selectTracksAgain()}>選曲をやり直す</button><br />
-      <a href="/" className="bg-green-500 rounded-lg w-48 py-2 px-4 my-12">トップへ戻る</a>
+      <button className="bg-green-500 rounded-lg w-48 py-2 px-4" onClick={() => selectTracksAgain()}>選曲をやり直す</button><br/><br/>
+      <a href="/" className="bg-green-500 rounded-lg w-48 py-2 px-4">トップへ戻る</a>
     </div>
   );
 }
