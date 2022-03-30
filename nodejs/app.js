@@ -57,7 +57,7 @@ const myknex = knex(knexfile['development']);
 const LocalStrategy = local.Strategy;
 
 passport.use(new LocalStrategy(
-  {usernameField:"email", passwordField:"password"},
+  {usernameField:"email", passwordField:"password", includeEmail: true},
   function (email, password, done) {
   try {
     myknex('users')
