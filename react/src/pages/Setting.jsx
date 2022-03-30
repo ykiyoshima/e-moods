@@ -119,7 +119,7 @@ export const Setting = ({ title }) => {
           if (selectedArtistIdsArray[4]) {
             document.getElementById('next').innerHTML = '<button id="next_link" class="bg-green-500 rounded-lg w-48 py-2 px-4 mt-16">選択完了</button>';
             document.getElementById('next_link').addEventListener('click', async () => {
-              const response = await axios.post('/regist', { ids: ids });
+              const response = await axios.post('/regist', { ids: selectedArtistIdsArray });
               if (response.data.status === 'not first') {
                 document.getElementById('main').innerHTML = '<h1 class="text-3xl font-bold pt-24 pb-16">設定変更完了</h1><a href="/" class="bg-green-500 rounded-lg w-48 py-2 px-4">トップへ戻る</a>';
               } else {
