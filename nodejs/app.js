@@ -307,20 +307,20 @@ app.get('/insert_emotions_and_tracks', (req, res) => {
     .catch(err => console.log(err));
 });
 
-app.get('/signup', (req, res) => {
-  res.redirect('/signup');
+app.get('/', isAuthenticated, (req, res) => {
+  res.sendFile(path.join(__dirname,'./react/build/index.html'));
 });
-app.get('/spotify', (req, res) => {
-  res.redirect('/spotify');
+app.get('/analysed', isAuthenticated, (req, res) => {
+  res.sendFile(path.join(__dirname,'./react/build/index.html'));
 });
-app.get('/setting', (req, res) => {
-  res.redirect('/setting');
+app.get('/selected', (req, res) => {
+  res.sendFile(path.join(__dirname,'./react/build/index.html'));
 });
-app.get('/login', (req, res) => {
-  res.redirect('/login');
+app.get('/imported', isAuthenticated, (req, res) => {
+  res.sendFile(path.join(__dirname,'./react/build/index.html'));
 });
 
-app.get('*', isAuthenticated, (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname,'./react/build/index.html'));
 });
 
