@@ -259,7 +259,7 @@ app.get('/failure', (req, res) => {
 
 app.get('/index', (req, res) => {
   if (req.user) {
-    res.send({ 'username': req.user[0].username, 'favorite_id_1': req.user[0].favorite_id_1, 'favorite_id_2': req.user[0].favorite_id_2, 'favorite_id_3': req.user[0].favorite_id_3, 'favorite_id_4': req.user[0].favorite_id_4, 'favorite_id_5': req.user[0].favorite_id_5 });
+    res.send({ 'hasSession': 'Yes', 'username': req.user[0].username, 'favorite_id_1': req.user[0].favorite_id_1, 'favorite_id_2': req.user[0].favorite_id_2, 'favorite_id_3': req.user[0].favorite_id_3, 'favorite_id_4': req.user[0].favorite_id_4, 'favorite_id_5': req.user[0].favorite_id_5 });
   } else {
     res.send({ 'hasSession': 'No' });
   }

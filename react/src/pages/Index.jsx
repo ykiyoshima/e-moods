@@ -40,7 +40,9 @@ export const Index = () => {
     axios.get('/index', { withCredentials: true })
       .then(response => {
         const username = response.data.username;
-        if (username) {
+        if (response.data.hasSession === 'No') {
+          return;
+        } else if (response.data.hasSession === 'Yes') {
           document.getElementById('username').innerHTML = username;
         } else {
           document.getElementById('username').innerHTML = 'ゲスト';
