@@ -28,7 +28,7 @@ export const Index = () => {
   axios.get('/index', { withCredentials: true })
     .then((response) => {
       if (response.data.hasSession === 'No') {
-        document.getElementById('main').innerHTML = '<p class="pt-24">ご利用にはe-moodsへのログインが必要です</p><a href="/login" class="bg-green-500 rounded-lg w-48 py-2 px-4">ログイン</a>'
+        document.getElementById('main').innerHTML = '<p class="pt-24 pb-16">ご利用にはe-moodsへのログインが必要です</p><a href="/login" class="bg-green-500 rounded-lg w-48 py-2 px-4">ログイン</a>'
       }
     });
   window.onload = () => {

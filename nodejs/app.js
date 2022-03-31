@@ -159,7 +159,7 @@ app.post('/signup_confirm', (req, res) => {
             from: `e-moods <${CLIENT_EMAIL}>`,
             to: `e-moods <${email}>`,
             subject: `メールアドレスの確認 by e-moods`,
-            html: `<p>以下のリンクをクリックしてe-moodsへの新規登録を完了してください</p><p><a href="${link}">メールアドレスを確認しました</a></p>`
+            html: `<p>以下のリンクをクリックしてe-moodsへの新規登録を完了してください</p><p><a href="${link}">${link}</a></p>`
           };
 
           // Set up the email options and delivering it
@@ -168,7 +168,7 @@ app.post('/signup_confirm', (req, res) => {
               console.error(error);
             } else {
               console.log(`Email sent: ${info.response}`);
-              res.redirect('/send');
+              res.render('/send');
             }
           });
 
