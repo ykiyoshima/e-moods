@@ -23,7 +23,7 @@ export const Verify = ({ title }) => {
 
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
-      <h1 className="text-3xl font-bold pt-24 pb-16">{title}</h1>
+      <h1 className="text-3xl font-bold pt-24 pb-16">ユーザー情報入力</h1>
       <label htmlFor="username">ユーザー名</label><br/>
       <input type="text" required id="username" className="text-gray-900 rounded-md px-2 mb-4" /><br />
 
