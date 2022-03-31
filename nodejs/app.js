@@ -113,6 +113,15 @@ passport.deserializeUser(function(email, done) {
     });
 });
 
+const isAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) {  // 認証済
+        return next();
+    }
+    else {  // 認証されていない
+        res.redirect('/login');  // ログイン画面に遷移
+    }
+}
+
 app.post('/signup_confirm', (req, res, next) => {
   if (req.method === 'OPTIONS') {
     res.status(200).end();
@@ -298,13 +307,18 @@ app.get('/insert_emotions_and_tracks', (req, res) => {
     .catch(err => console.log(err));
 });
 
-app.get('*', (req, res) => {
-  console.log(req.user);
-  if (req.user) {
+app.get('/signup', (req, res) => {
+  res.redirect('/signup');
+});
+app.get('/spotify', (req, res) => {
+  res.redirect('/spotify');
+});
+app.get('/setting', (req, res) => {
+  res.redirect('/setting');
+});
+
+app.get('*', isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname,'./react/build/index.html'));
-  } else {
-    res.redirect('/login');
-  }
 });
 
 app.listen(app.get('port'), function() {
