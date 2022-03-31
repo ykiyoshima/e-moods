@@ -3,45 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 
-export const Index = async () => {
-  const token = async () => {
-    const response = await axios.get('/token', { withCredentials: true });
-    console.log(response);
-    return {
-      accessToken: response.data.accessToken,
-      tokenGetTime: response.data.tokenGetTime
-    }
-  };
-
-  window.onload = () => {
-    const refreshToken = async () => {
-      const accessToken = (await token()).accessToken;
-      const tokenGetTime = (await token()).tokenGetTime;
-      console.log(tokenGetTime);
-      if ((Date.now() - tokenGetTime) >= 3600000 || !tokenGetTime) {
-        const signin = () => {
-          const endpoint = 'https://accounts.spotify.com/authorize';
-          const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private'];
-          const params = new URLSearchParams();
-          params.append('client_id', process.env.REACT_APP_CLIENT_ID);
-          params.append('response_type', 'code');
-          params.append('redirect_uri', 'https://e-moods.herokuapp.com/get_token');
-          params.append('scope', scopes.join(' '));
-          params.append('state', 'state');
-          document.getElementById('signin_btn').innerHTML = '';
-          window.location.href = `${endpoint}?${params.toString()}`;
-        }
-        document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 rounded-lg w-48 py-2 px-4">Spotifyと連携</button>';
-        document.getElementById('signin').addEventListener('click', () => {
-          signin();
-        });
-      } else {
-        document.getElementById('signin_btn').innerHTML = '';
-      }
-    };
-    refreshToken();
-  }
-
+export const Index = () => {
   const style = {
     width: 200,
     height: 150,
@@ -63,14 +25,58 @@ export const Index = async () => {
   const file = acceptedFiles[0];
 
   let imageUrl;
+  axios.get('/index', { withCredentials: true })
+    .then((response) => {
+      if (response.data.hasSession === 'No') {
+        window.location.href = '/login';
+      }
+    });
+  window.onload = () => {
+    axios.get('/index', { withCredentials: true })
+      .then(response => {
+        const username = response.data.username;
+        if (username) {
+          document.getElementById('username').innerHTML = username;
+        } else {
+          document.getElementById('username').innerHTML = 'ゲスト';
+        }
+      });
+    refreshToken();
+  }
 
-  const response = await axios.get('/index', { withCredentials: true });
-  let username;
-  if (response.data.hasSession === 'No') {
-    window.location.href = '/login';
-    return;
-  } else {
-    username = response.data.username;
+  const token = async () => {
+    const response = await axios.get('/token', { withCredentials: true });
+    console.log(response);
+    return {
+      accessToken: response.data.accessToken,
+      tokenGetTime: response.data.tokenGetTime
+    }
+  };
+
+  const refreshToken = async () => {
+    const accessToken = (await token()).accessToken;
+    const tokenGetTime = (await token()).tokenGetTime;
+    console.log(tokenGetTime);
+    if ((Date.now() - tokenGetTime) >= 3600000 || !tokenGetTime) {
+      const signin = () => {
+        const endpoint = 'https://accounts.spotify.com/authorize';
+        const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private'];
+        const params = new URLSearchParams();
+        params.append('client_id', process.env.REACT_APP_CLIENT_ID);
+        params.append('response_type', 'code');
+        params.append('redirect_uri', 'https://e-moods.herokuapp.com/get_token');
+        params.append('scope', scopes.join(' '));
+        params.append('state', 'state');
+        document.getElementById('signin_btn').innerHTML = '';
+        window.location.href = `${endpoint}?${params.toString()}`;
+      }
+      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 rounded-lg w-48 py-2 px-4">Spotifyと連携</button>';
+      document.getElementById('signin').addEventListener('click', () => {
+        signin();
+      });
+    } else {
+      document.getElementById('signin_btn').innerHTML = '';
+    }
   }
 
   const startEmotionAnalysis = () => {
@@ -97,9 +103,9 @@ export const Index = async () => {
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <h1 className="text-5xl font-bold pt-24 pb-16">e-moods</h1>
-      <p>{ username ? <span>username</span> : <span>'ゲスト</span>}の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
+      <p><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
       <div id="signin_btn" className="my-8"></div>
-      <a href="/setting" className="bg-green-500 rounded-lg w-48 py-2 px-4">設定アーティスト変更</a>
+      <a href="/setting" className="bg-green-500 rounded-lg w-48 py-2 px-4 mb-8">設定アーティスト変更</a>
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
         <FontAwesomeIcon className="text-6xl mt-6 mb-4" icon={faImage} />
