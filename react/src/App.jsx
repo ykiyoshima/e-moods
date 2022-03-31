@@ -1,4 +1,5 @@
 import { Processes } from "./pages/Processes";
+import { Send } from "./pages/Send";
 import { Login } from "./pages/Login";
 import { Index } from "./pages/Index";
 import { Analysed } from "./pages/Analysed";
