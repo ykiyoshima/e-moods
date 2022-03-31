@@ -27,7 +27,13 @@ export const Index = async () => {
   let imageUrl;
 
   const response = await axios.get('/index', { withCredentials: true });
-  const username = response.data.username;
+  let username;
+  if (response.data.hasSession === 'No') {
+    window.location.href = '/login';
+    return;
+  } else {
+    username = response.data.username;
+  }
   refreshToken();
 
   const token = async () => {
@@ -89,7 +95,7 @@ export const Index = async () => {
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <h1 className="text-5xl font-bold pt-24 pb-16">e-moods</h1>
-      <p><span id="username">{ username ? username : 'ゲスト'}</span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
+      <p>{ username ? <span>username</span> : <span>'ゲスト</span>}の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
       <div id="signin_btn" className="my-8"></div>
       <a href="/setting" className="bg-green-500 rounded-lg w-48 py-2 px-4">設定アーティスト変更</a>
       <div {...getRootProps({ style })}>
