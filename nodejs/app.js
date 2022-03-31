@@ -124,8 +124,8 @@ app.post('/signup_confirm', (req, res) => {
     .where({ 'email': email })
     .then(async (result) => {
       if (result.length !== 0) {
-        res.send({message: 'このメールアドレスは既に使われています'});
-      } else if (password === repassword) {
+        res.send({ message: 'このメールアドレスは既に使われています' });
+      } else {
         req.session.email = email;
         const token = crypto.randomBytes(16).toString('hex');
         // const hashedToken = bcrypt.hash(token, 10);
@@ -141,8 +141,6 @@ app.post('/signup_confirm', (req, res) => {
             res.redirect('/send');
           }
         });
-      } else {
-        res.send({ message: 'パスワードが一致しません' });
       }
     })
     .catch((err) => {
