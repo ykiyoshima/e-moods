@@ -316,6 +316,9 @@ app.get('/spotify', (req, res) => {
 app.get('/setting', (req, res) => {
   res.redirect('/setting');
 });
+app.get('/login', (req, res) => {
+  res.redirect('/login');
+});
 
 app.get('*', isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname,'./react/build/index.html'));
