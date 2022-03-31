@@ -207,16 +207,17 @@ app.post('/signup_confirm', (req, res) => {
 
 app.post('/regist', async (req, res) => {
   const { username, password, token } = req.body;
-  if (token !== req.session.token) {
-    res.send({ status: 'NG', message: 'トークンエラー' });
+  if (token === req.session.token) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    myknex('users')
+      .insert({ 'username': username, 'email': req.session.email, 'password': hashedPassword, 'created_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })), 'updated_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })) })
+      .then(() => {
+        res.send({ status: 'OK' });
+      });
+  } else {
+    res.send({ status: 'NG' });
   }
-  const hashedPassword = await bcrypt.hash(password, 10);
-  myknex('users')
-    .insert({ 'username': username, 'email': req.session.email, 'password': hashedPassword, 'created_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })), 'updated_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })) })
-    .then(() => {
-      res.send({ status: 'OK' });
-    });
-});
+  });
 
 app.get('/first_get_token', async (req, res) => {
   const { code } = req.query;
