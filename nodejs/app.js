@@ -171,7 +171,7 @@ app.post('/signup_confirm', (req, res) => {
             }
           });
 
-          res.redirect('/send');
+          res.location('https://e-moods.herokuapp.com/send');
 
         } catch (error) {
           console.log(error);
