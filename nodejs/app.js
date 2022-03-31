@@ -28,11 +28,11 @@ const faceClient = new FaceClient(cognitiveServiceCredentials, faceEndPoint);
 
 // 認証情報
 const auth = {
-  type         : 'OAuth2',
-  user         : process.env.EMAIL,
-  clientId     : process.env.EMAIL_CLIENT_ID,
-  clientSecret : process.env.EMAIL_CLIENT_SECRET,
-  refreshToken : process.env.EMAIL_REFRESH_TOKEN
+  type: 'OAuth2',
+  user: process.env.EMAIL,
+  clientId: process.env.EMAIL_CLIENT_ID,
+  clientSecret: process.env.EMAIL_CLIENT_SECRET,
+  refreshToken: process.env.EMAIL_REFRESH_TOKEN
 };
 // トランスポート
 const transport = {
@@ -137,15 +137,16 @@ app.post('/signup_confirm', (req, res) => {
 
         // メッセージ
         const message = {
-          from    : process.env.EMAIL,
-          to      : email,
-          subject : 'メールアドレスの確認 from e-moods',
-          html    : `<p>以下のリンクをクリックしてe-moodsへの新規登録を完了してください</p><p><a href="${link}">メールアドレスを確認しました</a></p>`
+          from: process.env.EMAIL,
+          to: email,
+          subject: 'メールアドレスの確認 from e-moods',
+          html: `<p>以下のリンクをクリックしてe-moodsへの新規登録を完了してください</p><p><a href="${link}">メールアドレスを確認しました</a></p>`
         };
 
         transporter.sendMail(message, function (err, response) {
           if (err) {
             console.log(err);
+            res.end();
           } else {
             console.log('Message sent: ' + info.accepted);
             res.redirect('/send');
