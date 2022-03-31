@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const Signup = ({ title }) => {
-  const execSignup = async () => {
+  const execSignup = () => {
     const email = document.getElementById('email').value;
     if (!(email)) {
       document.getElementById('message').innerHTML = '未入力の項目があります';
@@ -11,10 +11,7 @@ export const Signup = ({ title }) => {
         email: email,
       };
 
-      const response = await axios.post('/signup_confirm', data);
-      if (response.data?.message) {
-        document.getElementById('message').innerHTML = response.data.message;
-      }
+      axios.post('/signup_confirm', data);
     }
   };
 
