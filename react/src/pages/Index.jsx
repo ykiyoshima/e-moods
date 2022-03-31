@@ -28,7 +28,7 @@ export const Index = () => {
   axios.get('/index', { withCredentials: true })
     .then((response) => {
       if (response.data.hasSession === 'No') {
-        window.location.href = '/login';
+        document.getElementById('main').innerHTML = '<p class="pt-24">ご利用にはe-moodsへのログインが必要です</p><a href="/login" class="bg-green-500 rounded-lg w-48 py-2 px-4">ログイン</a>'
       }
     });
   window.onload = () => {
@@ -105,7 +105,7 @@ export const Index = () => {
       <h1 className="text-5xl font-bold pt-24 pb-16">e-moods</h1>
       <p><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
       <div id="signin_btn" className="my-8"></div>
-      <a href="/setting" className="bg-green-500 rounded-lg w-48 py-2 px-4 mb-8">設定アーティスト変更</a>
+      <a href="/setting" className="bg-green-500 rounded-lg w-48 py-2 px-4">設定アーティスト変更</a>
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
         <FontAwesomeIcon className="text-6xl mt-6 mb-4" icon={faImage} />
