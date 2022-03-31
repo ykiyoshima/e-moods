@@ -55,18 +55,24 @@ async function sendMail(email, link) {
     // Create the email options and body
     // ('email': user's email and 'name': is the e-book the user wants to receive)
     const mailOptions = {
-      from: process.env.EMAIL,
-      to: email,
+      from: `Nodemailer <${process.env.EMAIL}>`,
+      to: `Nodemailer <${email}>`,
       subject: `メールアドレスの確認 by e-moods`,
       html: `<p>以下のリンクをクリックしてe-moodsへの新規登録を完了してください</p><p><a href="${link}">メールアドレスを確認しました</a></p>`
     };
 
     // Set up the email options and delivering it
-    const result = await transport.sendMail(mailOptions);
-    return result;
+    transport.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.error(error);
+      } else {
+        console.log(`Email sent: ${info.response}`);
+        res.redirect('/send');
+      }
+    });
 
   } catch (error) {
-    return error;
+    console.log(error);
   }
 }
 
@@ -163,9 +169,7 @@ app.post('/signup_confirm', (req, res) => {
 
         const link = `http://e-moods.herokuapp.com/verify?token=${token}`;
 
-        sendMail(email, link)
-          .then((result) => res.render('/send'))
-          .catch((error) => res.send({ message: error.message }));
+        sendMail(email, link);
       }
     })
     .catch((err) => {
