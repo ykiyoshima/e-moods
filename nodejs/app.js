@@ -56,7 +56,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(fileUpload());
-app.use(express.static(path.join(__dirname, './react/public')));
+app.use(express.static(path.join(__dirname, './react/build')));
 app.use(flash());
 
 const sess = {
@@ -301,7 +301,7 @@ app.get('/insert_emotions_and_tracks', (req, res) => {
 app.get('*', (req, res) => {
   console.log(req.user);
   if (req.user) {
-    res.sendFile(path.join(__dirname,'./react/public/index.html'));
+    res.sendFile(path.join(__dirname,'./react/build/index.html'));
   } else {
     res.redirect('/login');
   }
