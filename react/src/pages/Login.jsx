@@ -10,6 +10,8 @@ export const Login = () => {
     console.log(response);
     if (response.data.status === 'OK') {
       window.location.href = '/';
+    } else if (response.data.status === 'NG') {
+      window.location.href = '/spotify';
     } else {
       document.getElementById('message').innerHTML = response.data.message;
     }
