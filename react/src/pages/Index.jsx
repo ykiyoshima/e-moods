@@ -12,7 +12,7 @@ export const Index = async () => {
       tokenGetTime: response.data.tokenGetTime
     }
   };
-  
+
   const refreshToken = async () => {
     const accessToken = (await token()).accessToken;
     const tokenGetTime = (await token()).tokenGetTime;
@@ -37,6 +37,10 @@ export const Index = async () => {
     } else {
       document.getElementById('signin_btn').innerHTML = '';
     }
+  };
+
+  window.onload = () => {
+    refreshToken();
   }
 
   const style = {
