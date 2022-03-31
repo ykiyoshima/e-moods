@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 
 export const Index = () => {
-  let hasSession;
+  let hasSession = true;
   axios.get('/index', { withCredentials: true })
     .then((response) => {
       if (response.data.hasSession === 'No') {
