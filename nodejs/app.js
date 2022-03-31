@@ -8,12 +8,15 @@ import knexfile from "./knexfile.js";
 import session from "express-session";
 import passport from "passport";
 import local from "passport-local";
+import magic from "passport-magic-link";
 import axios from "axios";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 import { FaceClient } from "@azure/cognitiveservices-face";
 import { CognitiveServicesCredentials } from "@azure/ms-rest-azure-js";
+import nodemailer from "nodemailer";
+import crypto from "crypto";
 
 
 dotenv.config();
@@ -23,10 +26,23 @@ const faceEndPoint = process.env.FACE_ENDPOINT; //個人のEndPoint
 const cognitiveServiceCredentials = new CognitiveServicesCredentials(faceKey);
 const faceClient = new FaceClient(cognitiveServiceCredentials, faceEndPoint);
 
+// メール送信設定
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: process.env.EMAIL, // Gmailアドレス
+    pass: process.env.EMAIL_PASSWORD // Googleアカウントのパスワード
+  }
+});
+const mailOptions = {
+  from: process.env.EMAIL,
+  subject: 'メールアドレスの確認 from e-moods'
+};
+
 const app = express();
 app.set("trust proxy", 1);
 
-let sessionUsername, sessionEmail, sessionPassword;
+let tmpUsername, tmpEmail, tmpPassword, tmpRepassword, tmpToken;
 
 const corsOptions = {
   origin: 'https://e-moods.herokuapp.com',
@@ -75,7 +91,7 @@ passport.use(new LocalStrategy(
         return done(null, user);
       });
   } catch (err) {
-    done(err)
+    return done(err);
   }
 }));
 
@@ -102,26 +118,47 @@ app.post('/signup_confirm', (req, res, next) => {
     res.status(200).end();
   }
   const { username, email, password , repassword} = req.body;
-  myknex('users')
-    .where({email: email})
-    .select('*')
-    .then(async (result) => {
-      if (result.length !== 0) {
-        res.send({message: 'このメールアドレスは既に使われています'});
-      } else if (password === repassword) {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        sessionUsername = username;
-        sessionEmail = email;
-        sessionPassword = hashedPassword;
-        res.send({ status: 'OK' });
-      } else {
-        res.json({ message: 'パスワードが一致しません' });
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.json({message: [err.sqlMessage]});
-    });
+  const token = crypto.randomBytes(16).toString('hex');
+  const hashedToken = bcrypt.hash(token, 10);
+
+  tmpUsername = username;
+  tmpEmail = email;
+  tmpPassword = password;
+  tmpRepassword = repassword;
+  tmpToken = hashedToken;
+
+  const link = `http://e-moods.herokuapp.com/verify?token=${token}`;
+  mailOptions.to = user.email;
+  mailOptions.html = `<p>以下のリンクをクリックしてe-moodsへの新規登録を完了してください</p><p><a href="${link}">メールアドレスを確認しました</a></p>`;
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('Message sent: ' + info.accepted);
+      res.render('/send');
+    }
+  });
+
+  // myknex('users')
+  //   .where({email: email})
+  //   .select('*')
+  //   .then(async (result) => {
+  //     if (result.length !== 0) {
+  //       res.send({message: 'このメールアドレスは既に使われています'});
+  //     } else if (password === repassword) {
+  //       const hashedPassword = await bcrypt.hash(password, 10);
+  //       sessionUsername = username;
+  //       sessionEmail = email;
+  //       sessionPassword = hashedPassword;
+  //       res.send({ status: 'OK' });
+  //     } else {
+  //       res.json({ message: 'パスワードが一致しません' });
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     console.error(err);
+  //     res.json({message: [err.sqlMessage]});
+  //   });
 });
 
 app.post('/regist', (req, res, next) => {
@@ -262,7 +299,11 @@ app.get('/insert_emotions_and_tracks', (req, res) => {
 });
 
 app.get('*', (req, res) => {
+  if (req.user) {
     res.sendFile(path.join(__dirname,'./react/build/index.html'));
+  } else {
+    res.redirect('/login');
+  }
 });
 
 app.listen(app.get('port'), function() {

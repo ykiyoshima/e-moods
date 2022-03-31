@@ -25,12 +25,7 @@ export const Index = () => {
   const file = acceptedFiles[0];
 
   let imageUrl;
-  axios.get('/index', { withCredentials: true })
-    .then((response) => {
-      if (response.data.hasSession === 'No') {
-        window.location.href = '/login';
-      }
-    });
+  
   window.onload = () => {
     axios.get('/index', { withCredentials: true })
       .then(response => {

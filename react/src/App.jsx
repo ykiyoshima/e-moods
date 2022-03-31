@@ -15,6 +15,7 @@ const App = () => {
         <Route path="/spotify" element={<Processes process={processes[1]} />} />
         <Route path="/setting" element={<Processes process={processes[2]} />} />
         <Route path="/finish" element={<Processes process={processes[3]} />} />
+        <Route path="/send" element={<Send />} />
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Index />} />
         <Route path="/analysed" element={<Analysed />} />
