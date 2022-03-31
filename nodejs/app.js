@@ -168,14 +168,13 @@ app.post('/signup_confirm', (req, res) => {
               console.error(error);
             } else {
               console.log(`Email sent: ${info.response}`);
+              res.send({ 'status': 'OK' });
             }
           });
 
-          res.location('https://e-moods.herokuapp.com/send');
-
         } catch (error) {
           console.log(error);
-          res.end()
+          res.send({ 'status': 'NG', 'message': error });
         }
       }
     })
