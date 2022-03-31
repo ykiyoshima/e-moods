@@ -72,7 +72,6 @@ export const Index = async () => {
   } else {
     username = response.data.username;
   }
-  refreshToken();
 
   const startEmotionAnalysis = () => {
     if (!file) {
