@@ -93,7 +93,7 @@ export const Selected = () => {
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <h1 className="text-3xl font-bold pt-24 pb-16">選曲完了</h1>
       <p>あなたにピッタリな曲をご用意しました！</p>
-      <div id="playlist_result" className="w-3/4 my-8 mx-auto flex justify-center"></div>
+      <div id="playlist_result" className="w-3/4 my-8 mx-auto flex overflow-scroll"></div>
       <div id="signin_btn"></div>
       <div id="caution"></div>
       <input type="text" id="playlist_name" className="text-gray-900 rounded-md px-2" placeholder="プレイリスト名" /><br/>
