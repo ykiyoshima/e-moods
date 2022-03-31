@@ -12,8 +12,8 @@ export const Signup = ({ title }) => {
       };
 
       const response = await axios.post('/signup_confirm', data);
-      if (response) {
-        document.getElementById('message').innerHTML = response.data;
+      if (response.data?.message) {
+        document.getElementById('message').innerHTML = response.data.message;
       }
     }
   };

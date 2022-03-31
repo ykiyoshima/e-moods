@@ -165,7 +165,7 @@ app.post('/signup_confirm', (req, res) => {
 
         sendMail(email, link)
           .then((result) => res.redirect('/send'))
-          .catch((error) => res.send(error.message));
+          .catch((error) => res.send({ message: error.message }));
       }
     })
     .catch((err) => {
