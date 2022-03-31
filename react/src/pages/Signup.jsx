@@ -3,15 +3,12 @@ import axios from "axios";
 export const Signup = ({ title }) => {
   const execSignup = async () => {
     const email = document.getElementById('email').value;
-    if (!(username && email && password && repassword)) {
+    if (!(email)) {
       document.getElementById('message').innerHTML = '未入力の項目があります';
       return;
     } else {
       const data = {
-        username: username,
         email: email,
-        password: password,
-        repassword: repassword
       };
 
       const response = await axios.post('/signup_confirm', data);
