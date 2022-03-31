@@ -170,7 +170,7 @@ app.post('/signup_confirm', (req, res) => {
   //   });
 });
 
-app.post('/regist', (req, res) => {
+app.post('/regist', async (req, res) => {
   const { username, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
   myknex('users')
