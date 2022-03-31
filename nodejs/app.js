@@ -219,6 +219,17 @@ app.post('/regist', async (req, res) => {
   }
   });
 
+app.post('/favorite', (req, res) => {
+  const { ids } = req.body;
+  myknex('users')
+    .select('*')
+    .where({ 'email': req.user.email })
+    .update({ 'favorite_id_1': ids[0], 'favorite_id_2': ids[1], 'favorite_id_3': ids[2], 'favorite_id_4': ids[3], 'favorite_id_5': ids[4] })
+    .then(() => {
+      res.send({ status: 'OK' });
+    });
+});
+
 app.get('/first_get_token', async (req, res) => {
   const { code } = req.query;
   const params = new URLSearchParams();
