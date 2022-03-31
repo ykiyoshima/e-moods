@@ -17,6 +17,7 @@ import { FaceClient } from "@azure/cognitiveservices-face";
 import { CognitiveServicesCredentials } from "@azure/ms-rest-azure-js";
 import nodemailer from "nodemailer";
 import crypto from "crypto";
+import { google } from "googleapis";
 
 
 dotenv.config();
@@ -26,21 +27,55 @@ const faceEndPoint = process.env.FACE_ENDPOINT; //個人のEndPoint
 const cognitiveServiceCredentials = new CognitiveServicesCredentials(faceKey);
 const faceClient = new FaceClient(cognitiveServiceCredentials, faceEndPoint);
 
-// 認証情報
-const auth = {
-  type: 'OAuth2',
-  user: process.env.EMAIL,
-  clientId: process.env.EMAIL_CLIENT_ID,
-  clientSecret: process.env.EMAIL_CLIENT_SECRET,
-  refreshToken: process.env.EMAIL_REFRESH_TOKEN
-};
-// トランスポート
-const transport = {
-  service : 'gmail',
-  auth    : auth
-};
+async function sendMail(email) {
+  const OAuth2Client = new google.auth.OAuth2(
+    process.env.EMAIL_CLIENT_ID,
+    process.env.EMAIL_CLIENT_SECRET,
+    process.env.EMAIL_REDIRECT_URI,
+  );
 
-const transporter = nodemailer.createTransport(transport);
+  OAuth2Client.setCredentials({ refresh_token: process.env.EMAIL_REFRESH_TOKEN });
+  try {
+    // Generate the accessToken on the fly
+    const accessToken = await OAuth2Client.getAccessToken();
+
+   // Create the email envelope (transport)
+    const transport = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        type: 'OAuth2',
+        user: process.env.EMAIL,
+        clientId: process.env.EMAIL_CLIENT_ID,
+        clientSecret: process.env.EMAIL_CLIENT_SECRET,
+        refreshToken: process.env.EMAIL_REFRESH_TOKEN,
+        accessToken: accessToken,
+      },
+    });
+
+    // Create the email options and body
+    // ('email': user's email and 'name': is the e-book the user wants to receive)
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: email,
+      subject: `メールアドレスの確認 by e-moods`,
+      html: `<p>以下のリンクをクリックしてe-moodsへの新規登録を完了してください</p><p><a href="${link}">メールアドレスを確認しました</a></p>`
+    };
+
+    // Set up the email options and delivering it
+    transport.sendMail(message, function (err, info) {
+      if (err) {
+        console.log(err);
+        res.end();
+      } else {
+        console.log('Message sent: ' + info.accepted);
+        res.redirect('/send');
+      }
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 const app = express();
 app.set("trust proxy", 1);
@@ -135,24 +170,7 @@ app.post('/signup_confirm', (req, res) => {
 
         const link = `http://e-moods.herokuapp.com/verify?token=${token}`;
 
-        // メッセージ
-        const message = {
-          from: process.env.EMAIL,
-          to: email,
-          subject: 'メールアドレスの確認 from e-moods',
-          html: `<p>以下のリンクをクリックしてe-moodsへの新規登録を完了してください</p><p><a href="${link}">メールアドレスを確認しました</a></p>`
-        };
-
-        transporter.sendMail(message, function (err, response) {
-          if (err) {
-            console.log(err);
-            res.end();
-          } else {
-            console.log('Message sent: ' + info.accepted);
-            res.redirect('/send');
-          }
-        });
-
+        sendMail(email);
       }
     })
     .catch((err) => {
