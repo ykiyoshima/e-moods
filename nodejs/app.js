@@ -26,18 +26,21 @@ const faceEndPoint = process.env.FACE_ENDPOINT; //個人のEndPoint
 const cognitiveServiceCredentials = new CognitiveServicesCredentials(faceKey);
 const faceClient = new FaceClient(cognitiveServiceCredentials, faceEndPoint);
 
-// メール送信設定
-const transporter = nodemailer.createTransport({
-  service: 'Gmail',
-  auth: {
-    user: process.env.EMAIL, // Gmailアドレス
-    pass: process.env.EMAIL_PASSWORD // Googleアカウントのパスワード
-  }
-});
-const mailOptions = {
-  from: process.env.EMAIL,
-  subject: 'メールアドレスの確認 from e-moods'
+// 認証情報
+const auth = {
+  type         : 'OAuth2',
+  user         : process.env.EMAIL,
+  clientId     : process.env.EMAIL_CLIENT_ID,
+  clientSecret : process.env.EMAIL_CLIENT_SECRET,
+  refreshToken : process.env.EMAIL_REFRESH_TOKEN
 };
+// トランスポート
+const transport = {
+  service : 'gmail',
+  auth    : auth
+};
+
+const transporter = nodemailer.createTransport(transport);
 
 const app = express();
 app.set("trust proxy", 1);
@@ -131,9 +134,16 @@ app.post('/signup_confirm', (req, res) => {
         // const hashedToken = bcrypt.hash(token, 10);
 
         const link = `http://e-moods.herokuapp.com/verify?token=${token}`;
-        mailOptions.to = email;
-        mailOptions.html = `<p>以下のリンクをクリックしてe-moodsへの新規登録を完了してください</p><p><a href="${link}">メールアドレスを確認しました</a></p>`;
-        transporter.sendMail(mailOptions, (err, info) => {
+
+        // メッセージ
+        const message = {
+          from    : process.env.EMAIL,
+          to      : email,
+          subject : 'メールアドレスの確認 from e-moods',
+          html    : `<p>以下のリンクをクリックしてe-moodsへの新規登録を完了してください</p><p><a href="${link}">メールアドレスを確認しました</a></p>`
+        };
+
+        transporter.sendMail(message, function (err, response) {
           if (err) {
             console.log(err);
           } else {
@@ -141,6 +151,7 @@ app.post('/signup_confirm', (req, res) => {
             res.redirect('/send');
           }
         });
+
       }
     })
     .catch((err) => {
