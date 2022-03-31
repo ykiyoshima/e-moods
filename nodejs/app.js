@@ -221,6 +221,8 @@ app.post('/regist', async (req, res) => {
 
 app.post('/favorite', (req, res) => {
   const { ids } = req.body;
+  console.log(ids);
+  
   myknex('users')
     .select('*')
     .where({ 'email': req.user.email })
