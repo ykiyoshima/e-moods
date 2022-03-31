@@ -4,6 +4,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 
 export const Index = async () => {
+  const token = async () => {
+    const response = await axios.get('/token', { withCredentials: true });
+    console.log(response);
+    return {
+      accessToken: response.data.accessToken,
+      tokenGetTime: response.data.tokenGetTime
+    }
+  };
+  
   const refreshToken = async () => {
     const accessToken = (await token()).accessToken;
     const tokenGetTime = (await token()).tokenGetTime;
@@ -29,7 +38,7 @@ export const Index = async () => {
       document.getElementById('signin_btn').innerHTML = '';
     }
   }
-  
+
   const style = {
     width: 200,
     height: 150,
@@ -61,15 +70,6 @@ export const Index = async () => {
     username = response.data.username;
   }
   refreshToken();
-
-  const token = async () => {
-    const response = await axios.get('/token', { withCredentials: true });
-    console.log(response);
-    return {
-      accessToken: response.data.accessToken,
-      tokenGetTime: response.data.tokenGetTime
-    }
-  };
 
   const startEmotionAnalysis = () => {
     if (!file) {
