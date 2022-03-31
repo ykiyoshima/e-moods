@@ -27,7 +27,7 @@ const faceEndPoint = process.env.FACE_ENDPOINT; //個人のEndPoint
 const cognitiveServiceCredentials = new CognitiveServicesCredentials(faceKey);
 const faceClient = new FaceClient(cognitiveServiceCredentials, faceEndPoint);
 
-async function sendMail(email) {
+async function sendMail(email, link) {
   const OAuth2Client = new google.auth.OAuth2(
     process.env.EMAIL_CLIENT_ID,
     process.env.EMAIL_CLIENT_SECRET,
@@ -62,18 +62,11 @@ async function sendMail(email) {
     };
 
     // Set up the email options and delivering it
-    transport.sendMail(message, function (err, info) {
-      if (err) {
-        console.log(err);
-        res.end();
-      } else {
-        console.log('Message sent: ' + info.accepted);
-        res.redirect('/send');
-      }
-    });
+    const result = await transport.sendMail(mailOptions);
+    return result;
 
   } catch (error) {
-    console.log(error);
+    return error;
   }
 }
 
@@ -170,7 +163,9 @@ app.post('/signup_confirm', (req, res) => {
 
         const link = `http://e-moods.herokuapp.com/verify?token=${token}`;
 
-        sendMail(email);
+        sendMail(email, link)
+          .then((result) => res.json(result))
+          .catch((error) => res.json(error.message));
       }
     })
     .catch((err) => {
