@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 
-export const Index = () => {
+export const Index = async () => {
   const style = {
     width: 200,
     height: 150,
@@ -25,19 +25,10 @@ export const Index = () => {
   const file = acceptedFiles[0];
 
   let imageUrl;
-  
-  window.onload = () => {
-    axios.get('/index', { withCredentials: true })
-      .then(response => {
-        const username = response.data.username;
-        if (username) {
-          document.getElementById('username').innerHTML = username;
-        } else {
-          document.getElementById('username').innerHTML = 'ゲスト';
-        }
-      });
-    refreshToken();
-  }
+
+  const response = await axios.get('/index', { withCredentials: true });
+  const username = response.data.username;
+  refreshToken();
 
   const token = async () => {
     const response = await axios.get('/token', { withCredentials: true });
@@ -98,7 +89,7 @@ export const Index = () => {
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <h1 className="text-5xl font-bold pt-24 pb-16">e-moods</h1>
-      <p><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
+      <p><span id="username">{ username ? username : 'ゲスト'}</span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
       <div id="signin_btn" className="my-8"></div>
       <a href="/setting" className="bg-green-500 rounded-lg w-48 py-2 px-4">設定アーティスト変更</a>
       <div {...getRootProps({ style })}>

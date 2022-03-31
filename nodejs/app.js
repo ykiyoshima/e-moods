@@ -113,16 +113,6 @@ passport.deserializeUser(function(email, done) {
     });
 });
 
-const isAuthenticated = (req, res, next) => {
-  console.log(req.isAuthenticated());
-    if (req.isAuthenticated()) {  // 認証済
-        return next();
-    }
-    else {  // 認証されていない
-        res.redirect('/login');  // ログイン画面に遷移
-    }
-}
-
 app.post('/signup_confirm', (req, res, next) => {
   if (req.method === 'OPTIONS') {
     res.status(200).end();
@@ -306,19 +296,6 @@ app.get('/insert_emotions_and_tracks', (req, res) => {
       res.end();
     })
     .catch(err => console.log(err));
-});
-
-app.get('/', isAuthenticated, (req, res) => {
-  res.sendFile(path.join(__dirname,'./react/build/index.html'));
-});
-app.get('/analysed', isAuthenticated, (req, res) => {
-  res.sendFile(path.join(__dirname,'./react/build/index.html'));
-});
-app.get('/selected', (req, res) => {
-  res.sendFile(path.join(__dirname,'./react/build/index.html'));
-});
-app.get('/imported', isAuthenticated, (req, res) => {
-  res.sendFile(path.join(__dirname,'./react/build/index.html'));
 });
 
 app.get('*', (req, res) => {
