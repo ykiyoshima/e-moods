@@ -60,8 +60,8 @@ async function sendMail(email, link) {
     // Create the email options and body
     // ('email': user's email and 'name': is the e-book the user wants to receive)
     const mailOptions = {
-      from: `Nodemailer <${CLIENT_EMAIL}>`,
-      to: `Nodemailer <${email}>`,
+      from: `e-moods <${CLIENT_EMAIL}>`,
+      to: `e-moods <${email}>`,
       subject: `メールアドレスの確認 by e-moods`,
       html: `<p>以下のリンクをクリックしてe-moodsへの新規登録を完了してください</p><p><a href="${link}">メールアドレスを確認しました</a></p>`
     };
