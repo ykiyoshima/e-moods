@@ -166,10 +166,10 @@ app.post('/signup_confirm', (req, res) => {
           transport.sendMail(mailOptions, function (error, info) {
             if (error) {
               console.error(error);
+              return res.end();
             } else {
               console.log(`Email sent: ${info.response}`);
-              res.writeHead(301, { Location: "/send" });
-              res.end();
+              return res.redirect(302, '/send');
             }
           });
 
