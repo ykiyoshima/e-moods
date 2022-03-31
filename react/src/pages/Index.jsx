@@ -13,33 +13,32 @@ export const Index = async () => {
     }
   };
 
-  const refreshToken = async () => {
-    const accessToken = (await token()).accessToken;
-    const tokenGetTime = (await token()).tokenGetTime;
-    console.log(tokenGetTime);
-    if ((Date.now() - tokenGetTime) >= 3600000 || !tokenGetTime) {
-      const signin = () => {
-        const endpoint = 'https://accounts.spotify.com/authorize';
-        const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private'];
-        const params = new URLSearchParams();
-        params.append('client_id', process.env.REACT_APP_CLIENT_ID);
-        params.append('response_type', 'code');
-        params.append('redirect_uri', 'https://e-moods.herokuapp.com/get_token');
-        params.append('scope', scopes.join(' '));
-        params.append('state', 'state');
-        document.getElementById('signin_btn').innerHTML = '';
-        window.location.href = `${endpoint}?${params.toString()}`;
-      }
-      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 rounded-lg w-48 py-2 px-4">Spotifyと連携</button>';
-      document.getElementById('signin').addEventListener('click', () => {
-        signin();
-      });
-    } else {
-      document.getElementById('signin_btn').innerHTML = '';
-    }
-  };
-
   window.onload = () => {
+    const refreshToken = async () => {
+      const accessToken = (await token()).accessToken;
+      const tokenGetTime = (await token()).tokenGetTime;
+      console.log(tokenGetTime);
+      if ((Date.now() - tokenGetTime) >= 3600000 || !tokenGetTime) {
+        const signin = () => {
+          const endpoint = 'https://accounts.spotify.com/authorize';
+          const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private'];
+          const params = new URLSearchParams();
+          params.append('client_id', process.env.REACT_APP_CLIENT_ID);
+          params.append('response_type', 'code');
+          params.append('redirect_uri', 'https://e-moods.herokuapp.com/get_token');
+          params.append('scope', scopes.join(' '));
+          params.append('state', 'state');
+          document.getElementById('signin_btn').innerHTML = '';
+          window.location.href = `${endpoint}?${params.toString()}`;
+        }
+        document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 rounded-lg w-48 py-2 px-4">Spotifyと連携</button>';
+        document.getElementById('signin').addEventListener('click', () => {
+          signin();
+        });
+      } else {
+        document.getElementById('signin_btn').innerHTML = '';
+      }
+    };
     refreshToken();
   }
 
