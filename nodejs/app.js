@@ -120,9 +120,9 @@ app.post('/signup_confirm', (req, res) => {
       } else {
         req.session.email = email;
         const token = crypto.randomBytes(16).toString('hex');
-        // const hashedToken = bcrypt.hash(token, 10);
+        req.session.token = token;
 
-        const link = `http://e-moods.herokuapp.com/verify?token=${token}`;
+        const link = `https://e-moods.herokuapp.com/verify?token=${token}`;
 
         const CLIENT_ID = process.env.EMAIL_CLIENT_ID;
         const CLIENT_SECRET = process.env.EMAIL_CLIENT_SECRET;
@@ -206,12 +206,15 @@ app.post('/signup_confirm', (req, res) => {
 });
 
 app.post('/regist', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, token } = req.body;
+  if (token === req.session.token) {
+    res.send({ status: 'NG', message: 'トークンエラー' });
+  }
   const hashedPassword = await bcrypt.hash(password, 10);
   myknex('users')
     .insert({ 'username': username, 'email': req.session.email, 'password': hashedPassword, 'created_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })), 'updated_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })) })
     .then(() => {
-      res.redirect('/finish');
+      res.send({ status: 'OK' });
     });
 });
 

@@ -1,7 +1,11 @@
 import axios from "axios";
 
-export const Verify = ({ title }) => {
+export const Verify = () => {
   const execRegist = async () => {
+    const url = new URL(window.location.href);
+    const params = url.searchParams;
+    const token = params.get('token');
+
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const repassword = document.getElementById('repassword').value;
@@ -10,14 +14,21 @@ export const Verify = ({ title }) => {
       return;
     } else if (password !== repassword) {
       document.getElementById('message').innerHTML = 'パスワードが一致していません';
+      return;
     } else {
       document.getElementById('main').innerHTML = '<p class="pt-24">登録中...</p>';
       const data = {
         username: username,
-        password: password
+        password: password,
+        token: token
       };
 
-      await axios.post('/regist', data);
+      const response = await axios.post('/regist', data);
+      if (response.data.status === 'OK') {
+        window.location.href = '/finish';
+      } else {
+        document.getElementById('main').innerHTML = '<p class="pt-24">トークンエラーにより登録が失敗しました</p>';
+      }
     }
   };
 
