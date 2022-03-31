@@ -207,9 +207,7 @@ app.post('/signup_confirm', (req, res) => {
 
 app.post('/regist', async (req, res) => {
   const { username, password, token } = req.body;
-  console.log(token);
-  console.log(req.session.token);
-  if (token === req.session.token) {
+  if (token !== req.session.token) {
     res.send({ status: 'NG', message: 'トークンエラー' });
   }
   const hashedPassword = await bcrypt.hash(password, 10);
