@@ -4,6 +4,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 
 export const Index = () => {
+  let hasSession;
+  axios.get('/index', { withCredentials: true })
+    .then((response) => {
+      if (response.data.hasSession === 'No') {
+        hasSession = false;
+      } else {
+        hasSession = true;
+      }
+    });
+
   const style = {
     width: 200,
     height: 150,
@@ -25,12 +35,7 @@ export const Index = () => {
   const file = acceptedFiles[0];
 
   let imageUrl;
-  axios.get('/index', { withCredentials: true })
-    .then((response) => {
-      if (response.data.hasSession === 'No') {
-        document.getElementById('main').innerHTML = '<p class="pt-24 pb-16">ご利用にはe-moodsへのログインが必要です</p><a href="/login" class="bg-green-500 rounded-lg w-48 py-2 px-4">ログイン</a>'
-      }
-    });
+
   window.onload = () => {
     axios.get('/index', { withCredentials: true })
       .then(response => {
@@ -102,22 +107,31 @@ export const Index = () => {
 
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
-      <h1 className="text-5xl font-bold pt-24 pb-16">e-moods</h1>
-      <p><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
-      <div id="signin_btn" className="my-8"></div>
-      <a href="/setting" className="bg-green-500 rounded-lg w-48 py-2 px-4">設定アーティスト変更</a>
-      <div {...getRootProps({ style })}>
-        <input {...getInputProps()} />
-        <FontAwesomeIcon className="text-6xl mt-6 mb-4" icon={faImage} />
-        {
-          isDragActive ?
-            <p className="w-full h-full m-auto">Drop</p> :
-            <p className="w-full h-full m-auto">Drag & Drop or Click</p>
-        }
-      </div>
-      <div id="image_area" className="my-8 w-full"></div>
-      <button id="make_recommendations" className="bg-green-500 rounded-lg w-48 py-2 px-4" onClick={() => startEmotionAnalysis()}>感情分析を開始</button><br/><br/>
-      <div id="message"></div>
+      {
+        hasSession ?
+          <div>
+            <h1 className="text-5xl font-bold pt-24 pb-16">e-moods</h1>
+            <p><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
+            <div id="signin_btn" className="my-8"></div>
+            <a href="/setting" className="bg-green-500 rounded-lg w-48 py-2 px-4">設定アーティスト変更</a>
+            <div {...getRootProps({ style })}>
+              <input {...getInputProps()} />
+              <FontAwesomeIcon className="text-6xl mt-6 mb-4" icon={faImage} />
+              {
+                isDragActive ?
+                  <p className="w-full h-full m-auto">Drop</p> :
+                  <p className="w-full h-full m-auto">Drag & Drop or Click</p>
+              }
+            </div>
+            <div id="image_area" className="my-8 w-full"></div>
+            <button id="make_recommendations" className="bg-green-500 rounded-lg w-48 py-2 px-4" onClick={() => startEmotionAnalysis()}>感情分析を開始</button><br/><br/>
+            <div id="message"></div>
+          </div> :
+          <div>
+            <p className="pt-24 pb-16">e-moodsへログインしてください</p>
+            <a href="/login" className="bg-green-500 rounded-lg w-48 py-2 px-4">ログインページへ</a>
+          </div>
+      }
     </div>
   );
 };
