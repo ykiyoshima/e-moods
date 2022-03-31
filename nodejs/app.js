@@ -299,6 +299,7 @@ app.get('/insert_emotions_and_tracks', (req, res) => {
 });
 
 app.get('*', (req, res) => {
+  console.log(req.user);
   if (req.user) {
     res.sendFile(path.join(__dirname,'./react/build/index.html'));
   } else {
