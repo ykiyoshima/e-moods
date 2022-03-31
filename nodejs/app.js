@@ -222,11 +222,11 @@ app.post('/regist', async (req, res) => {
 app.post('/favorite', (req, res) => {
   const { ids } = req.body;
   console.log(ids);
-  
+
   myknex('users')
     .select('*')
-    .where({ 'email': req.user.email })
-    .update({ 'favorite_id_1': ids[0], 'favorite_id_2': ids[1], 'favorite_id_3': ids[2], 'favorite_id_4': ids[3], 'favorite_id_5': ids[4] })
+    .where({ 'email': req.user[0].email })
+    .update({ 'favorite_id_1': ids[0], 'favorite_id_2': ids[1], 'favorite_id_3': ids[2], 'favorite_id_4': ids[3], 'favorite_id_5': ids[4], 'updated_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })) })
     .then(() => {
       res.send({ status: 'OK' });
     });
