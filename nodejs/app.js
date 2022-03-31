@@ -113,31 +113,42 @@ passport.deserializeUser(function(email, done) {
     });
 });
 
-app.post('/signup_confirm', (req, res, next) => {
+app.post('/signup_confirm', (req, res) => {
   if (req.method === 'OPTIONS') {
     res.status(200).end();
   }
-  const { username, email, password , repassword} = req.body;
-  const token = crypto.randomBytes(16).toString('hex');
-  const hashedToken = bcrypt.hash(token, 10);
+  const { email } = req.body;
 
-  tmpUsername = username;
-  tmpEmail = email;
-  tmpPassword = password;
-  tmpRepassword = repassword;
-  tmpToken = hashedToken;
+  myknex('users')
+    .select('*')
+    .where({ 'email': email })
+    .then(async (result) => {
+      if (result.length !== 0) {
+        res.send({message: 'このメールアドレスは既に使われています'});
+      } else if (password === repassword) {
+        req.session.email = email;
+        const token = crypto.randomBytes(16).toString('hex');
+        // const hashedToken = bcrypt.hash(token, 10);
 
-  const link = `http://e-moods.herokuapp.com/verify?token=${token}`;
-  mailOptions.to = user.email;
-  mailOptions.html = `<p>以下のリンクをクリックしてe-moodsへの新規登録を完了してください</p><p><a href="${link}">メールアドレスを確認しました</a></p>`;
-  transporter.sendMail(mailOptions, (err, info) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log('Message sent: ' + info.accepted);
-      res.render('/send');
-    }
-  });
+        const link = `http://e-moods.herokuapp.com/verify?token=${token}`;
+        mailOptions.to = email;
+        mailOptions.html = `<p>以下のリンクをクリックしてe-moodsへの新規登録を完了してください</p><p><a href="${link}">メールアドレスを確認しました</a></p>`;
+        transporter.sendMail(mailOptions, (err, info) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log('Message sent: ' + info.accepted);
+            res.redirect('/send');
+          }
+        });
+      } else {
+        res.send({ message: 'パスワードが一致しません' });
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.json({message: [err.sqlMessage]});
+    });
 
   // myknex('users')
   //   .where({email: email})
@@ -161,23 +172,14 @@ app.post('/signup_confirm', (req, res, next) => {
   //   });
 });
 
-app.post('/regist', (req, res, next) => {
-  const { ids } = req.body;
-  console.log(req.user);
-  if (req.user) {
-    myknex('users')
-      .where({'email': req.user[0].email})
-      .update({ 'favorite_id_1': ids[0], 'favorite_id_2': ids[1], 'favorite_id_3': ids[2], 'favorite_id_4': ids[3], 'favorite_id_5': ids[4], 'updated_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })) })
-      .then(() => {
-        res.send({'status': 'not first'});
-      });
-  } else {
-    myknex('users')
-      .insert({ 'username': sessionUsername, 'email': sessionEmail, 'password': sessionPassword, 'favorite_id_1': ids[0], 'favorite_id_2': ids[1], 'favorite_id_3': ids[2], 'favorite_id_4': ids[3], 'favorite_id_5': ids[4], 'created_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })), 'updated_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })) })
-      .then(() => {
-        res.send({'status': 'first'});
-      });
-  }
+app.post('/regist', (req, res) => {
+  const { username, password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+  myknex('users')
+    .insert({ 'username': username, 'email': req.session.email, 'password': hashedPassword, 'created_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })), 'updated_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })) })
+    .then(() => {
+      res.redirect('/finish');
+    });
 });
 
 app.get('/first_get_token', async (req, res) => {
