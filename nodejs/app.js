@@ -168,12 +168,14 @@ app.post('/signup_confirm', (req, res) => {
               console.error(error);
             } else {
               console.log(`Email sent: ${info.response}`);
-              res.render('/send');
+              res.writeHead(301, { Location: "/send" });
+              res.end();
             }
           });
 
         } catch (error) {
           console.log(error);
+          res.end()
         }
       }
     })
