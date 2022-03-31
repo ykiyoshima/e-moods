@@ -114,6 +114,7 @@ passport.deserializeUser(function(email, done) {
 });
 
 const isAuthenticated = (req, res, next) => {
+  console.log(req.isAuthenticated());
     if (req.isAuthenticated()) {  // 認証済
         return next();
     }
