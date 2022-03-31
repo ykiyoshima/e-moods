@@ -303,7 +303,7 @@ app.get('*', (req, res) => {
   if (req.user) {
     res.sendFile(path.join(__dirname,'./react/build/index.html'));
   } else {
-    res.redirect('/login');
+    res.render('/login');
   }
 });
 
