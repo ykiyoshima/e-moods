@@ -23,7 +23,7 @@ export const Processes = ({ process }) => {
           <Setting title={process} />
         </>
       );
-    case '完了':
+    case '登録完了':
       return (
         <>
           <Finish title={process} />
