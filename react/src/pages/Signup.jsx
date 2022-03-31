@@ -12,10 +12,8 @@ export const Signup = ({ title }) => {
       };
 
       const response = await axios.post('/signup_confirm', data);
-      if (response.data.status === 'OK') {
-        window.location.href = '/spotify';
-      } else {
-        document.getElementById('message').innerHTML = response.data.message;
+      if (response) {
+        document.getElementById('message').innerHTML = response.data;
       }
     }
   };

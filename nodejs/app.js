@@ -164,8 +164,8 @@ app.post('/signup_confirm', (req, res) => {
         const link = `http://e-moods.herokuapp.com/verify?token=${token}`;
 
         sendMail(email, link)
-          .then((result) => res.json(result))
-          .catch((error) => res.json(error.message));
+          .then((result) => res.redirect('/send'))
+          .catch((error) => res.send(error.message));
       }
     })
     .catch((err) => {
