@@ -3,7 +3,6 @@ import axios from 'axios';
 export const Imported = () => {
   axios.get('/tracks', { withCredentials: true })
     .then(response => {
-      console.log(response);
       const playlistTrackIdArray = response.data;
       let playlistTagArray = '<span class="ml-2"></span>';
       playlistTrackIdArray.forEach(value => {

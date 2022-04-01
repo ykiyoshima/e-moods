@@ -86,7 +86,7 @@ export const Selected = () => {
     const meResponse = await axios.get('https://api.spotify.com/v1/me', { headers: headers });
     const makePlaylistResponse = await axios.post(`https://api.spotify.com/v1/users/${meResponse.data.id}/playlists`, data, { headers: headers });
     await axios.post(`https://api.spotify.com/v1/playlists/${makePlaylistResponse.data.id}/tracks`, tracks, { headers: headers });
-    document.getElementById('main').innerHTML = '<span class="pt-24"></span><br/><a href="/imported" class="bg-green-500 rounded-lg w-48 py-2 px-4">インポート結果を表示</a>'
+    window.location.href = '/imported';
   };
 
   return (

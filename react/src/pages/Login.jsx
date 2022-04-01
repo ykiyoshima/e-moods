@@ -7,7 +7,6 @@ export const Login = () => {
       password: document.getElementById('password').value
     };
     const response = await axios.post('/login_confirm', data, {withCredentials: true});
-    console.log(response);
     if (response.data.status === 'OK') {
       window.location.href = '/';
     } else if (response.data.status === 'NG') {

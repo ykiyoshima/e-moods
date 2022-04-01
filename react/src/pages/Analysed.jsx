@@ -161,7 +161,7 @@ export const Analysed = () => {
     } while (playlistTrackIdArray.length < 3 && (Date.now() - tokenGetTime) < 3600000);
 
     await axios.post('/tracks', playlistTrackIdArray, { withCredentials: true });
-    document.getElementById('main').innerHTML = '<span class="pt-24"></span><br/><a href="/selected" class="bg-green-500 rounded-lg w-48 py-2 px-4">選曲結果を表示</a>'
+    window.location.href = '/selected';
   };
 
   return (

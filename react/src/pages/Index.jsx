@@ -50,7 +50,6 @@ export const Index = () => {
 
   const token = async () => {
     const response = await axios.get('/token', { withCredentials: true });
-    console.log(response);
     return {
       accessToken: response.data.accessToken,
       tokenGetTime: response.data.tokenGetTime
@@ -60,7 +59,6 @@ export const Index = () => {
   const refreshToken = async () => {
     const accessToken = (await token()).accessToken;
     const tokenGetTime = (await token()).tokenGetTime;
-    console.log(tokenGetTime);
     if ((Date.now() - tokenGetTime) >= 3600000 || !tokenGetTime) {
       const signin = () => {
         const endpoint = 'https://accounts.spotify.com/authorize';
@@ -99,7 +97,7 @@ export const Index = () => {
         if (result.data.error) {
           document.getElementById('message').innerHTML = `<p>${result.data.error}</p>`;
         } else {
-          document.getElementById('main').innerHTML = '<span class="pt-24"></span><br/><a href="/analysed" class="bg-green-500 rounded-lg w-48 py-2 px-4 mt-24">分析結果を表示</a>';
+          window.location.href = '/analysed';
         }
       });
   };
