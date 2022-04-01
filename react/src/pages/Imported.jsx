@@ -14,20 +14,23 @@ export const Imported = () => {
       document.getElementById('playlist_result').innerHTML = playlistTagArray;
     });
 
-  const tweet = () => {
-    const baseUrl = 'https://twitter.com/intent/tweet?';
-    const text = ['text', 'ツイート本文'];
-    const hashtags = ['hashtags', ['ハッシュタグ1', 'ハッシュタグ2'].join(',')];
-    const query = new URLSearchParams([text, hashtags]).toString();
-    window.location.href = `${baseUrl}${query}`;
-  };
+  axios.get('/playlist', { withCredentials: true })
+    .then(response => {
+      const playlistId = response.data.playlistId;
+      const baseUrl = 'https://twitter.com/intent/tweet?';
+      const text = ['text', '感情分析結果'];
+      const hashtags = ['hashtags', ['e-moods', '今の気分に合う楽曲を選びます！'].join(',')];
+      const url = ['url', [`https://open.spotify.com/playlist/${playlistId}`, 'https://e-moods.herokuapp.com'].join(',')];
+      const query = new URLSearchParams([text, hashtags, url]).toString();
+      document.getElementById('tweet').href = `${baseUrl}${query}`;
+    });
 
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <h1 className="text-3xl font-bold pt-24 pb-16">インポート完了</h1>
       <p>選ばれた曲をプレイリストとして<br />Spotifyにインポートしました！</p>
       <div id="playlist_result" className="w-3/4 my-8 mx-auto flex overflow-scroll"></div>
-      <button className="bg-green-500 rounded-lg w-48 py-2 px-4" onClick={() => tweet()}>トップへ戻る</button>
+      <a id="tweet" className="bg-green-500 rounded-lg w-48 py-2 px-4 mb-6">結果をツイート</a>
       <a href="/" className="bg-green-500 rounded-lg w-48 py-2 px-4">トップへ戻る</a>
     </div>
   );

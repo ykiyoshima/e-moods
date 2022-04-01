@@ -355,6 +355,16 @@ app.get('/insert_emotions_and_tracks', (req, res) => {
     .catch(err => console.log(err));
 });
 
+app.get('/playlist', (req, res) => {
+  res.send({ playlistId: req.session.playlist });
+});
+
+app.post('/playlist', (req, res) => {
+  const { id } = req.body;
+  req.session.playlist = id;
+  res.end();
+});
+
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname,'./react/build/index.html'));
 });

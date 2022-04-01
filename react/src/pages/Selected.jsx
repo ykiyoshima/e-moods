@@ -86,6 +86,7 @@ export const Selected = () => {
     const meResponse = await axios.get('https://api.spotify.com/v1/me', { headers: headers });
     const makePlaylistResponse = await axios.post(`https://api.spotify.com/v1/users/${meResponse.data.id}/playlists`, data, { headers: headers });
     await axios.post(`https://api.spotify.com/v1/playlists/${makePlaylistResponse.data.id}/tracks`, tracks, { headers: headers });
+    await axios.post('/playlist', { id: makePlaylistResponse.data.id }, { withCredentials: true });
     window.location.href = '/imported';
   };
 
