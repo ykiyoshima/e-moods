@@ -38,7 +38,7 @@ export const Imported = () => {
       <p>選ばれた曲をプレイリストとして<br />Spotifyにインポートしました！</p>
       <div id="playlist_result" className="w-3/4 my-8 mx-auto flex overflow-scroll"></div>
       <a id="tweet" className="bg-green-500 rounded-lg w-48 h-8 py-2 px-4" target="_blank" rel="noopener noreferrer">結果をツイート</a><br/>
-      <a href="/" className="bg-green-500 rounded-lg w-48 h-8 py-2 px-4 mt-6">トップへ戻る</a>
+      <a href="/" className="bg-green-500 rounded-lg w-48 h-8 py-2 px-4 mt-12">トップへ戻る</a>
     </div>
   );
 };
