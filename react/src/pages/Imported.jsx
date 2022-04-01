@@ -38,10 +38,10 @@ export const Imported = () => {
       <p>選ばれた曲をプレイリストとして<br />Spotifyにインポートしました！</p>
       <div id="playlist_result" className="w-3/4 my-8 mx-auto flex overflow-scroll"></div>
       <div className="bg-green-500 rounded-lg w-48 h-8 py-2 px-4">
-        <a id="tweet" target="_blank" rel="noopener noreferrer">結果をツイート</a><br/>
+        <a id="tweet" className="align-middle" target="_blank" rel="noopener noreferrer">結果をツイート</a><br/>
       </div>
       <div className="bg-green-500 rounded-lg w-48 h-8 py-2 px-4 mt-6">
-        <a href="/">トップへ戻る</a>
+        <a href="/" className="align-middle">トップへ戻る</a>
       </div>
     </div>
   );
