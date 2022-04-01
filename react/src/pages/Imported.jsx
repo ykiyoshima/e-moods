@@ -33,7 +33,7 @@ export const Imported = () => {
     });
 
   return (
-    <div id="main" className="sm:w-full md:w-1/3 mx-auto">
+    <div id="main" className="sm:w-full md:w-1/3 mx-auto flex flex-col items-center">
       <h1 className="text-3xl font-bold pt-24 pb-16">インポート完了</h1>
       <p>選ばれた曲をプレイリストとして<br />Spotifyにインポートしました！</p>
       <div id="playlist_result" className="w-3/4 my-8 mx-auto flex overflow-scroll"></div>
