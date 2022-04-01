@@ -263,11 +263,16 @@ app.post('/login_confirm', passport.authenticate('local',
 ));
 
 app.get('/success', (req, res) => {
-  if (req.session.favorite) {
-    res.send({ status: 'OK' });
-  } else {
-    res.send({ status: 'NG' });
-  }
+  myknex('users')
+    .select('*')
+    .where({ 'email': req.user[0].email })
+    .then(response => {
+      if (response.favorite_id_5) {
+        res.send({ status: 'OK' });
+      } else {
+        res.send({ status: 'NG' });
+      }
+    });
 });
 
 app.get('/failure', (req, res) => {
