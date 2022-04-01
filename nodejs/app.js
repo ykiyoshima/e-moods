@@ -267,8 +267,7 @@ app.get('/success', (req, res) => {
     .select('*')
     .where({ 'email': req.user[0].email })
     .then(response => {
-      console.log(response);
-      if (response.favorite_id_5) {
+      if (response[0].favorite_id_5) {
         res.send({ status: 'OK' });
       } else {
         res.send({ status: 'NG' });
