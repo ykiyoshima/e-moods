@@ -24,9 +24,9 @@ export const Imported = () => {
           const maxEmotionValue = Math.max(...Object.values(emotionsObject));
           const maxEmotionName = Object.keys(emotionsObject).filter((key) => { return emotionsObject[key] === maxEmotionValue });
           const baseUrl = 'https://twitter.com/intent/tweet?';
-          const text = ['text', `感情分析の結果、${maxEmotionName}が${~~(maxEmotionValue) * 100}%の私に合う楽曲はこちら！\n`];
+          const text = ['text', `感情分析の結果、${maxEmotionName}が${~~(maxEmotionValue) * 100}%の私に合う楽曲はこちら！`];
           const hashtags = ['hashtags', ['e_moods', '今の気分に合う楽曲を選びます'].join(',')];
-          const url = ['url', `https://open.spotify.com/playlist/${playlistId} \nhttps://e-moods.herokuapp.com \n`];
+          const url = ['url', `https://open.spotify.com/playlist/${playlistId}\nhttps://e-moods.herokuapp.com\n`];
           const query = new URLSearchParams([text, hashtags, url]).toString();
           document.getElementById('tweet').href = `${baseUrl}${query}`;
         });
