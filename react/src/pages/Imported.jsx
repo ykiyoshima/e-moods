@@ -17,12 +17,19 @@ export const Imported = () => {
   axios.get('/playlist', { withCredentials: true })
     .then(response => {
       const playlistId = response.data.playlistId;
-      const baseUrl = 'https://twitter.com/intent/tweet?';
-      const text = ['text', '感情分析結果'];
-      const hashtags = ['hashtags', ['e-moods', '今の気分に合う楽曲を選びます！'].join(',')];
-      const url = ['url', [`https://open.spotify.com/playlist/${playlistId}`, 'https://e-moods.herokuapp.com'].join(',')];
-      const query = new URLSearchParams([text, hashtags, url]).toString();
-      document.getElementById('tweet').href = `${baseUrl}${query}`;
+      axios.get('/emotions', { withCredentials: true })
+        .then(emotionsResponse => {
+          const { anger, contempt, disgust, fear, happiness, neutral, sadness, surprise } = emotionsResponse.data;
+          const emotionsObject = { '怒り': anger, '軽蔑': contempt, '嫌悪': disgust, '恐怖': fear, '幸せ': happiness, '中立': neutral, '悲しみ': sadness, '驚き': surprise };
+          const maxEmotionValue = Math.max(...Object.values(emotionsObject));
+          const maxEmotionName = Object.keys(emotionsObject).filter((key) => { return emotionsObject[key] === maxEmotionValue });
+          const baseUrl = 'https://twitter.com/intent/tweet?';
+          const text = ['text', `${maxEmotionName}が${~~(maxEmotionValue) * 100}%の私に合う楽曲はこちら！`];
+          const hashtags = ['hashtags', ['e_moods', '今の気分に合う楽曲を選びます'].join(',')];
+          const url = ['url', [`https://open.spotify.com/playlist/${playlistId}`, 'https://e-moods.herokuapp.com'].join(' ')];
+          const query = new URLSearchParams([text, hashtags, url]).toString();
+          document.getElementById('tweet').href = `${baseUrl}${query}`;
+        });
     });
 
   return (
