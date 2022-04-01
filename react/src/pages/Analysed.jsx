@@ -98,7 +98,12 @@ export const Analysed = () => {
       }
       console.log(randomNumber);
       if (randomNumber <= suitableRate) {
-        const sumOfSum1vs3 = (sumOfEmotions['valence'] / 4 + sumOfEmotions['energy'] * 3 / 4);
+        let sumOfSum1vs3;
+        if (sumOfEmotions['valence'] === 1 || sumOfEmotions['energy'] === 1) {
+          sumOfSum1vs3 = 1;
+        } else {
+          sumOfSum1vs3 = (sumOfEmotions['valence'] / 4 + sumOfEmotions['energy'] * 3 / 4);
+        }
         const sumOfSum1vs1 = (sumOfEmotions['valence'] / 2 + sumOfEmotions['energy'] / 2);
         if (sumOfSum1vs1 < 0.5) {
           danceability = (Math.sin(sumOfSum1vs1 * Math.PI - Math.PI / 2) + 1) / 2 + 0.5;
@@ -121,11 +126,16 @@ export const Analysed = () => {
         }
         trackFeaturesFromEmotions['target_danceability'] = 0.8 * danceability + Math.random() * 0.2;
         trackFeaturesFromEmotions['target_energy'] = 0.8 * sumOfEmotions['energy'] + Math.random() * 0.2;
-        trackFeaturesFromEmotions['target_tempo'] = (sumOfSum1vs3 * 120) + 40 + Math.random() * 40;
+        trackFeaturesFromEmotions['target_tempo'] = (sumOfSum1vs3 * 120) + 50 + Math.random() * 30;
         trackFeaturesFromEmotions['target_valence'] = 0.8 * sumOfEmotions['valence'] + Math.random() * 0.2;
       } else {
-        const sumOfSum1vs3 = (reversedSumOfEmotions['valence'] / 4 + reversedSumOfEmotions['energy'] * 3 / 4)
-        const sumOfSum1vs1 = (reversedSumOfEmotions['valence'] / 4 + reversedSumOfEmotions['energy'] * 3 / 4)
+        let sumOfSum1vs3;
+        if (reversedSumOfEmotions['valence'] === 1 || reversedSumOfEmotions['valence'] === 1) {
+          sumOfSum1vs3 = 1;
+        } else {
+          sumOfSum1vs3 = (reversedSumOfEmotions['valence'] / 4 + reversedSumOfEmotions['energy'] * 3 / 4);
+        }
+        const sumOfSum1vs1 = (reversedSumOfEmotions['valence'] / 2 + reversedSumOfEmotions['energy'] / 2);
         if (sumOfSum1vs1 < 0.5) {
           danceability = (Math.sin(sumOfSum1vs1 * Math.PI - Math.PI / 2) + 1) / 2 + 0.5;
         } else {
@@ -133,7 +143,7 @@ export const Analysed = () => {
         }
         trackFeaturesFromEmotions['target_danceability'] = 0.8 * danceability + Math.random() * 0.2;
         trackFeaturesFromEmotions['target_energy'] = 0.8 * reversedSumOfEmotions['energy'] + Math.random() * 0.2;
-        trackFeaturesFromEmotions['target_tempo'] = (sumOfSum1vs3 * 120) + 40 + Math.random() * 40;
+        trackFeaturesFromEmotions['target_tempo'] = (sumOfSum1vs3 * 120) + 50 + Math.random() * 30;
         trackFeaturesFromEmotions['target_valence'] = 0.8 * reversedSumOfEmotions['valence'] + Math.random() * 0.2;
       }
       const { target_danceability, target_energy, max_instrumentalness, min_instrumentalness, target_tempo, target_valence } = trackFeaturesFromEmotions;
