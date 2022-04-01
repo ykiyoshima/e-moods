@@ -28,7 +28,7 @@ export const Signup = ({ title }) => {
       <input type="email" required id="email" className="text-gray-900 rounded-md px-2 mb-4" /><br />
 
       <p id="message"></p>
-      <button className="bg-green-500 rounded-lg w-48 py-2 px-4 mt-4" onClick={() => execSignup()}>次へ進む</button>
+      <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-4" onClick={() => execSignup()}>次へ進む</button>
     </div>
   );
 };

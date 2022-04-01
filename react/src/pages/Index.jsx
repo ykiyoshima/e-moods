@@ -72,7 +72,7 @@ export const Index = () => {
         document.getElementById('signin_btn').innerHTML = '';
         window.location.href = `${endpoint}?${params.toString()}`;
       }
-      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 rounded-lg w-48 py-2 px-4">Spotifyと連携</button>';
+      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2">Spotifyと連携</button>';
       document.getElementById('signin').addEventListener('click', () => {
         signin();
       });
@@ -107,7 +107,7 @@ export const Index = () => {
       <h1 className="text-5xl font-bold pt-24 pb-16">e-moods</h1>
       <p><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
       <div id="signin_btn" className="my-8"></div>
-      <a href="/setting" className="bg-green-500 rounded-lg w-48 py-2 px-4">設定アーティスト変更</a>
+      <a href="/setting" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2">設定アーティスト変更</a>
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
         <FontAwesomeIcon className="text-6xl mt-6 mb-4" icon={faImage} />
@@ -118,7 +118,7 @@ export const Index = () => {
         }
       </div>
       <div id="image_area" className="my-8 w-full"></div>
-      <button id="make_recommendations" className="bg-green-500 rounded-lg w-48 py-2 px-4" onClick={() => startEmotionAnalysis()}>感情分析を開始</button><br/><br/>
+      <button id="make_recommendations" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2" onClick={() => startEmotionAnalysis()}>感情分析を開始</button><br/><br/>
       <div id="message"></div>
     </div>
   );
