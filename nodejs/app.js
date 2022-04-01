@@ -210,7 +210,7 @@ app.post('/regist', async (req, res) => {
   if (token === req.session.token) {
     const hashedPassword = await bcrypt.hash(password, 10);
     myknex('users')
-      .insert({ 'username': username, 'email': req.session.email, 'password': hashedPassword, 'created_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })), 'updated_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })) })
+      .insert({ 'username': username, 'email': req.session.email, 'password': hashedPassword, 'created_at': new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)), 'updated_at': new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)) })
       .then(() => {
         res.send({ status: 'OK' });
       });
@@ -226,7 +226,7 @@ app.post('/favorite', (req, res) => {
   myknex('users')
     .select('*')
     .where({ 'email': req.user[0].email })
-    .update({ 'favorite_id_1': ids[0], 'favorite_id_2': ids[1], 'favorite_id_3': ids[2], 'favorite_id_4': ids[3], 'favorite_id_5': ids[4], 'updated_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })) })
+    .update({ 'favorite_id_1': ids[0], 'favorite_id_2': ids[1], 'favorite_id_3': ids[2], 'favorite_id_4': ids[3], 'favorite_id_5': ids[4], 'updated_at': new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)) })
     .then(() => {
       req.session.favorite = true;
       res.send({ status: 'OK' });
@@ -347,7 +347,7 @@ app.get('/insert_emotions_and_tracks', (req, res) => {
   const { anger, contempt, disgust, fear, happiness, neutral, sadness, surprise } = req.session.results;
   const tracks = req.session.tracks;
   myknex('emotions_and_tracks')
-    .insert({ 'user_id': req.user[0].id, 'anger': anger, 'contempt': contempt, 'disgust': disgust, 'fear': fear, 'neutral': neutral, 'happiness': happiness, 'sadness': sadness, 'surprise': surprise, 'track_id1': tracks[0], 'track_id2': tracks[1], 'track_id3': tracks[2], 'created_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })), 'updated_at': new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })) })
+    .insert({ 'user_id': req.user[0].id, 'anger': anger, 'contempt': contempt, 'disgust': disgust, 'fear': fear, 'neutral': neutral, 'happiness': happiness, 'sadness': sadness, 'surprise': surprise, 'track_id1': tracks[0], 'track_id2': tracks[1], 'track_id3': tracks[2], 'created_at': new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)), 'updated_at': new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)) })
     .then(() => {
       console.log('Data was created successfully!');
       res.end();
