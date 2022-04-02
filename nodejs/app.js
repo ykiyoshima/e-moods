@@ -122,7 +122,7 @@ app.post('/signup_confirm', (req, res) => {
         const hashedToken = await bcrypt.hash(token, 10);
         myknex('tokens')
           .insert({ 'email': email, 'token': hashedToken })
-          .then(result => {
+          .then(async (result) => {
             const link = `https://e-moods.herokuapp.com/verify?token=${token}`;
 
             const CLIENT_ID = process.env.EMAIL_CLIENT_ID;
