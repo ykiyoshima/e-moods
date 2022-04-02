@@ -118,105 +118,97 @@ app.post('/signup_confirm', (req, res) => {
       if (result.length !== 0) {
         res.send({ message: 'このメールアドレスは既に使われています' });
       } else {
-        req.session.email = email;
         const token = crypto.randomBytes(16).toString('hex');
-        req.session.token = token;
+        const hashedToken = await bcrypt.hash(token, 10);
+        myknex('tokens')
+          .insert({ 'email': email, 'token': hashedToken })
+          .then(result => {
+            const link = `https://e-moods.herokuapp.com/verify?token=${token}`;
 
-        const link = `https://e-moods.herokuapp.com/verify?token=${token}`;
+            const CLIENT_ID = process.env.EMAIL_CLIENT_ID;
+            const CLIENT_SECRET = process.env.EMAIL_CLIENT_SECRET;
+            const REDIRECT_URI = process.env.EMAIL_REDIRECT_URI;
+            const REFRESH_TOKEN = process.env.EMAIL_REFRESH_TOKEN;
+            const CLIENT_EMAIL = process.env.EMAIL;
+            const OAuth2Client = new google.auth.OAuth2(
+              CLIENT_ID,
+              CLIENT_SECRET,
+              REDIRECT_URI
+            );
 
-        const CLIENT_ID = process.env.EMAIL_CLIENT_ID;
-        const CLIENT_SECRET = process.env.EMAIL_CLIENT_SECRET;
-        const REDIRECT_URI = process.env.EMAIL_REDIRECT_URI;
-        const REFRESH_TOKEN = process.env.EMAIL_REFRESH_TOKEN;
-        const CLIENT_EMAIL = process.env.EMAIL;
-        const OAuth2Client = new google.auth.OAuth2(
-          CLIENT_ID,
-          CLIENT_SECRET,
-          REDIRECT_URI
-        );
+            OAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+            try {
+              // Generate the accessToken on the fly
+              const accessToken = await OAuth2Client.getAccessToken();
 
-        OAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
-        try {
-          // Generate the accessToken on the fly
-          const accessToken = await OAuth2Client.getAccessToken();
+              // Create the email envelope (transport)
+              const transport = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                  type: 'OAuth2',
+                  user: CLIENT_EMAIL,
+                  clientId: CLIENT_ID,
+                  clientSecret: CLIENT_SECRET,
+                  refreshToken: REFRESH_TOKEN,
+                  accessToken: accessToken,
+                },
+              });
 
-        // Create the email envelope (transport)
-          const transport = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-              type: 'OAuth2',
-              user: CLIENT_EMAIL,
-              clientId: CLIENT_ID,
-              clientSecret: CLIENT_SECRET,
-              refreshToken: REFRESH_TOKEN,
-              accessToken: accessToken,
-            },
-          });
+              // Create the email options and body
+              // ('email': user's email and 'name': is the e-book the user wants to receive)
+              const mailOptions = {
+                from: `e-moods <${CLIENT_EMAIL}>`,
+                to: `e-moods <${email}>`,
+                subject: `メールアドレスの確認 by e-moods`,
+                html: `<p>以下のリンクをクリックしてe-moodsへの新規登録を完了してください</p><p><a href="${link}">${link}</a></p>`
+              };
 
-          // Create the email options and body
-          // ('email': user's email and 'name': is the e-book the user wants to receive)
-          const mailOptions = {
-            from: `e-moods <${CLIENT_EMAIL}>`,
-            to: `e-moods <${email}>`,
-            subject: `メールアドレスの確認 by e-moods`,
-            html: `<p>以下のリンクをクリックしてe-moodsへの新規登録を完了してください</p><p><a href="${link}">${link}</a></p>`
-          };
+              // Set up the email options and delivering it
+              transport.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                  console.error(error);
+                } else {
+                  console.log(`Email sent: ${info.response}`);
+                  res.send({ 'status': 'OK' });
+                }
+              });
 
-          // Set up the email options and delivering it
-          transport.sendMail(mailOptions, function (error, info) {
-            if (error) {
-              console.error(error);
-            } else {
-              console.log(`Email sent: ${info.response}`);
-              res.send({ 'status': 'OK' });
+            } catch (error) {
+              console.log(error);
+              res.send({ 'status': 'NG', 'message': error });
             }
-          });
-
-        } catch (error) {
-          console.log(error);
-          res.send({ 'status': 'NG', 'message': error });
-        }
+          })
+          .catch(err => console.log(err));
       }
     })
     .catch((err) => {
       console.error(err);
       res.json({message: [err.sqlMessage]});
     });
-
-  // myknex('users')
-  //   .where({email: email})
-  //   .select('*')
-  //   .then(async (result) => {
-  //     if (result.length !== 0) {
-  //       res.send({message: 'このメールアドレスは既に使われています'});
-  //     } else if (password === repassword) {
-  //       const hashedPassword = await bcrypt.hash(password, 10);
-  //       sessionUsername = username;
-  //       sessionEmail = email;
-  //       sessionPassword = hashedPassword;
-  //       res.send({ status: 'OK' });
-  //     } else {
-  //       res.json({ message: 'パスワードが一致しません' });
-  //     }
-  //   })
-  //   .catch((err) => {
-  //     console.error(err);
-  //     res.json({message: [err.sqlMessage]});
-  //   });
 });
 
 app.post('/regist', async (req, res) => {
   const { username, password, token } = req.body;
-  if (token === req.session.token) {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    myknex('users')
-      .insert({ 'username': username, 'email': req.session.email, 'password': hashedPassword, 'created_at': new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)), 'updated_at': new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)) })
-      .then(() => {
-        res.send({ status: 'OK' });
-      });
-  } else {
-    res.send({ status: 'NG' });
-  }
+  myknex('tokens')
+    .select('*')
+    .then(result => {
+      const targetEmail = result.find(value => bcrypt.compare(token, value.token)).email;
+      const hashedPassword = await bcrypt.hash(password, 10);
+      myknex('users')
+        .insert({ 'username': username, 'email': targetEmail, 'password': hashedPassword, 'created_at': new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)), 'updated_at': new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)) })
+        .then(() => {
+          res.send({ status: 'OK' });
+        })
+        .catch(err => {
+          console.log(err);
+          res.send({ status: 'NG', message: 'DB error' });
+        });
+    })
+    .catch(err => {
+      console.log(err);
+      res.send({ status: 'NG', message: 'Token error' });
+    });
+
   });
 
 app.post('/favorite', (req, res) => {
