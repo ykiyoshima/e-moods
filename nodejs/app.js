@@ -187,11 +187,11 @@ app.post('/signup_confirm', (req, res) => {
     });
 });
 
-app.post('/regist', async (req, res) => {
+app.post('/regist', (req, res) => {
   const { username, password, token } = req.body;
   myknex('tokens')
     .select('*')
-    .then(result => {
+    .then(async (result) => {
       const targetEmail = result.find(value => bcrypt.compare(token, value.token)).email;
       const hashedPassword = await bcrypt.hash(password, 10);
       myknex('users')
