@@ -192,6 +192,7 @@ app.post('/regist', (req, res) => {
   myknex('tokens')
     .select('*')
     .then(async (result) => {
+      console.log(result);
       const targetEmail = result.find(value => bcrypt.compare(token, value.token)).email;
       const hashedPassword = await bcrypt.hash(password, 10);
       myknex('users')
