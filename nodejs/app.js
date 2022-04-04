@@ -119,9 +119,8 @@ app.post('/signup_confirm', (req, res) => {
         res.send({ message: 'このメールアドレスは既に使われています' });
       } else {
         const token = crypto.randomBytes(16).toString('hex');
-        const hashedToken = await bcrypt.hash(token, 10);
         myknex('tokens')
-          .insert({ 'email': email, 'token': hashedToken, 'created_at': new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)) })
+          .insert({ 'email': email, 'token': token, 'created_at': new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)) })
           .then(async (result) => {
             const link = `https://e-moods.herokuapp.com/verify?token=${token}`;
 
@@ -192,9 +191,7 @@ app.post('/regist', (req, res) => {
   myknex('tokens')
     .select('*')
     .then(async (result) => {
-      console.log(result);
-      console.log(result.find(value => bcrypt.compare(token, value.token)));
-      const targetEmail = await result.find(value => bcrypt.compare(token, value.token)).email;
+      const targetEmail = await result.find(value => token === value.token).email;
       const hashedPassword = await bcrypt.hash(password, 10);
       myknex('users')
         .insert({ 'username': username, 'email': targetEmail, 'password': hashedPassword, 'created_at': new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)), 'updated_at': new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)) })
