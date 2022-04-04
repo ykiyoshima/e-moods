@@ -10,6 +10,12 @@ export const Index = () => {
         window.location.href = "/login";
       }
     });
+  axios.get('/success', { withCredentials: true })
+    .then((response) => {
+      if (response.data.status === 'NG') {
+        window.location.href = "/spotify";
+      }
+    });
 
   const style = {
     width: 200,
