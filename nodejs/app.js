@@ -121,7 +121,7 @@ app.post('/signup_confirm', (req, res) => {
         const token = crypto.randomBytes(16).toString('hex');
         const hashedToken = await bcrypt.hash(token, 10);
         myknex('tokens')
-          .insert({ 'email': email, 'token': hashedToken })
+          .insert({ 'email': email, 'token': hashedToken, 'created_at': new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)) })
           .then(async (result) => {
             const link = `https://e-moods.herokuapp.com/verify?token=${token}`;
 
