@@ -193,7 +193,7 @@ app.post('/regist', (req, res) => {
     .select('*')
     .then(async (result) => {
       console.log(result);
-      const targetEmail = result.find(value => bcrypt.compare(token, value.token)).email;
+      const targetEmail = result.find(value => await bcrypt.compare(token, value.token)).email;
       const hashedPassword = await bcrypt.hash(password, 10);
       myknex('users')
         .insert({ 'username': username, 'email': targetEmail, 'password': hashedPassword, 'created_at': new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)), 'updated_at': new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)) })
