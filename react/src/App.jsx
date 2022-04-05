@@ -9,7 +9,7 @@ import { Imported } from "./pages/Imported";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const App = () => {
-  const processes = ['新規登録', 'Spotify連携', '好きなアーティスト設定', '登録完了'];
+  const processes = ['新規登録', 'Spotify連携', 'アーティスト設定', '登録完了'];
   return (
     <BrowserRouter>
       <Routes>
