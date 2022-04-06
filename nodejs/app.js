@@ -75,10 +75,10 @@ passport.use(new LocalStrategy(
       .then(async (user) => {
         console.log(user);
         if (user.length === 0) {
-          return done(null, false, { message: 'メールアドレスが正しくありません'});
+          return done(null, false, { message: '入力された情報が正しくありません'});
         }
         if (! await bcrypt.compare(password, user[0].password)) {
-          return done(null, false, { message: 'パスワードが正しくありません'});
+          return done(null, false, { message: '入力された情報が正しくありません'});
         }
         return done(null, user);
       });

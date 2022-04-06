@@ -119,8 +119,8 @@ export const Index = () => {
         <FontAwesomeIcon className="text-6xl mt-6 mb-4" icon={faImage} />
         {
           isDragActive ?
-            <p className="w-full h-full m-auto">Drop</p> :
-            <p className="w-full h-full m-auto">Drag & Drop or Click</p>
+            <p className="w-full h-full m-auto">ドロップ</p> :
+            <p className="w-full h-full m-auto">ドラッグ&ドロップまたはクリック</p>
         }
       </div>
       <div id="image_area" className="my-8 w-full"></div>
