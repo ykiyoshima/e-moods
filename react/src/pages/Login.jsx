@@ -2,18 +2,26 @@ import axios from "axios";
 
 export const Login = () => {
   const execLogin = async () => {
-    const data = {
-      email: document.getElementById('email').value,
-      password: document.getElementById('password').value
-    };
-    const response = await axios.post('/login_confirm', data, {withCredentials: true});
-    if (response.data.status === 'OK') {
-      window.location.href = '/';
-    } else if (response.data.status === 'NG') {
-      window.location.href = '/spotify';
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    if (email && password) {
+      const data = {
+        email: email,
+        password: password
+      };
+      const response = await axios.post('/login_confirm', data, {withCredentials: true});
+      if (response.data.status === 'OK') {
+        window.location.href = '/';
+      } else if (response.data.status === 'NG') {
+        window.location.href = '/spotify';
+      } else {
+        document.getElementById('message').innerHTML = response.data.message;
+      }
     } else {
-      document.getElementById('message').innerHTML = response.data.message;
+      document.getElementById('message').innerHTML = '未入力の項目があります';
     }
+
   };
   window.onload = () => {
     document.getElementById('signup_btn').addEventListener('click', () => {
