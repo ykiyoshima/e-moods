@@ -43,7 +43,7 @@ export const Analysed = () => {
     refreshToken();
     emotionsResponse = await axios.get('/emotions', { withCredentials: true });
     const { anger, contempt, disgust, fear, happiness, neutral, sadness, surprise } = emotionsResponse.data;
-    document.getElementById('analysis_result').innerHTML = `<p>あなたの感情は以下のようです</p><p class="my-4">怒り：${anger * 100}%  軽蔑：${contempt * 100}%  嫌悪：${disgust * 100}%  恐怖：${fear * 100}%<br/>幸せ：${happiness * 100}%  中立：${neutral * 100}%  悲しみ：${sadness * 100}%  驚き：${surprise * 100}%</p>`;
+    document.getElementById('analysis_result').innerHTML = `<p>あなたの感情は以下のようです</p><p class="my-4">怒り：${(Math.round(anger * 100 * 100)) / 100}%  軽蔑：${(Math.round(contempt * 100 * 100)) / 100}%  嫌悪：${(Math.round(disgust * 100 * 100)) / 100}%  恐怖：${(Math.round(fear * 100 * 100)) / 100}%<br/>幸せ：${(Math.round(happiness * 100 * 100)) / 100}%  中立：${(Math.round(neutral * 100 * 100)) / 100}%  悲しみ：${(Math.round(sadness * 100 * 100)) / 100}%  驚き：${(Math.round(surprise * 100 * 100)) / 100}%</p>`;
   }
 
   const selectTracks = async (e) => {
