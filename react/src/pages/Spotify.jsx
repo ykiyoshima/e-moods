@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const Spotify = ({ title }) => {
   axios.get('/index', { withCredentials: true })
     .then((response) => {
