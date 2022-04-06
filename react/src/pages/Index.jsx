@@ -120,7 +120,7 @@ export const Index = () => {
         {
           isDragActive ?
             <p className="w-full h-full m-auto">ドロップ</p> :
-            <p className="w-full h-full m-auto">ドラッグ&ドロップまたはクリック</p>
+            <p className="w-full h-full m-auto">ドラッグ&ドロップ<br/>またはクリック</p>
         }
       </div>
       <div id="image_area" className="my-8 w-full"></div>
