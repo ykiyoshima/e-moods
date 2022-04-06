@@ -92,6 +92,10 @@ export const Index = () => {
       document.getElementById('image_area').innerHTML = '<p>画像を選択してください</p>';
       return;
     }
+    if (document.getElementById('signin')) {
+      document.getElementById('image_area').innerHTML = '<p>「Spotifyと連携」ボタンを押してください</p>';
+      return;
+    }
     const blob = new Blob([file]);
     document.getElementById('main').innerHTML = '<p class="pt-24">感情を分析中...</p>';
     const form = new FormData();
