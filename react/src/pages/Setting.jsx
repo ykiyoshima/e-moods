@@ -42,10 +42,14 @@ export const Setting = ({ title }) => {
       console.log(error);
     }
     let tags = '<span class="mr-6"></span>';
-    for (let i = 0; i < artistIdsArray.length; i++) {
-      tags += `<div data-id=${artistIdsArray[i]} class="artist flex-none overflow-scroll mr-6"><img src=${artistImagesArray[i]} class="w-48 h-48 object-cover pointer-events-none" data-id=${artistIdsArray[i]}><p class="pointer-events-none" data-id=${artistIdsArray[i]}>${artistNamesArray[i]}</p></div>`;
+    if (artistIdsArray.length !== 0) {
+      for (let i = 0; i < artistIdsArray.length; i++) {
+        tags += `<div data-id=${artistIdsArray[i]} class="artist flex-none overflow-scroll mr-6"><img src=${artistImagesArray[i]} class="w-48 h-48 object-cover pointer-events-none" data-id=${artistIdsArray[i]}><p class="pointer-events-none" data-id=${artistIdsArray[i]}>${artistNamesArray[i]}</p></div>`;
+      }
+      document.getElementById('result').innerHTML = tags;
+    } else {
+      document.getElementById('result').innerHTML = '<p>アーティストがヒットしませんでした</p>';
     }
-    document.getElementById('result').innerHTML = tags;
 
     const artists = document.getElementById('result').getElementsByClassName('artist');
     for (let item of artists) {
@@ -139,6 +143,7 @@ export const Setting = ({ title }) => {
       <h1 className="text-3xl font-bold pt-24 pb-16">{title}</h1>
       <p>好きなアーティストを5組選んでください</p>
       <p>※アルファベットで検索してください</p>
+      <p>※アーティスト名の一部で検索するとヒットしやすくなります</p>
       <input className="text-gray-900 px-2 rounded-mb mt-8" type="text" id="keyword" /><br/>
       <button className="bg-green-500 rounded-lg w-48 py-2 px-4 mt-4 mb-8" type="submit" value="検索" onClick={() => searchArtist()}>検索</button>
       <div className="border-solid border-b-2 border-gray-100 w-2/3 h-62 mx-auto">
