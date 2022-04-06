@@ -7,7 +7,7 @@ export const Imported = () => {
         window.location.href = "/login";
       }
     });
-  
+
   axios.get('/tracks', { withCredentials: true })
     .then(response => {
       const playlistTrackIdArray = response.data;
@@ -33,7 +33,7 @@ export const Imported = () => {
           const baseUrl = 'https://twitter.com/intent/tweet?';
           const text = ['text', `感情分析の結果、${maxEmotionName}が${Math.round(maxEmotionValue * 100)}%の私に合う楽曲はこちら！`];
           const hashtags = ['hashtags', ['e_moods', '今の気分に合う楽曲を選びます'].join(',')];
-          const url = ['url', `https://open.spotify.com/playlist/${playlistId}\nhttps://e-moods.herokuapp.com\n`];
+          const url = ['url', `https://open.spotify.com/playlist/${playlistId}\nhttps://e-moods.herokuapp.com`];
           const query = new URLSearchParams([text, hashtags, url]).toString();
           document.getElementById('tweet').href = `${baseUrl}${query}`;
         });
