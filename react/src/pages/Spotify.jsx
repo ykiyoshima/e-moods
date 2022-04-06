@@ -1,4 +1,11 @@
 export const Spotify = ({ title }) => {
+  axios.get('/index', { withCredentials: true })
+    .then((response) => {
+      if (response.data.hasSession === 'No') {
+        window.location.href = "/login";
+      }
+    });
+
   const signin = () => {
     const endpoint = 'https://accounts.spotify.com/authorize';
     const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private'];

@@ -2,6 +2,13 @@ import axios from "axios";
 import noImage from "../img/no_image.png";
 
 export const Setting = ({ title }) => {
+  axios.get('/index', { withCredentials: true })
+    .then((response) => {
+      if (response.data.hasSession === 'No') {
+        window.location.href = "/login";
+      }
+    });
+
   const artistIdsArray = [];
   const artistImagesArray = [];
   const artistNamesArray = [];
@@ -48,7 +55,7 @@ export const Setting = ({ title }) => {
       }
       document.getElementById('result').innerHTML = tags;
     } else {
-      document.getElementById('result').innerHTML = '<p>アーティストがヒットしませんでした</p>';
+      document.getElementById('result').innerHTML = '<p class="text-center">アーティストがヒットしませんでした</p>';
     }
 
     const artists = document.getElementById('result').getElementsByClassName('artist');
