@@ -1,6 +1,12 @@
 import axios from "axios";
 
 export const Analysed = () => {
+  axios.get('/index', { withCredentials: true })
+    .then((response) => {
+      if (response.data.hasSession === 'No') {
+        window.location.href = "/login";
+      }
+    });
   let emotionsResponse;
   const playlistTrackIdArray = [];
   let previousPlaylistTrackIdArray = [];

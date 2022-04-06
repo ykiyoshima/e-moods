@@ -1,6 +1,13 @@
 import axios from 'axios';
 
 export const Selected = () => {
+  axios.get('/index', { withCredentials: true })
+    .then((response) => {
+      if (response.data.hasSession === 'No') {
+        window.location.href = "/login";
+      }
+    });
+  
   let playlistTrackIdArray;
 
   const token = async () => {

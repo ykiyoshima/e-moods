@@ -1,6 +1,13 @@
 import axios from 'axios';
 
 export const Imported = () => {
+  axios.get('/index', { withCredentials: true })
+    .then((response) => {
+      if (response.data.hasSession === 'No') {
+        window.location.href = "/login";
+      }
+    });
+  
   axios.get('/tracks', { withCredentials: true })
     .then(response => {
       const playlistTrackIdArray = response.data;
