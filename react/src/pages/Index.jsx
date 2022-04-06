@@ -89,11 +89,11 @@ export const Index = () => {
 
   const startEmotionAnalysis = () => {
     if (!file) {
-      document.getElementById('image_area').innerHTML = '<p>画像を選択してください</p>';
+      document.getElementById('message').innerHTML = '<p>画像を選択してください</p>';
       return;
     }
     if (document.getElementById('signin')) {
-      document.getElementById('image_area').innerHTML = '<p>「Spotifyと連携」ボタンを押してください</p>';
+      document.getElementById('message').innerHTML = '<p>「Spotifyと連携」ボタンを押してください</p>';
       return;
     }
     const blob = new Blob([file]);
@@ -128,8 +128,8 @@ export const Index = () => {
         }
       </div>
       <div id="image_area" className="my-8 w-full"></div>
-      <button id="make_recommendations" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2" onClick={() => startEmotionAnalysis()}>感情分析を開始</button><br/><br/>
       <div id="message"></div>
+      <button id="make_recommendations" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2" onClick={() => startEmotionAnalysis()}>感情分析を開始</button><br/><br/>
     </div>
   );
 };
