@@ -27,13 +27,13 @@ export const Login = () => {
     document.getElementById('signup_btn').addEventListener('click', () => {
       window.location.href = '/signup';
     });
-  }
-
-  document.getElementById('password').onkeydown = (e) => {
-    if (e.key === 'Enter') {
-      document.getElementById('login_btn').click();
+    document.getElementById('password').onkeydown = (e) => {
+      if (e.key === 'Enter') {
+        document.getElementById('login_btn').click();
+      }
     }
   }
+
 
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
