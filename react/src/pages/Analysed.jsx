@@ -189,8 +189,8 @@ export const Analysed = () => {
       <div id="analysis_result"></div>
       <p className="pt-4 mb-2">選曲オプションを選択してください</p>
       <div className="border-solid border-b-2 border-gray-100">
-        <input type="radio" id="inst_ok" name="inst_option" value="inst_ok" /><label htmlFor="inst_ok">ボーカルなしも含む</label><br/>
         <input type="radio" id="inst_ng" name="inst_option" value="inst_ng" /><label htmlFor="inst_ng">ボーカルありだけ</label><br/>
+        <input type="radio" id="inst_ok" name="inst_option" value="inst_ok" /><label htmlFor="inst_ok">ボーカルなし含む</label><br/>
         <input type="radio" id="inst_only" name="inst_option" value="inst_only" /><label htmlFor="inst_only">ボーカルなしだけ</label>
       </div><br/>
       <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 my-6" value="yes" onClick={(e) => selectTracks(e)}>気分に合う曲だけ</button><br/>
