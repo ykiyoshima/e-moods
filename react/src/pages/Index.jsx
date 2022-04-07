@@ -8,12 +8,13 @@ export const Index = () => {
     .then((response) => {
       if (response.data.hasSession === 'No') {
         window.location.href = "/login";
-      }
-    });
-  axios.get('/success', { withCredentials: true })
-    .then((response) => {
-      if (response.data.status === 'NG') {
-        window.location.href = "/spotify";
+      } else {
+        axios.get('/success', { withCredentials: true })
+          .then((response) => {
+            if (response.data.status === 'NG') {
+              window.location.href = "/spotify";
+            }
+          });
       }
     });
 
