@@ -54,6 +54,9 @@ export const Analysed = () => {
 
   const selectTracks = async (e) => {
     const selectedOption = document.querySelector('input[type=radio]:checked').value;
+    if (!selectedOption) {
+      document.getElementById('message').innerHTML = '<p>選曲オプションを選択してください</p>'
+    }
     document.getElementById('main').innerHTML = '<p class="pt-24">選曲中...</p>';
 
     playlistTrackIdArray.length = 0;
@@ -184,14 +187,17 @@ export const Analysed = () => {
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <h1 className="text-3xl font-bold pt-24 pb-16">分析完了</h1>
       <div id="analysis_result"></div>
-      <p className="pt-4 mb-4">プレイリスト作成で重視したいポイントを選んでください</p>
-      <input type="radio" id="inst_ok" name="inst_option" value="inst_ok" /><label htmlFor="inst_ok" className="mr-2">ボーカルなしも含む</label>
-      <input type="radio" id="inst_ng" name="inst_option" value="inst_ng" /><label htmlFor="inst_ng" className="mr-2">ボーカルありだけ</label>
-      <input type="radio" id="inst_only" name="inst_option" value="inst_only" /><label htmlFor="inst_only">ボーカルなしだけ</label><br/>
+      <p className="pt-4 mb-4">選曲オプションを選択してください</p>
+      <div className="border-solid border-2 border-gray-100">
+        <input type="radio" id="inst_ok" name="inst_option" value="inst_ok" /><label htmlFor="inst_ok" className="mr-2">ボーカルなしも含む</label>
+        <input type="radio" id="inst_ng" name="inst_option" value="inst_ng" /><label htmlFor="inst_ng" className="mr-2">ボーカルありだけ</label>
+        <input type="radio" id="inst_only" name="inst_option" value="inst_only" /><label htmlFor="inst_only">ボーカルなしだけ</label>
+      </div><br/>
       <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 my-6" value="yes" onClick={(e) => selectTracks(e)}>気分に合う曲だけ</button><br/>
       <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2" value="no" onClick={(e) => selectTracks(e)}>気分と逆の曲だけ</button><br/>
       <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 my-6" value="auto" onClick={(e) => selectTracks(e)}>おまかせ</button>
       <div id="signin_btn"></div>
+      <div id="message"></div>
       <a href="/" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-8">トップへ戻る</a>
     </div>
   );
