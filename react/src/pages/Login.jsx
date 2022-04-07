@@ -23,6 +23,10 @@ export const Login = () => {
     }
 
   };
+
+  const form = document.getElementById('form');
+  form.addEventListener('submit', execLogin());
+
   window.onload = () => {
     document.getElementById('signup_btn').addEventListener('click', () => {
       window.location.href = '/signup';
@@ -34,13 +38,13 @@ export const Login = () => {
       <h1 className="text-5xl font-bold pt-24 pb-16">e-moods</h1>
       <p>あなたの<strong>"表情"</strong>で楽曲を自動分類</p>
       <p className="mb-8">今の気分に合う音楽を簡単に探せます！</p>
-      <form>
+      <form id="form">
         <label htmlFor="email">メールアドレス</label><br/>
         <input type="email" id="email" className="text-gray-900 rounded-md px-2 mb-4" name="email" required /><br/>
         <label htmlFor="password">パスワード</label><br/>
         <input type="password" id="password" className="text-gray-900 rounded-md px-2" name="password" required /><br/>
         <div id="message" className="mt-4 mb-8"></div>
-        <button className="bg-green-500 rounded-lg w-48 py-2 px-4 mb-8" onClick={() => execLogin()}>ログイン</button>
+        <button type="submit" className="bg-green-500 rounded-lg w-48 py-2 px-4 mb-8">ログイン</button>
       </form>
 
       <p>アカウントをお持ちでない方</p>
