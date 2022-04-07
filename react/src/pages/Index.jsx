@@ -8,6 +8,7 @@ export const Index = () => {
     .then((response) => {
       if (response.data.hasSession === 'No') {
         window.location.href = "/login";
+        return;
       } else {
         axios.get('/success', { withCredentials: true })
           .then((response) => {
