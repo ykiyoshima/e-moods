@@ -188,7 +188,7 @@ export const Analysed = () => {
       <h1 className="text-3xl font-bold pt-24 pb-16">分析完了</h1>
       <div id="analysis_result"></div>
       <p className="pt-4 mb-4">選曲オプションを選択してください</p>
-      <div className="border-solid border-2 border-gray-100">
+      <div className="border-solid border-2 border-gray-100 w-auto">
         <input type="radio" id="inst_ok" name="inst_option" value="inst_ok" /><label htmlFor="inst_ok" className="mr-2">ボーカルなしも含む</label>
         <input type="radio" id="inst_ng" name="inst_option" value="inst_ng" /><label htmlFor="inst_ng" className="mr-2">ボーカルありだけ</label>
         <input type="radio" id="inst_only" name="inst_option" value="inst_only" /><label htmlFor="inst_only">ボーカルなしだけ</label>
