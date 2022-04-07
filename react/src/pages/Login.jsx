@@ -24,13 +24,13 @@ export const Login = () => {
 
   };
 
-  const form = document.getElementById('form');
-  form.addEventListener('submit', execLogin());
-
   window.onload = () => {
     document.getElementById('signup_btn').addEventListener('click', () => {
       window.location.href = '/signup';
     });
+
+    const form = document.getElementById('form');
+    form.addEventListener('submit', execLogin());
   }
 
   return (
