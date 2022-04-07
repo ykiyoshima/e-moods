@@ -54,7 +54,7 @@ export const Analysed = () => {
 
   const selectTracks = async (e) => {
     const selectedOption = document.querySelector('input[type=radio]:checked').value;
-    if (!selectedOption) {
+    if (!document.querySelector('input[type=radio]:checked')) {
       document.getElementById('message').innerHTML = '<p>選曲オプションを選択してください</p>'
     }
     document.getElementById('main').innerHTML = '<p class="pt-24">選曲中...</p>';
