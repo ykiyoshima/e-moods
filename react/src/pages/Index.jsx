@@ -103,7 +103,7 @@ export const Index = () => {
     const form = new FormData();
     form.append('file', blob);
     const headers = { "content-type": "multipart/form-data", "withCredentials": true };
-    axios.post('/save_image', form, { headers })
+    axios.post('/analysis', form, { headers })
       .then(async (response) => {
         const result = await axios.post('/emotions', response.data, { withCredentials: true });
         if (result.data.error) {

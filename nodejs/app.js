@@ -299,7 +299,7 @@ app.get('/get_token', async (req, res) => {
   res.redirect('/');
 });
 
-app.post('/save_image', (req, res) => {
+app.post('/analysis', (req, res) => {
   const main = async () => {
     const image_data = req.files.file.data;
     faceClient.face.detectWithStream(image_data, {
