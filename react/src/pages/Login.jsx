@@ -27,6 +27,11 @@ export const Login = () => {
     document.getElementById('signup_btn').addEventListener('click', () => {
       window.location.href = '/signup';
     });
+    document.getElementById('email').onkeydown = (e) => {
+      if (e.key === 'Enter') {
+        document.getElementById('login_btn').click();
+      }
+    }
     document.getElementById('password').onkeydown = (e) => {
       if (e.key === 'Enter') {
         document.getElementById('login_btn').click();
@@ -41,7 +46,7 @@ export const Login = () => {
 
       <p>あなたの<strong>"表情"</strong>で楽曲を自動分類</p>
       <p className="mb-8">今の気分に合う音楽を簡単に探せます！</p>
-      
+
       <label htmlFor="email">メールアドレス</label><br/>
       <input type="email" id="email" className="text-gray-900 rounded-md px-2 mb-4" name="email" required /><br/>
       <label htmlFor="password">パスワード</label><br/>

@@ -20,6 +20,14 @@ export const Signup = ({ title }) => {
     }
   };
 
+  window.onload = () => {
+    document.getElementById('email').onkeydown = (e) => {
+      if (e.key === 'Enter') {
+        document.getElementById('send_btn').click();
+      }
+    }
+  }
+
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <h1 className="text-3xl font-bold pt-24 pb-16">{title}</h1>
@@ -28,7 +36,7 @@ export const Signup = ({ title }) => {
       <input type="email" required id="email" className="text-gray-900 rounded-md px-2 mb-4" /><br />
 
       <p id="message"></p>
-      <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-4" onClick={() => execSignup()}>次へ進む</button>
+      <button id="send_btn" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-4" onClick={() => execSignup()}>メールを送信</button>
     </div>
   );
 };

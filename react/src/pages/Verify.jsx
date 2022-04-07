@@ -32,6 +32,24 @@ export const Verify = () => {
     }
   };
 
+  window.onload = () => {
+    document.getElementById('username').onkeydown = (e) => {
+      if (e.key === 'Enter') {
+        document.getElementById('regist_btn').click();
+      }
+    }
+    document.getElementById('password').onkeydown = (e) => {
+      if (e.key === 'Enter') {
+        document.getElementById('regist_btn').click();
+      }
+    }
+    document.getElementById('repassword').onkeydown = (e) => {
+      if (e.key === 'Enter') {
+        document.getElementById('regist_btn').click();
+      }
+    }
+  }
+
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <h1 className="text-3xl font-bold pt-24 pb-16">ユーザー情報入力</h1>
@@ -45,7 +63,7 @@ export const Verify = () => {
       <input type="password" required id="repassword" className="text-gray-900 rounded-md px-2 mb-4" /><br />
 
       <p id="message"></p>
-      <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-4" onClick={() => execRegist()}>登録</button>
+      <button id="regist_btn" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-4" onClick={() => execRegist()}>登録</button>
     </div>
   );
 };

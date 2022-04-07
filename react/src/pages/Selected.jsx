@@ -7,7 +7,7 @@ export const Selected = () => {
         window.location.href = "/login";
       }
     });
-  
+
   let playlistTrackIdArray;
 
   const token = async () => {
@@ -58,6 +58,12 @@ export const Selected = () => {
         });
         document.getElementById('playlist_result').innerHTML = playlistTagArray;
       });
+
+    document.getElementById('playlist_name').onkeydown = (e) => {
+      if (e.key === 'Enter') {
+        document.getElementById('playlist_btn').click();
+      }
+    }
   }
 
 
