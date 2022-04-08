@@ -41,7 +41,7 @@ export const Selected = () => {
         document.getElementById('signin_btn').innerHTML = '';
         window.location.href = `${endpoint}?${params.toString()}`;
       }
-      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 rounded-lg w-48 py-2 px-4">Spotifyと連携</button>';
+      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 hover:bg-green-600 rounded-lg w-48 py-2 px-4">Spotifyと連携</button>';
       document.getElementById('signin').addEventListener('click', () => {
         signin();
       });
@@ -118,15 +118,15 @@ export const Selected = () => {
       <div id="caution"></div>
       <input type="text" id="playlist_name" className="text-gray-900 rounded-md px-2" placeholder="プレイリスト名" /><br/>
       <ButtonRipples>
-        <button id="playlist_btn" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-4 mb-6" onClick={() => makePlaylist()}>プレイリスト作成</button>
+        <button id="playlist_btn" className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-4 mb-6" onClick={() => makePlaylist()}>プレイリスト作成</button>
       </ButtonRipples>
       <br/>
       <ButtonRipples>
-        <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2" onClick={() => selectTracksAgain()}>選曲をやり直す</button>
+        <button className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2" onClick={() => selectTracksAgain()}>選曲をやり直す</button>
       </ButtonRipples>
       <br/><br/>
       <ButtonRipples>
-        <a href="/" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2">トップへ戻る</a>
+        <a href="/" className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2">トップへ戻る</a>
       </ButtonRipples>
     </div>
   );

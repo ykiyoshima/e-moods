@@ -70,7 +70,7 @@ export const Verify = () => {
 
       <p id="message"></p>
       <ButtonRipples>
-        <button id="regist_btn" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-4" onClick={() => execRegist()}>登録</button>
+        <button id="regist_btn" className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-4" onClick={() => execRegist()}>登録</button>
       </ButtonRipples>
     </div>
   );

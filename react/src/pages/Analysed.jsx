@@ -42,7 +42,7 @@ export const Analysed = () => {
         document.getElementById('signin_btn').innerHTML = '';
         window.location.href = `${endpoint}?${params.toString()}`;
       }
-      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 rounded-lg w-48 py-2 px-4">Spotifyと連携</button>';
+      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 hover:bg-green-600 rounded-lg w-48 py-2 px-4">Spotifyと連携</button>';
       document.getElementById('signin').addEventListener('click', () => {
         signin();
       });
@@ -200,19 +200,19 @@ export const Analysed = () => {
         <input type="radio" id="inst_only" name="inst_option" value="inst_only" /><label htmlFor="inst_only">ボーカルなしだけ</label>
       </div><br/>
       <ButtonRipples>
-        <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 my-6" value="yes" onClick={(e) => selectTracks(e)}>気分に合う曲だけ</button>
+        <button className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2 my-6" value="yes" onClick={(e) => selectTracks(e)}>気分に合う曲だけ</button>
       </ButtonRipples><br/>
       <ButtonRipples>
-      <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2" value="no" onClick={(e) => selectTracks(e)}>気分と逆の曲だけ</button>
+      <button className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2" value="no" onClick={(e) => selectTracks(e)}>気分と逆の曲だけ</button>
       </ButtonRipples>
       <br/>
       <ButtonRipples>
-        <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 my-6" value="auto" onClick={(e) => selectTracks(e)}>おまかせ</button>
+        <button className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2 my-6" value="auto" onClick={(e) => selectTracks(e)}>おまかせ</button>
       </ButtonRipples>
       <ButtonRipples id="signin_btn"></ButtonRipples><br/>
       <div id="message"></div>
       <ButtonRipples>
-        <a href="/" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-8">トップへ戻る</a>
+        <a href="/" className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-8">トップへ戻る</a>
       </ButtonRipples>
     </div>
   );

@@ -134,11 +134,11 @@ export const Setting = ({ title }) => {
             }
           }
           if (selectedArtistIdsArray[4]) {
-            document.getElementById('next').innerHTML = '<button id="next_link" class="bg-green-500 rounded-lg w-48 py-2 px-4 mt-16">選択完了</button>';
+            document.getElementById('next').innerHTML = '<button id="next_link" class="bg-green-500 hover:bg-green-600 rounded-lg w-48 py-2 px-4 mt-16">選択完了</button>';
             document.getElementById('next_link').addEventListener('click', async () => {
               const response = await axios.post('/favorite', { ids: selectedArtistIdsArray });
               if (response.data.status === 'OK') {
-                document.getElementById('main').innerHTML = '<h1 class="text-3xl font-bold pt-24 pb-16">設定完了</h1><a href="/" class="bg-green-500 rounded-lg w-48 py-2 px-4">トップへ戻る</a>';
+                document.getElementById('main').innerHTML = '<h1 class="text-3xl font-bold pt-24 pb-16">設定完了</h1><ButtonRipples><a href="/" class="bg-green-500 hover:bg-green-600 rounded-lg w-48 py-2 px-4">トップへ戻る</a></ButtonRipples>';
               }
             });
           } else {
@@ -159,7 +159,7 @@ export const Setting = ({ title }) => {
       <p>※アーティスト名の一部で検索するとヒットしやすくなります</p>
       <input className="text-gray-900 px-2 rounded-mb mt-12" type="text" id="keyword" /><br/>
       <ButtonRipples>
-        <button className="bg-green-500 rounded-lg w-48 py-2 px-4" type="submit" value="検索" onClick={() => searchArtist()}>検索</button>
+        <button className="bg-green-500 hover:bg-green-600 rounded-lg w-48 py-2 px-4" type="submit" value="検索" onClick={() => searchArtist()}>検索</button>
       </ButtonRipples>
       <div className="border-solid border-b-2 border-gray-100 w-2/3 h-62 mx-auto mt-8">
         <p>選んだアーティスト</p>

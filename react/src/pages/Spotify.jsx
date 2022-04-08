@@ -32,7 +32,7 @@ export const Spotify = ({ title }) => {
       <p>あなたのSpotifyアカウントと連携します</p>
       <p>よろしければ「Spotifyと連携」ボタンをクリックしてください</p>
       <ButtonRipples>
-        <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-8 mb-16" onClick={() => signin()}>Spotifyと連携</button>
+        <button className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-8 mb-16" onClick={() => signin()}>Spotifyと連携</button>
       </ButtonRipples>
       <div id="next"></div>
     </div>
