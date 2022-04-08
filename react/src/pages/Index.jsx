@@ -2,6 +2,7 @@ import axios from "axios";
 import { useDropzone } from 'react-dropzone';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from "@fortawesome/free-regular-svg-icons";
+import Ripples from "react-ripples";
 
 export const Index = () => {
   axios.get('/index', { withCredentials: true })
@@ -119,7 +120,9 @@ export const Index = () => {
       <h1 className="text-5xl font-bold pt-24 pb-16">e-moods</h1>
       <p><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
       <div id="signin_btn" className="my-8"></div>
-      <a href="/setting" className="bg-green-500 rounded-lg active:animate-ping inline-block w-48 h-10 align-middle py-2">設定アーティスト変更</a>
+      <Ripples>
+        <a href="/setting" className="bg-green-500 rounded-lg active:animate-ping inline-block w-48 h-10 align-middle py-2">設定アーティスト変更</a>
+      </Ripples>
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
         <FontAwesomeIcon className="text-6xl mt-6 mb-4" icon={faImage} />
@@ -131,7 +134,9 @@ export const Index = () => {
       </div>
       <div id="image_area" className="my-8 w-full"></div>
       <div id="message"></div>
-      <button id="make_recommendations" className="bg-green-500 rounded-lg active:animate-ping inline-block w-48 h-10 align-middle py-2" onClick={() => startEmotionAnalysis()}>感情分析を開始</button><br/><br/>
+      <Ripples>
+        <button id="make_recommendations" className="bg-green-500 rounded-lg active:animate-ping inline-block w-48 h-10 align-middle py-2" onClick={() => startEmotionAnalysis()}>感情分析を開始</button><br/><br/>
+      </Ripples>
     </div>
   );
 };
