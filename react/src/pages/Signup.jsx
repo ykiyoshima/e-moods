@@ -43,7 +43,7 @@ export const Signup = ({ title }) => {
 
       <p id="message"></p>
       <ButtonRipples>
-        <button id="send_btn" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2" onClick={() => execSignup()}>メールを送信</button>
+        <button id="send_btn" className="bg-green-500 hover:bg-green-700 rounded-lg inline-block w-48 h-10 align-middle py-2" onClick={() => execSignup()}>メールを送信</button>
       </ButtonRipples>
     </div>
   );
