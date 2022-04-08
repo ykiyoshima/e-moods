@@ -124,7 +124,7 @@ export const Index = () => {
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <h1 className="text-5xl font-bold pt-24 pb-16">e-moods</h1>
       <p><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
-      <ButtonRipples id="signin_btn" className="my-8"></ButtonRipples>
+      <ButtonRipples id="signin_btn" className="my-8"></ButtonRipples><br/>
       <ButtonRipples>
         <a href="/setting" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2">設定アーティスト変更</a>
       </ButtonRipples>

@@ -1,4 +1,10 @@
 import axios from "axios";
+import { createRipples } from "react-ripples";
+
+const ButtonRipples = createRipples({
+  color: 'snow',
+  during: 600
+});
 
 export const Login = () => {
   const execLogin = async () => {
@@ -52,10 +58,14 @@ export const Login = () => {
       <label htmlFor="password">パスワード</label><br/>
       <input type="password" id="password" className="text-gray-900 rounded-md px-2" name="password" required /><br/>
       <div id="message" className="mt-4 mb-8"></div>
-      <button id="login_btn" className="bg-green-500 rounded-lg w-48 py-2 px-4 mb-8" onClick={() => execLogin()}>ログイン</button>
+      <ButtonRipples>
+        <button id="login_btn" className="bg-green-500 rounded-lg w-48 py-2 px-4 mb-8" onClick={() => execLogin()}>ログイン</button>
+      </ButtonRipples>
 
       <p>アカウントをお持ちでない方</p>
-      <button id="signup_btn" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-4">新規登録</button>
+      <ButtonRipples>
+        <button id="signup_btn" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-4">新規登録</button>
+      </ButtonRipples>
     </div>
   );
 };

@@ -1,4 +1,10 @@
 import axios from "axios";
+import { createRipples } from "react-ripples";
+
+const ButtonRipples = createRipples({
+  color: 'snow',
+  during: 600
+});
 
 export const Spotify = ({ title }) => {
   axios.get('/index', { withCredentials: true })
@@ -25,7 +31,9 @@ export const Spotify = ({ title }) => {
       <h1 className="text-3xl font-bold pt-24 pb-16">{title}</h1>
       <p>あなたのSpotifyアカウントと連携します</p>
       <p>よろしければ「Spotifyと連携」ボタンをクリックしてください</p>
-      <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-8 mb-16" onClick={() => signin()}>Spotifyと連携</button>
+      <ButtonRipples>
+        <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-8 mb-16" onClick={() => signin()}>Spotifyと連携</button>
+      </ButtonRipples>
       <div id="next"></div>
     </div>
   );

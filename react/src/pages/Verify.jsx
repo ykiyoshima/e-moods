@@ -1,4 +1,10 @@
 import axios from "axios";
+import { createRipples } from "react-ripples";
+
+const ButtonRipples = createRipples({
+  color: 'snow',
+  during: 600
+});
 
 export const Verify = () => {
   const execRegist = async () => {
@@ -63,7 +69,9 @@ export const Verify = () => {
       <input type="password" required id="repassword" className="text-gray-900 rounded-md px-2 mb-4" /><br />
 
       <p id="message"></p>
-      <button id="regist_btn" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-4" onClick={() => execRegist()}>登録</button>
+      <ButtonRipples>
+        <button id="regist_btn" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-4" onClick={() => execRegist()}>登録</button>
+      </ButtonRipples>
     </div>
   );
 };

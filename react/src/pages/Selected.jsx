@@ -1,4 +1,10 @@
 import axios from 'axios';
+import { createRipples } from "react-ripples";
+
+const ButtonRipples = createRipples({
+  color: 'snow',
+  during: 600
+});
 
 export const Selected = () => {
   axios.get('/index', { withCredentials: true })
@@ -108,12 +114,20 @@ export const Selected = () => {
       <h1 className="text-3xl font-bold pt-24 pb-16">選曲完了</h1>
       <p>あなたにピッタリな曲をご用意しました！</p>
       <div id="playlist_result" className="w-3/4 my-8 mx-auto flex overflow-scroll"></div>
-      <div id="signin_btn"></div>
+      <ButtonRipples id="signin_btn"></ButtonRipples><br/>
       <div id="caution"></div>
       <input type="text" id="playlist_name" className="text-gray-900 rounded-md px-2" placeholder="プレイリスト名" /><br/>
-      <button id="playlist_btn" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-4 mb-6" onClick={() => makePlaylist()}>プレイリスト作成</button><br />
-      <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2" onClick={() => selectTracksAgain()}>選曲をやり直す</button><br/><br/>
-      <a href="/" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2">トップへ戻る</a>
+      <ButtonRipples>
+        <button id="playlist_btn" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-4 mb-6" onClick={() => makePlaylist()}>プレイリスト作成</button>
+      </ButtonRipples>
+      <br/>
+      <ButtonRipples>
+        <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2" onClick={() => selectTracksAgain()}>選曲をやり直す</button>
+      </ButtonRipples>
+      <br/><br/>
+      <ButtonRipples>
+        <a href="/" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2">トップへ戻る</a>
+      </ButtonRipples>
     </div>
   );
 }

@@ -1,4 +1,10 @@
 import axios from 'axios';
+import { createRipples } from "react-ripples";
+
+const ButtonRipples = createRipples({
+  color: 'snow',
+  during: 600
+});
 
 export const Imported = () => {
   axios.get('/index', { withCredentials: true })
@@ -44,9 +50,14 @@ export const Imported = () => {
       <h1 className="text-3xl font-bold pt-24 pb-16">インポート完了</h1>
       <p>選ばれた曲をプレイリストとして<br />Spotifyにインポートしました！</p>
       <div id="playlist_result" className="w-3/4 my-8 mx-auto flex overflow-scroll"></div>
-      <a id="tweet" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2" target="_blank" rel="noopener noreferrer">結果をツイート</a><br/>
+      <ButtonRipples>
+        <a id="tweet" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2" target="_blank" rel="noopener noreferrer">結果をツイート</a>
+      </ButtonRipples>
+      <br/>
       <div className="w-full h-12"></div>
-      <a href="/" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2">トップへ戻る</a>
+      <ButtonRipples>
+        <a href="/" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2">トップへ戻る</a>
+      </ButtonRipples>
     </div>
   );
 };

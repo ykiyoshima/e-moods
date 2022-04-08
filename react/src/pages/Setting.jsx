@@ -1,5 +1,11 @@
 import axios from "axios";
 import noImage from "../img/no_image.png";
+import { createRipples } from "react-ripples";
+
+const ButtonRipples = createRipples({
+  color: 'snow',
+  during: 600
+});
 
 export const Setting = ({ title }) => {
   axios.get('/index', { withCredentials: true })
@@ -152,14 +158,16 @@ export const Setting = ({ title }) => {
       <p>※アルファベットで検索してください</p>
       <p>※アーティスト名の一部で検索するとヒットしやすくなります</p>
       <input className="text-gray-900 px-2 rounded-mb mt-8" type="text" id="keyword" /><br/>
-      <button className="bg-green-500 rounded-lg w-48 py-2 px-4 mt-4 mb-8" type="submit" value="検索" onClick={() => searchArtist()}>検索</button>
+      <ButtonRipples>
+        <button className="bg-green-500 rounded-lg w-48 py-2 px-4 mt-4 mb-8" type="submit" value="検索" onClick={() => searchArtist()}>検索</button>
+      </ButtonRipples>
       <div className="border-solid border-b-2 border-gray-100 w-2/3 h-62 mx-auto">
         <p>選んだアーティスト</p>
         <div id="selectedArtists" className="flex overflow-scroll mx-auto"></div>
       </div>
       <p>検索結果</p>
       <div id="result" className="flex overflow-scroll w-2/3 mx-auto"></div>
-      <div id="next"></div>
+      <ButtonRipples id="next"></ButtonRipples>
     </div>
   )
 };

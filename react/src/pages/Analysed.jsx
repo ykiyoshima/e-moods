@@ -1,4 +1,10 @@
 import axios from "axios";
+import { createRipples } from "react-ripples";
+
+const ButtonRipples = createRipples({
+  color: 'snow',
+  during: 600
+});
 
 export const Analysed = () => {
   axios.get('/index', { withCredentials: true })
@@ -193,12 +199,21 @@ export const Analysed = () => {
         <input type="radio" id="inst_ok" name="inst_option" value="inst_ok" /><label htmlFor="inst_ok">ボーカルなし含む</label><br/>
         <input type="radio" id="inst_only" name="inst_option" value="inst_only" /><label htmlFor="inst_only">ボーカルなしだけ</label>
       </div><br/>
-      <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 my-6" value="yes" onClick={(e) => selectTracks(e)}>気分に合う曲だけ</button><br/>
-      <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2" value="no" onClick={(e) => selectTracks(e)}>気分と逆の曲だけ</button><br/>
-      <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 my-6" value="auto" onClick={(e) => selectTracks(e)}>おまかせ</button>
-      <div id="signin_btn"></div>
+      <ButtonRipples>
+        <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 my-6" value="yes" onClick={(e) => selectTracks(e)}>気分に合う曲だけ</button>
+      </ButtonRipples><br/>
+      <ButtonRipples>
+      <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2" value="no" onClick={(e) => selectTracks(e)}>気分と逆の曲だけ</button>
+      </ButtonRipples>
+      <br/>
+      <ButtonRipples>
+        <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 my-6" value="auto" onClick={(e) => selectTracks(e)}>おまかせ</button>
+      </ButtonRipples>
+      <ButtonRipples id="signin_btn"></ButtonRipples><br/>
       <div id="message"></div>
-      <a href="/" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-8">トップへ戻る</a>
+      <ButtonRipples>
+        <a href="/" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-8">トップへ戻る</a>
+      </ButtonRipples>
     </div>
   );
 }
