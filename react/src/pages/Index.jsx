@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useDropzone } from 'react-dropzone';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import logo from "../img/logo_transparent.png";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 import { createRipples } from "react-ripples";
-import logo from "../img/logo_transparent.png";
 
 const ButtonRipples = createRipples({
   color: 'snow',
@@ -131,7 +131,7 @@ export const Index = () => {
       <h1 className="text-5xl font-bold pt-16 pb-16">e-moods</h1>
       <p><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
       <ButtonRipples id="signin_btn"></ButtonRipples><br /><br />
-      
+
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
         <FontAwesomeIcon className="text-6xl mt-6 mb-4" icon={faImage} />
