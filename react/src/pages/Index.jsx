@@ -126,7 +126,7 @@ export const Index = () => {
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <div id="header" className="pt-4 flex justify-center">
         <img src={logo} alt="ロゴ" className="w-16 h-16 mr-48" />
-        <FontAwesomeIcon className="text-3xl" icon={faGear} />
+        <FontAwesomeIcon className="text-4xl mt-4" icon={faGear} />
       </div>
       <h1 className="text-5xl font-bold pt-16 pb-16">e-moods</h1>
       <p><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
