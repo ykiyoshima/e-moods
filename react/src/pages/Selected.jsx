@@ -111,6 +111,10 @@ export const Selected = () => {
 
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
+      <div id="header" className="pt-4 flex justify-center">
+        <a href="/"><img src={logo} alt="ロゴ" className="w-16 h-16 mr-48" /></a>
+        <a href="/setting"><FontAwesomeIcon className="text-4xl mt-3" icon={faGear} /></a>
+      </div>
       <h1 className="text-3xl font-bold pt-24 pb-16">選曲完了</h1>
       <p>あなたにピッタリな曲をご用意しました！</p>
       <div id="playlist_result" className="w-3/4 my-8 mx-auto flex overflow-scroll"></div>

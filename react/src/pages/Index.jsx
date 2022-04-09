@@ -125,15 +125,13 @@ export const Index = () => {
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <div id="header" className="pt-4 flex justify-center">
-        <img src={logo} alt="ロゴ" className="w-16 h-16 mr-48" />
-        <FontAwesomeIcon className="text-4xl mt-4" icon={faGear} />
+        <a href="/"><img src={logo} alt="ロゴ" className="w-16 h-16 mr-48" /></a>
+        <a href="/setting"><FontAwesomeIcon className="text-4xl mt-3" icon={faGear} /></a>
       </div>
       <h1 className="text-5xl font-bold pt-16 pb-16">e-moods</h1>
       <p><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
-      <ButtonRipples id="signin_btn"></ButtonRipples><br/><br/>
-      <ButtonRipples>
-        <a href="/setting" className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2">設定アーティスト変更</a>
-      </ButtonRipples>
+      <ButtonRipples id="signin_btn"></ButtonRipples><br /><br />
+      
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
         <FontAwesomeIcon className="text-6xl mt-6 mb-4" icon={faImage} />

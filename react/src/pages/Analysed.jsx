@@ -187,6 +187,10 @@ export const Analysed = () => {
 
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
+      <div id="header" className="pt-4 flex justify-center">
+        <a href="/"><img src={logo} alt="ロゴ" className="w-16 h-16 mr-48" /></a>
+        <a href="/setting"><FontAwesomeIcon className="text-4xl mt-3" icon={faGear} /></a>
+      </div>
       <h1 className="text-3xl font-bold pt-24 pb-16">分析完了</h1>
       <div id="analysis_result"></div>
       <p className="pt-4 mb-2">選曲オプションを選択してください</p>
