@@ -203,7 +203,7 @@ export const Analysed = () => {
       </ButtonRipples>
       <br/><br/>
       <ButtonRipples>
-        <button className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2 my-6" value="auto" onClick={(e) => selectTracks(e)}>おまかせ</button>
+        <button className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2" value="auto" onClick={(e) => selectTracks(e)}>おまかせ</button>
       </ButtonRipples><br/><br/>
       <ButtonRipples id="signin_btn"></ButtonRipples><br/>
       <div id="message"></div>
