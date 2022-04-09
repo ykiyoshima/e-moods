@@ -54,10 +54,10 @@ export const Setting = ({ title }) => {
     } catch (error) {
       console.log(error);
     }
-    let tags = '<span class="mr-6"></span>';
+    let tags = '<span class="mr-2"></span>';
     if (artistIdsArray.length !== 0) {
       for (let i = 0; i < artistIdsArray.length; i++) {
-        tags += `<div data-id=${artistIdsArray[i]} class="artist flex-none overflow-scroll mr-6"><img src=${artistImagesArray[i]} class="w-48 h-48 object-cover pointer-events-none" data-id=${artistIdsArray[i]}><p class="pointer-events-none" data-id=${artistIdsArray[i]}>${artistNamesArray[i]}</p></div>`;
+        tags += `<div data-id=${artistIdsArray[i]} class="artist flex-none overflow-scroll mr-2"><img src=${artistImagesArray[i]} class="w-48 h-48 object-cover pointer-events-none" data-id=${artistIdsArray[i]}><p class="pointer-events-none" data-id=${artistIdsArray[i]}>${artistNamesArray[i]}</p></div>`;
       }
       document.getElementById('result').innerHTML = tags;
     } else {
@@ -93,7 +93,7 @@ export const Setting = ({ title }) => {
         const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${query1}`, {headers: headers});
         let selectedArtistTags = '<span class="mr-2"></span>';
         for (let value of response.data.artists) {
-          selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-2" id=${value.id}><img src=${value.images[1].url} class="w-32 h-32 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
+          selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-2" id=${value.id}><img src=${value.images[1].url} class="w-24 h-24 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
         }
         document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
         document.getElementById('selectedArtists').scrollLeft = 1000;
@@ -122,7 +122,7 @@ export const Setting = ({ title }) => {
                   const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${query2}`, {headers: headers});
                   let selectedArtistTags = '<span class="mr-2"></span>';
                   for (let value of response.data.artists) {
-                    selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-2" id=${value.id}><img src=${value.images[1].url} class="w-32 h-32 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
+                    selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-2" id=${value.id}><img src=${value.images[1].url} class="w-24 h-24 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
                   }
                   document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
                   query2 = '';
