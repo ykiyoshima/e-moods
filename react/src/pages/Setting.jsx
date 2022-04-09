@@ -91,9 +91,9 @@ export const Setting = ({ title }) => {
           }
         }
         const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${query1}`, {headers: headers});
-        let selectedArtistTags = '<span class="mr-6"></span>';
+        let selectedArtistTags = '';
         for (let value of response.data.artists) {
-          selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-6" id=${value.id}><img src=${value.images[1].url} class="w-32 h-32 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
+          selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-4" id=${value.id}><img src=${value.images[1].url} class="w-32 h-32 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
         }
         document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
         document.getElementById('selectedArtists').scrollLeft = 1000;
@@ -120,9 +120,9 @@ export const Setting = ({ title }) => {
                 }
                 if (query2 !== '') {
                   const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${query2}`, {headers: headers});
-                  let selectedArtistTags = '<span class="mr-6"></span>';
+                  let selectedArtistTags = '';
                   for (let value of response.data.artists) {
-                    selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-6" id=${value.id}><img src=${value.images[1].url} class="w-32 h-32 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
+                    selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-4" id=${value.id}><img src=${value.images[1].url} class="w-32 h-32 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
                   }
                   document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
                   query2 = '';
@@ -159,7 +159,7 @@ export const Setting = ({ title }) => {
       <p>※アーティスト名の一部で検索するとヒットしやすくなります</p>
       <div className="border-solid border-b-2 border-gray-100 h-62 mx-auto mt-8">
         <p>選んだアーティスト</p>
-        <div id="selectedArtists" className="flex mx-auto"></div>
+        <div id="selectedArtists" className="flex justify-center mx-auto"></div>
       </div>
       <input className="text-gray-900 px-2 rounded-mb mt-4 mb-2" type="text" id="keyword" /><br/>
       <ButtonRipples>
