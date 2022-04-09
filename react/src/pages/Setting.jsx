@@ -93,7 +93,7 @@ export const Setting = ({ title }) => {
         const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${query1}`, {headers: headers});
         let selectedArtistTags = '<span class="mr-2"></span>';
         for (let value of response.data.artists) {
-          selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-2" id=${value.id}><img src=${value.images[1].url} class="w-24 h-24 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
+          selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-2" id=${value.id}><img src=${value.images[1].url} class="w-24 h-24 object-cover pointer-events-none"><p class="text-xs pointer-events-none">${value.name}</p></div>`;
         }
         document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
         document.getElementById('selectedArtists').scrollLeft = 1000;
@@ -122,7 +122,7 @@ export const Setting = ({ title }) => {
                   const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${query2}`, {headers: headers});
                   let selectedArtistTags = '<span class="mr-2"></span>';
                   for (let value of response.data.artists) {
-                    selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-2" id=${value.id}><img src=${value.images[1].url} class="w-24 h-24 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
+                    selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-2" id=${value.id}><img src=${value.images[1].url} class="w-24 h-24 object-cover pointer-events-none"><p class="text-xs pointer-events-none">${value.name}</p></div>`;
                   }
                   document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
                   query2 = '';
