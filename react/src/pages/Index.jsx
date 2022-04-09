@@ -128,7 +128,7 @@ export const Index = () => {
         <a href="/"><img src={logo} alt="ロゴ" className="w-16 h-16 mr-48" /></a>
         <a href="/setting"><FontAwesomeIcon className="text-4xl mt-3" icon={faGear} /></a>
       </div>
-      <h1 className="text-5xl font-bold pt-16 pb-16">e-moods</h1>
+      <h1 className="text-5xl font-bold pt-8 pb-16">e-moods</h1>
       <p><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
       <ButtonRipples id="signin_btn"></ButtonRipples><br /><br />
 

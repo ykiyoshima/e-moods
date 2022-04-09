@@ -194,7 +194,7 @@ export const Analysed = () => {
         <a href="/"><img src={logo} alt="ロゴ" className="w-16 h-16 mr-48" /></a>
         <a href="/setting"><FontAwesomeIcon className="text-4xl mt-3" icon={faGear} /></a>
       </div>
-      <h1 className="text-3xl font-bold pt-24 pb-16">分析完了</h1>
+      <h1 className="text-3xl font-bold pt-8 pb-16">分析完了</h1>
       <div id="analysis_result"></div>
       <p className="pt-4 mb-2">選曲オプションを選択してください</p>
       <div className="border-solid border-b-2 border-gray-100">
@@ -214,9 +214,6 @@ export const Analysed = () => {
       </ButtonRipples><br/><br/>
       <ButtonRipples id="signin_btn"></ButtonRipples><br/>
       <div id="message"></div>
-      <ButtonRipples>
-        <a href="/" className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-8">トップへ戻る</a>
-      </ButtonRipples>
     </div>
   );
 }

@@ -118,7 +118,7 @@ export const Selected = () => {
         <a href="/"><img src={logo} alt="ロゴ" className="w-16 h-16 mr-48" /></a>
         <a href="/setting"><FontAwesomeIcon className="text-4xl mt-3" icon={faGear} /></a>
       </div>
-      <h1 className="text-3xl font-bold pt-24 pb-16">選曲完了</h1>
+      <h1 className="text-3xl font-bold pt-8 pb-16">選曲完了</h1>
       <p>あなたにピッタリな曲をご用意しました！</p>
       <div id="playlist_result" className="w-3/4 my-8 mx-auto flex overflow-scroll"></div>
       <ButtonRipples id="signin_btn"></ButtonRipples><br/>
@@ -132,9 +132,6 @@ export const Selected = () => {
         <button className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2" onClick={() => selectTracksAgain()}>選曲をやり直す</button>
       </ButtonRipples>
       <br/><br/>
-      <ButtonRipples>
-        <a href="/" className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2">トップへ戻る</a>
-      </ButtonRipples>
     </div>
   );
 }
