@@ -157,9 +157,9 @@ export const Setting = ({ title }) => {
       <p>好きなアーティストを5組選んでください</p>
       <p>※アルファベットで検索してください</p>
       <p>※アーティスト名の一部で検索するとヒットしやすくなります</p>
-      <div className="border-solid border-b-2 border-gray-100 w-2/3 h-62 mx-auto mt-8">
+      <div className="border-solid border-b-2 border-gray-100 h-62 mx-auto mt-8">
         <p>選んだアーティスト</p>
-        <div id="selectedArtists" className="flex overflow-scroll mx-auto"></div>
+        <div id="selectedArtists" className="flex mx-auto"></div>
       </div>
       <input className="text-gray-900 px-2 rounded-mb mt-4 mb-2" type="text" id="keyword" /><br/>
       <ButtonRipples>
