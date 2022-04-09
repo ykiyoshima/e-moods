@@ -18,7 +18,7 @@ export const Setting = ({ title }) => {
   const artistIdsArray = [];
   const artistImagesArray = [];
   const artistNamesArray = [];
-  let selectedArtistIdsArray = ['', '', ''];
+  let selectedArtistIdsArray = ['', '', '', '', ''];
 
   const token = async () => {
     const response = await axios.get('/token', { withCredentials: true });
@@ -104,7 +104,7 @@ export const Setting = ({ title }) => {
             if (selectedArtistIdsArray[i] !== '') {
               document.getElementById(selectedArtistIdsArray[i]).addEventListener('click', async () => {
                 selectedArtistIdsArray.splice(i, 1);
-                selectedArtistIdsArray[2] = '';
+                selectedArtistIdsArray[4] = '';
                 const headers = {
                   'Content-Type': 'application/json',
                   'Authorization': `Bearer ${accessToken}`
@@ -133,7 +133,7 @@ export const Setting = ({ title }) => {
               });
             }
           }
-          if (selectedArtistIdsArray[2]) {
+          if (selectedArtistIdsArray[4]) {
             document.getElementById('next').innerHTML = '<button id="next_link" class="bg-green-500 hover:bg-green-600 rounded-lg w-48 py-2 px-4 mt-16">選択完了</button>';
             document.getElementById('next_link').addEventListener('click', async () => {
               const response = await axios.post('/favorite', { ids: selectedArtistIdsArray });
