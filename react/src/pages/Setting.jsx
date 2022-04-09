@@ -157,14 +157,14 @@ export const Setting = ({ title }) => {
       <p>好きなアーティストを5組選んでください</p>
       <p>※アルファベットで検索してください</p>
       <p>※アーティスト名の一部で検索するとヒットしやすくなります</p>
-      <input className="text-gray-900 px-2 rounded-mb mt-12" type="text" id="keyword" /><br/>
-      <ButtonRipples>
-        <button className="bg-green-500 hover:bg-green-600 rounded-lg w-48 py-2 px-4" type="submit" value="検索" onClick={() => searchArtist()}>検索</button>
-      </ButtonRipples>
       <div className="border-solid border-b-2 border-gray-100 w-2/3 h-62 mx-auto mt-8">
         <p>選んだアーティスト</p>
         <div id="selectedArtists" className="flex overflow-scroll mx-auto"></div>
       </div>
+      <input className="text-gray-900 px-2 rounded-mb mt-12" type="text" id="keyword" /><br/>
+      <ButtonRipples>
+        <button className="bg-green-500 hover:bg-green-600 rounded-lg w-48 py-2 px-4" type="submit" value="検索" onClick={() => searchArtist()}>検索</button>
+      </ButtonRipples>
       <p>検索結果</p>
       <div id="result" className="flex overflow-scroll w-2/3 mx-auto"></div>
       <ButtonRipples id="next"></ButtonRipples>
