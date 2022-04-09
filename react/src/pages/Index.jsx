@@ -124,8 +124,8 @@ export const Index = () => {
 
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
-      <div id="header" className="pt-4 flex justify-between">
-        <img src={logo} alt="ロゴ" className="w-8 h-8" />
+      <div id="header" className="pt-4 flex justify-center">
+        <img src={logo} alt="ロゴ" className="w-16 h-16 mr-32" />
         <FontAwesomeIcon className="text-xl" icon={faGear} />
       </div>
       <h1 className="text-5xl font-bold pt-16 pb-16">e-moods</h1>
