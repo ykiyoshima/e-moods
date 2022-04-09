@@ -75,7 +75,7 @@ export const Analysed = () => {
     }
 
     const favoritesResponse = await axios.get('/index', { withCredentials: true });
-    const { favorite_id_1, favorite_id_2, favorite_id_3, favorite_id_4, favorite_id_5 } = favoritesResponse.data;
+    const { favorite_id_1, favorite_id_2, favorite_id_3 } = favoritesResponse.data;
     const { anger, contempt, disgust, fear, happiness, neutral, sadness, surprise } = emotionsResponse.data;
     const sumOfEmotions = {
       'valence': anger * 0 + contempt * 0.25 + disgust * 0 + fear * 0 + happiness * 1 + neutral * 0.5 + sadness * 0 + surprise * 0.5,
@@ -168,14 +168,9 @@ export const Analysed = () => {
       const queryMinInstrumentalness = min_instrumentalness !== undefined ? `&min_instrumentalness=${min_instrumentalness}` : '';
       const queryTempo = target_tempo !== null ? `&target_tempo=${target_tempo}` : '';
       const queryValence = target_valence !== null ? `&target_valence=${target_valence}` : '';
-      console.log({ danceability: target_danceability, energy: target_energy, max_instrumentalness: max_instrumentalness, min_instrumentalness: min_instrumentalness, tempo: target_tempo, valence: target_valence });
 
       try {
-        const response = await axios.get(`https://api.spotify.com/v1/recommendations?limit=1&seed_artists=${favorite_id_1},${favorite_id_2},${favorite_id_3},${favorite_id_4},${favorite_id_5}${queryDanceability}${queryEnergy}${queryMaxInstrumentalness}${queryMinInstrumentalness}${queryTempo}${queryValence}`, { headers: headers });
-        console.log(previousPlaylistTrackIdArray);
-        console.log(response.data.tracks[0].id);
-        console.log(playlistTrackIdArray.indexOf(response.data.tracks[0].id) === -1);
-        console.log(previousPlaylistTrackIdArray.indexOf(response.data.tracks[0].id) === -1);
+        const response = await axios.get(`https://api.spotify.com/v1/recommendations?limit=1&seed_artists=${favorite_id_1},${favorite_id_2},${favorite_id_3}${queryDanceability}${queryEnergy}${queryMaxInstrumentalness}${queryMinInstrumentalness}${queryTempo}${queryValence}`, { headers: headers });
         if (playlistTrackIdArray.indexOf(response.data.tracks[0].id) === -1 && previousPlaylistTrackIdArray.indexOf(response.data.tracks[0].id) === -1) {
           playlistTrackIdArray.push(response.data.tracks[0].id);
         }
