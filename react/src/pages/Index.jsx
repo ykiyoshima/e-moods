@@ -2,8 +2,8 @@ import axios from "axios";
 import { useDropzone } from 'react-dropzone';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logo from "../img/logo_transparent.png";
-import { faGear } from "@fortawesome/free-solid-svg-icons";
-import { faImage } from "@fortawesome/free-regular-svg-icons";
+import { faCheck, faMusic, faFileImport, faGear } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faImage } from "@fortawesome/free-regular-svg-icons";
 import { createRipples } from "react-ripples";
 
 const ButtonRipples = createRipples({
@@ -111,7 +111,49 @@ export const Index = () => {
         <a href="/" className="mr-48"><img src={logo} alt="ロゴ" className="w-16 h-16" /></a>
         <a href="/setting"><FontAwesomeIcon className="text-4xl mt-3" icon={faGear} /></a>
       </div>
-      <h1 className="text-5xl font-bold pt-8 pb-16">e-moods</h1>
+      <h1 className="text-5xl font-bold pt-8 pb-8">e-moods</h1>
+
+      <div className="flex">
+        <div className="w-1/4">
+          <div className="w-8 h-8 mx-auto bg-green-500 rounded-full text-lg text-gray-100 flex items-center">
+            <FontAwesomeIcon icon={faCheck} />
+          </div>
+        </div>
+
+        <div className="w-1/4">
+          <div className="flex align-center items-center align-middle content-center">
+            <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+              <div className="w-0 bg-green-300 py-1 rounded"></div>
+            </div>
+          </div>
+          <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-lg text-gray-500 flex items-center">
+            <FontAwesomeIcon icon={faHeart} />
+          </div>
+        </div>
+
+        <div className="w-1/4">
+          <div className="flex align-center items-center align-middle content-center">
+            <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+              <div className="w-0 bg-green-300 py-1 rounded"></div>
+            </div>
+          </div>
+          <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-lg text-gray-500 flex items-center">
+            <FontAwesomeIcon icon={faMusic} />
+          </div>
+        </div>
+
+        <div className="w-1/4">
+          <div className="flex align-center items-center align-middle content-center">
+            <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+              <div className="w-0 bg-green-300 py-1 rounded"></div>
+            </div>
+          </div>
+          <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-lg text-gray-500 flex items-center">
+            <FontAwesomeIcon icon={faFileImport} />
+          </div>
+        </div>
+      </div>
+
       <p><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
       <br />
 
