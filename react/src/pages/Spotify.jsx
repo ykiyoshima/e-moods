@@ -14,16 +14,9 @@ export const Spotify = ({ title }) => {
       }
     });
 
-  const token = async () => {
-    const response = await axios.get('/token', { withCredentials: true });
-    return {
-      accessToken: response.data.accessToken,
-      tokenGetTime: response.data.tokenGetTime
-    }
-  };
-
   const signin = async () => {
-    const tokenGetTime = (await token()).tokenGetTime;
+    const response = await axios.get('/success', { withCredentials: true });
+
 
     const endpoint = 'https://accounts.spotify.com/authorize';
     const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private'];
@@ -31,7 +24,7 @@ export const Spotify = ({ title }) => {
     params.append('client_id', process.env.REACT_APP_CLIENT_ID || '');
     params.append('response_type', 'code');
 
-    params.append('redirect_uri', `https://e-moods.herokuapp.com/${tokenGetTime ? 'get_token' : 'first_get_token'}` || '');
+    params.append('redirect_uri', `https://e-moods.herokuapp.com/${response.data.status === 'OK' ? 'get_token' : 'first_get_token'}` || '');
     params.append('scope', scopes.join(' '));
     params.append('state', 'state');
     window.location.href = `${endpoint}?${params.toString()}`;
