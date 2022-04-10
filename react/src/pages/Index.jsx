@@ -124,7 +124,7 @@ export const Index = () => {
 
         <div className="w-1/4">
           <div className="relative">
-            <div className="absolute flex align-center items-center align-middle content-center">
+            <div className="absolute w-full flex align-center items-center align-middle content-center">
               <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
                 <div className="w-0 bg-green-300 py-1 rounded"></div>
               </div>
@@ -137,7 +137,7 @@ export const Index = () => {
 
         <div className="w-1/4">
           <div className="relative">
-            <div className="absolute flex align-center items-center align-middle content-center">
+            <div className="absolute w-full flex align-center items-center align-middle content-center">
               <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
                 <div className="w-0 bg-green-300 py-1 rounded"></div>
               </div>
@@ -150,7 +150,7 @@ export const Index = () => {
 
         <div className="w-1/4">
           <div className="relative">
-            <div className="absolute flex align-center items-center align-middle content-center">
+            <div className="absolute w-full flex align-center items-center align-middle content-center">
               <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
                 <div className="w-0 bg-green-300 py-1 rounded"></div>
               </div>
