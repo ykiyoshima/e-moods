@@ -36,7 +36,6 @@ export const Index = () => {
   };
 
   const refreshToken = async () => {
-    const accessToken = (await token()).accessToken;
     const tokenGetTime = (await token()).tokenGetTime;
     if ((Date.now() - tokenGetTime) >= 3600000 || !tokenGetTime) {
       window.location.href = '/spotify';
