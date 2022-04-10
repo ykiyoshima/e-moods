@@ -76,24 +76,7 @@ export const Index = () => {
     const accessToken = (await token()).accessToken;
     const tokenGetTime = (await token()).tokenGetTime;
     if ((Date.now() - tokenGetTime) >= 3600000 || !tokenGetTime) {
-      const signin = () => {
-        const endpoint = 'https://accounts.spotify.com/authorize';
-        const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private'];
-        const params = new URLSearchParams();
-        params.append('client_id', process.env.REACT_APP_CLIENT_ID);
-        params.append('response_type', 'code');
-        params.append('redirect_uri', 'https://e-moods.herokuapp.com/get_token');
-        params.append('scope', scopes.join(' '));
-        params.append('state', 'state');
-        document.getElementById('signin_btn').innerHTML = '';
-        window.location.href = `${endpoint}?${params.toString()}`;
-      }
-      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2">Spotifyと連携</button>';
-      document.getElementById('signin').addEventListener('click', () => {
-        signin();
-      });
-    } else {
-      document.getElementById('signin_btn').innerHTML = '';
+      window.location.href = '/spotify';
     }
   }
 
@@ -124,13 +107,13 @@ export const Index = () => {
 
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
-      <div id="header" className="w-2/3 mx-auto pt-4 flex justify-center border-solid border-b-2 border-gray-100">
+      <div id="header" className="w-3/4 mx-auto pt-4 flex justify-center border-solid border-b-2 border-gray-100">
         <a href="/"><img src={logo} alt="ロゴ" className="w-16 h-16 mr-48" /></a>
         <a href="/setting"><FontAwesomeIcon className="text-4xl mt-3" icon={faGear} /></a>
       </div>
       <h1 className="text-5xl font-bold pt-8 pb-16">e-moods</h1>
       <p><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
-      <ButtonRipples id="signin_btn"></ButtonRipples><br /><br />
+      <br /><br />
 
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />

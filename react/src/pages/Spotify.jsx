@@ -14,13 +14,24 @@ export const Spotify = ({ title }) => {
       }
     });
 
-  const signin = () => {
+  const token = async () => {
+    const response = await axios.get('/token', { withCredentials: true });
+    return {
+      accessToken: response.data.accessToken,
+      tokenGetTime: response.data.tokenGetTime
+    }
+  };
+
+  const signin = async () => {
+    const tokenGetTime = (await token()).tokenGetTime;
+
     const endpoint = 'https://accounts.spotify.com/authorize';
     const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private'];
     const params = new URLSearchParams();
     params.append('client_id', process.env.REACT_APP_CLIENT_ID || '');
     params.append('response_type', 'code');
-    params.append('redirect_uri', 'https://e-moods.herokuapp.com/first_get_token' || '');
+
+    params.append('redirect_uri', `https://e-moods.herokuapp.com/${tokenGetTime ? 'get_token' : 'first_get_token'}` || '');
     params.append('scope', scopes.join(' '));
     params.append('state', 'state');
     window.location.href = `${endpoint}?${params.toString()}`;
