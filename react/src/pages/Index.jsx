@@ -116,7 +116,7 @@ export const Index = () => {
       <div className="flex">
         <div className="w-1/4">
           <div className="relative">
-            <div className="w-6 h-6 mx-auto bg-green-500 rounded-full text-base text-center text-gray-100 flex items-center z-2">
+            <div className="w-8 h-8 mx-auto bg-green-500 rounded-full text-base text-gray-100 flex items-center justify-center">
               <FontAwesomeIcon icon={faCheck} />
             </div>
           </div>
@@ -129,7 +129,7 @@ export const Index = () => {
                 <div className="w-0 bg-green-300 py-0.5 rounded"></div>
               </div>
             </div>
-            <div className="w-6 h-6 mx-auto bg-gray-200 rounded-full text-base text-gray-500 flex items-center justify-center z-10">
+            <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-base text-gray-500 flex items-center justify-center">
               <FontAwesomeIcon icon={faHeart} />
             </div>
           </div>
@@ -142,7 +142,7 @@ export const Index = () => {
                 <div className="w-0 bg-green-300 py-0.5 rounded"></div>
               </div>
             </div>
-            <div className="w-6 h-6 mx-auto bg-gray-200 rounded-full text-base text-gray-500 flex items-center justify-center z-10">
+            <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-base text-gray-500 flex items-center justify-center">
               <FontAwesomeIcon icon={faMusic} />
             </div>
           </div>
@@ -155,7 +155,7 @@ export const Index = () => {
                 <div className="w-0 bg-green-300 py-0.5 rounded"></div>
               </div>
             </div>
-            <div className="w-6 h-6 mx-auto bg-gray-200 rounded-full text-base text-gray-500 flex items-center justify-center z-10">
+            <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-base text-gray-500 flex items-center justify-center">
               <FontAwesomeIcon icon={faFileImport} />
             </div>
           </div>
