@@ -2,7 +2,8 @@ import axios from "axios";
 import { createRipples } from "react-ripples";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logo from "../img/logo_transparent.png";
-import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faMusic, faFileImport, faGear } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faImage } from "@fortawesome/free-regular-svg-icons";
 
 const ButtonRipples = createRipples({
   color: 'snow',
