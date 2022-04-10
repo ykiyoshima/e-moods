@@ -27,6 +27,23 @@ export const Index = () => {
       }
     });
 
+  const token = async () => {
+    const response = await axios.get('/token', { withCredentials: true });
+    return {
+      accessToken: response.data.accessToken,
+      tokenGetTime: response.data.tokenGetTime
+    }
+  };
+
+  const refreshToken = async () => {
+    const accessToken = (await token()).accessToken;
+    const tokenGetTime = (await token()).tokenGetTime;
+    if ((Date.now() - tokenGetTime) >= 3600000 || !tokenGetTime) {
+      window.location.href = '/spotify';
+    }
+  }
+  refreshToken();
+
   const style = {
     width: 200,
     height: 150,
@@ -61,23 +78,6 @@ export const Index = () => {
           document.getElementById('username').innerHTML = 'ゲスト';
         }
       });
-    refreshToken();
-  }
-
-  const token = async () => {
-    const response = await axios.get('/token', { withCredentials: true });
-    return {
-      accessToken: response.data.accessToken,
-      tokenGetTime: response.data.tokenGetTime
-    }
-  };
-
-  const refreshToken = async () => {
-    const accessToken = (await token()).accessToken;
-    const tokenGetTime = (await token()).tokenGetTime;
-    if ((Date.now() - tokenGetTime) >= 3600000 || !tokenGetTime) {
-      window.location.href = '/spotify';
-    }
   }
 
   const startEmotionAnalysis = () => {
