@@ -155,11 +155,11 @@ export const Selected = () => {
       <div id="playlist_result" className="w-3/4 my-8 mx-auto flex overflow-scroll"></div>
       <ButtonRipples id="signin_btn"></ButtonRipples><br/>
       <div id="caution"></div>
-      <input type="text" id="playlist_name" className="text-gray-900 rounded-md px-2" placeholder="プレイリスト名" /><br/>
+      <input type="text" id="playlist_name" className="text-gray-900 rounded-md px-2 mb-4" placeholder="プレイリスト名" /><br/>
       <ButtonRipples>
-        <button id="playlist_btn" className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-4 mb-6" onClick={() => makePlaylist()}>プレイリスト作成</button>
+        <button id="playlist_btn" className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2" onClick={() => makePlaylist()}>プレイリスト作成</button>
       </ButtonRipples>
-      <br/>
+      <br/><br/>
       <ButtonRipples>
         <button className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2" onClick={() => selectTracksAgain()}>選曲をやり直す</button>
       </ButtonRipples>
