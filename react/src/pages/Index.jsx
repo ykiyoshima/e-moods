@@ -126,10 +126,10 @@ export const Index = () => {
           <div className="relative">
             <div className="absolute w-full flex align-center items-center align-middle content-center top-1/2 -translate-x-1/2 -translate-y-1/2">
               <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
-                <div className="w-0 bg-green-300 py-px rounded"></div>
+                <div className="w-0 bg-green-300 py-0.5 rounded"></div>
               </div>
             </div>
-            <div className="w-6 h-6 mx-auto bg-gray-200 rounded-full text-base text-center text-gray-500 flex items-center z-2">
+            <div className="w-6 h-6 mx-auto bg-gray-200 rounded-full text-base text-center text-gray-500 flex items-center z-10">
               <FontAwesomeIcon icon={faHeart} />
             </div>
           </div>
@@ -139,10 +139,10 @@ export const Index = () => {
           <div className="relative">
             <div className="absolute w-full flex align-center items-center align-middle content-center top-1/2 -translate-x-1/2 -translate-y-1/2">
               <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
-                <div className="w-0 bg-green-300 py-px rounded"></div>
+                <div className="w-0 bg-green-300 py-0.5 rounded"></div>
               </div>
             </div>
-            <div className="w-6 h-6 mx-auto bg-gray-200 rounded-full text-base text-center text-gray-500 flex items-center z-2">
+            <div className="w-6 h-6 mx-auto bg-gray-200 rounded-full text-base text-center text-gray-500 flex items-center z-10">
               <FontAwesomeIcon icon={faMusic} />
             </div>
           </div>
@@ -152,10 +152,10 @@ export const Index = () => {
           <div className="relative">
             <div className="absolute w-full flex align-center items-center align-middle content-center top-1/2 -translate-x-1/2 -translate-y-1/2">
               <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
-                <div className="w-0 bg-green-300 py-px rounded"></div>
+                <div className="w-0 bg-green-300 py-0.5 rounded"></div>
               </div>
             </div>
-            <div className="w-6 h-6 mx-auto bg-gray-200 rounded-full text-base text-center text-gray-500 flex items-center z-2">
+            <div className="w-6 h-6 mx-auto bg-gray-200 rounded-full text-base text-center text-gray-500 flex items-center z-10">
               <FontAwesomeIcon icon={faFileImport} />
             </div>
           </div>
