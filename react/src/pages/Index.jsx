@@ -116,7 +116,7 @@ export const Index = () => {
       <div className="flex">
         <div className="w-1/4">
           <div className="relative">
-            <div className="w-8 h-8 mx-auto bg-green-500 rounded-full text-lg text-center text-gray-100 flex items-center">
+            <div className="w-6 h-6 mx-auto bg-green-500 rounded-full text-base text-center text-gray-100 flex items-center z-2">
               <FontAwesomeIcon icon={faCheck} />
             </div>
           </div>
@@ -126,10 +126,10 @@ export const Index = () => {
           <div className="relative">
             <div className="absolute w-full flex align-center items-center align-middle content-center top-1/2 -translate-x-1/2 -translate-y-1/2">
               <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
-                <div className="w-0 bg-green-300 py-1 rounded"></div>
+                <div className="w-0 bg-green-300 py-px rounded"></div>
               </div>
             </div>
-            <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-lg text-center text-gray-500 flex items-center">
+            <div className="w-6 h-6 mx-auto bg-gray-200 rounded-full text-base text-center text-gray-500 flex items-center z-2">
               <FontAwesomeIcon icon={faHeart} />
             </div>
           </div>
@@ -139,10 +139,10 @@ export const Index = () => {
           <div className="relative">
             <div className="absolute w-full flex align-center items-center align-middle content-center top-1/2 -translate-x-1/2 -translate-y-1/2">
               <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
-                <div className="w-0 bg-green-300 py-1 rounded"></div>
+                <div className="w-0 bg-green-300 py-px rounded"></div>
               </div>
             </div>
-            <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-lg text-center text-gray-500 flex items-center">
+            <div className="w-6 h-6 mx-auto bg-gray-200 rounded-full text-base text-center text-gray-500 flex items-center z-2">
               <FontAwesomeIcon icon={faMusic} />
             </div>
           </div>
@@ -152,10 +152,10 @@ export const Index = () => {
           <div className="relative">
             <div className="absolute w-full flex align-center items-center align-middle content-center top-1/2 -translate-x-1/2 -translate-y-1/2">
               <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
-                <div className="w-0 bg-green-300 py-1 rounded"></div>
+                <div className="w-0 bg-green-300 py-px rounded"></div>
               </div>
             </div>
-            <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-lg text-center text-gray-500 flex items-center">
+            <div className="w-6 h-6 mx-auto bg-gray-200 rounded-full text-base text-center text-gray-500 flex items-center z-2">
               <FontAwesomeIcon icon={faFileImport} />
             </div>
           </div>
