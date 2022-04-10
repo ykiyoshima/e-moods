@@ -180,7 +180,7 @@ export const Analysed = () => {
       <div id="analysis_result"></div>
       <p className="pt-4 mb-2">選曲オプションを選択してください</p>
       <div className="border-solid border-b-2 border-gray-100">
-        <input type="radio" id="inst_ng" name="inst_option" value="inst_ng" checked /><label htmlFor="inst_ng">ボーカルありだけ</label><br/>
+        <input type="radio" id="inst_ng" name="inst_option" value="inst_ng" checked="checked" /><label htmlFor="inst_ng">ボーカルありだけ</label><br/>
         <input type="radio" id="inst_ok" name="inst_option" value="inst_ok" /><label htmlFor="inst_ok">ボーカルなし含む</label><br/>
         <input type="radio" id="inst_only" name="inst_option" value="inst_only" /><label htmlFor="inst_only">ボーカルなしだけ</label>
       </div><br/><br/>
