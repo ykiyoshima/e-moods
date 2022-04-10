@@ -22,6 +22,7 @@ export const Index = () => {
           .then((response) => {
             if (response.data.status === 'NG') {
               window.location.href = "/spotify";
+              return;
             }
           });
       }
@@ -107,7 +108,7 @@ export const Index = () => {
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <div id="header" className="w-3/4 mx-auto pt-4 flex justify-center border-solid border-b-2 border-gray-100">
-        <a href="/"><img src={logo} alt="ロゴ" className="w-16 h-16 mr-48" /></a>
+        <a href="/" className="mr-48"><img src={logo} alt="ロゴ" className="w-16 h-16" /></a>
         <a href="/setting"><FontAwesomeIcon className="text-4xl mt-3" icon={faGear} /></a>
       </div>
       <h1 className="text-5xl font-bold pt-8 pb-16">e-moods</h1>
