@@ -129,7 +129,7 @@ export const Index = () => {
                 <div className="w-0 bg-green-300 py-0.5 rounded"></div>
               </div>
             </div>
-            <div className="w-6 h-6 mx-auto bg-gray-200 rounded-full text-base text-center text-gray-500 flex items-center z-10">
+            <div className="w-6 h-6 mx-auto bg-gray-200 rounded-full text-base text-gray-500 flex items-center justify-center z-10">
               <FontAwesomeIcon icon={faHeart} />
             </div>
           </div>
@@ -142,7 +142,7 @@ export const Index = () => {
                 <div className="w-0 bg-green-300 py-0.5 rounded"></div>
               </div>
             </div>
-            <div className="w-6 h-6 mx-auto bg-gray-200 rounded-full text-base text-center text-gray-500 flex items-center z-10">
+            <div className="w-6 h-6 mx-auto bg-gray-200 rounded-full text-base text-gray-500 flex items-center justify-center z-10">
               <FontAwesomeIcon icon={faMusic} />
             </div>
           </div>
@@ -155,14 +155,14 @@ export const Index = () => {
                 <div className="w-0 bg-green-300 py-0.5 rounded"></div>
               </div>
             </div>
-            <div className="w-6 h-6 mx-auto bg-gray-200 rounded-full text-base text-center text-gray-500 flex items-center z-10">
+            <div className="w-6 h-6 mx-auto bg-gray-200 rounded-full text-base text-gray-500 flex items-center justify-center z-10">
               <FontAwesomeIcon icon={faFileImport} />
             </div>
           </div>
         </div>
       </div>
 
-      <p><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
+      <p className="mt-8"><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
       <br />
 
       <div {...getRootProps({ style })}>
