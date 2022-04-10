@@ -48,6 +48,9 @@ export const Selected = () => {
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe><span class="ml-2"></span>`;
         });
         document.getElementById('playlist_result').innerHTML = playlistTagArray;
+        if (playlistTrackIdArray.length === 0) {
+          document.getElementById('playlist_result').innerHTML = '<p>通信エラー：もう一度選曲し直してください</p>';
+        }
       });
 
     document.getElementById('playlist_name').onkeydown = (e) => {
