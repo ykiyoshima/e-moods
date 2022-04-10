@@ -17,6 +17,22 @@ export const Imported = () => {
       }
     });
 
+  const token = async () => {
+    const response = await axios.get('/token', { withCredentials: true });
+    return {
+      accessToken: response.data.accessToken,
+      tokenGetTime: response.data.tokenGetTime
+    }
+  };
+
+  const refreshToken = async () => {
+    const tokenGetTime = (await token()).tokenGetTime;
+    if ((Date.now() - tokenGetTime) >= 3600000 || !tokenGetTime) {
+      window.location.href = '/spotify';
+    }
+  }
+  refreshToken();
+
   axios.get('/tracks', { withCredentials: true })
     .then(response => {
       const playlistTrackIdArray = response.data;

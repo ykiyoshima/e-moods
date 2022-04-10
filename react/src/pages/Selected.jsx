@@ -17,8 +17,6 @@ export const Selected = () => {
       }
     });
 
-  let playlistTrackIdArray;
-
   const token = async () => {
     const response = await axios.get('/token', { withCredentials: true });
     return {
@@ -28,40 +26,23 @@ export const Selected = () => {
   };
 
   const refreshToken = async () => {
-    const accessToken = (await token()).accessToken;
     const tokenGetTime = (await token()).tokenGetTime;
-
-    if ((Date.now() - tokenGetTime) >= 3600000) {
-      const signin = () => {
-        const endpoint = 'https://accounts.spotify.com/authorize';
-        const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private'];
-        const params = new URLSearchParams();
-        params.append('client_id', process.env.REACT_APP_CLIENT_ID);
-        params.append('response_type', 'code');
-        params.append('redirect_uri', 'https://e-moods.herokuapp.com/get_token');
-        params.append('scope', scopes.join(' '));
-        params.append('state', 'state');
-        document.getElementById('signin_btn').innerHTML = '';
-        window.location.href = `${endpoint}?${params.toString()}`;
-      }
-      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 hover:bg-green-600 rounded-lg w-48 py-2 px-4">Spotifyと連携</button>';
-      document.getElementById('signin').addEventListener('click', () => {
-        signin();
-      });
-    } else {
-      document.getElementById('signin_btn').innerHTML = '';
+    if ((Date.now() - tokenGetTime) >= 3600000 || !tokenGetTime) {
+      window.location.href = '/spotify';
     }
   }
+  refreshToken();
+
+  let playlistTrackIdArray;
 
   window.onload = () => {
-    refreshToken();
     axios.get('/tracks', { withCredentials: true })
       .then(response => {
         playlistTrackIdArray = response.data;
         let playlistTagArray = '<span class="ml-2"></span>';
         playlistTrackIdArray.forEach(value => {
           playlistTagArray += `<iframe id="${value} class="px-4" style="border-radius:12px" width="240" height="320"
-            src="https://open.spotify.com/embed/track/${value}?utm_source=generator"
+          src="https://open.spotify.com/embed/track/${value}?utm_source=generator"
             frameBorder="0" allowfullscreen=""
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe><span class="ml-2"></span>`;
         });

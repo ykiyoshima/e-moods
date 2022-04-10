@@ -16,9 +16,6 @@ export const Analysed = () => {
         window.location.href = "/login";
       }
     });
-  let emotionsResponse;
-  const playlistTrackIdArray = [];
-  let previousPlaylistTrackIdArray = [];
 
   const token = async () => {
     const response = await axios.get('/token', { withCredentials: true });
@@ -29,33 +26,18 @@ export const Analysed = () => {
   };
 
   const refreshToken = async () => {
-    const accessToken = (await token()).accessToken;
     const tokenGetTime = (await token()).tokenGetTime;
-
-    if ((Date.now() - tokenGetTime) >= 3600000) {
-      const signin = () => {
-        const endpoint = 'https://accounts.spotify.com/authorize';
-        const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private'];
-        const params = new URLSearchParams();
-        params.append('client_id', process.env.REACT_APP_CLIENT_ID);
-        params.append('response_type', 'code');
-        params.append('redirect_uri', 'https://e-moods.herokuapp.com/get_token');
-        params.append('scope', scopes.join(' '));
-        params.append('state', 'state');
-        document.getElementById('signin_btn').innerHTML = '';
-        window.location.href = `${endpoint}?${params.toString()}`;
-      }
-      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 hover:bg-green-600 rounded-lg w-48 py-2 px-4">Spotifyと連携</button>';
-      document.getElementById('signin').addEventListener('click', () => {
-        signin();
-      });
-    } else {
-      document.getElementById('signin_btn').innerHTML = '';
+    if ((Date.now() - tokenGetTime) >= 3600000 || !tokenGetTime) {
+      window.location.href = '/spotify';
     }
   }
+  refreshToken();
+
+  let emotionsResponse;
+  const playlistTrackIdArray = [];
+  let previousPlaylistTrackIdArray = [];
 
   window.onload = async () => {
-    refreshToken();
     emotionsResponse = await axios.get('/emotions', { withCredentials: true });
     const { anger, contempt, disgust, fear, happiness, neutral, sadness, surprise } = emotionsResponse.data;
     document.getElementById('analysis_result').innerHTML = `<p>あなたの感情は以下のようです</p><p class="my-4">怒り：${(Math.round(anger * 100 * 100)) / 100}%  軽蔑：${(Math.round(contempt * 100 * 100)) / 100}%  嫌悪：${(Math.round(disgust * 100 * 100)) / 100}%  恐怖：${(Math.round(fear * 100 * 100)) / 100}%<br/>幸せ：${(Math.round(happiness * 100 * 100)) / 100}%  中立：${(Math.round(neutral * 100 * 100)) / 100}%  悲しみ：${(Math.round(sadness * 100 * 100)) / 100}%  驚き：${(Math.round(surprise * 100 * 100)) / 100}%</p>`;
