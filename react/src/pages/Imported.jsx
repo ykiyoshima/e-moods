@@ -122,7 +122,7 @@ export const Imported = () => {
         </div>
       </div>
 
-      <p>選ばれた曲をプレイリストとして<br />Spotifyにインポートしました！</p>
+      <p className="mt-4">選ばれた曲をプレイリストとして<br />Spotifyにインポートしました！</p>
       <div id="playlist_result" className="w-3/4 my-8 mx-auto flex overflow-scroll"></div>
       <ButtonRipples>
         <a id="tweet" className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2" target="_blank" rel="noopener noreferrer">結果をツイート</a>

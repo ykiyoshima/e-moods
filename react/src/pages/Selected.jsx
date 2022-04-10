@@ -151,7 +151,7 @@ export const Selected = () => {
         </div>
       </div>
 
-      <p>あなたにピッタリな曲をご用意しました！</p>
+      <p className="mt-4">あなたにピッタリな曲をご用意しました！</p>
       <div id="playlist_result" className="w-3/4 my-8 mx-auto flex overflow-scroll"></div>
       <ButtonRipples id="signin_btn"></ButtonRipples><br/>
       <div id="caution"></div>
