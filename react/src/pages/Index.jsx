@@ -115,41 +115,49 @@ export const Index = () => {
 
       <div className="flex">
         <div className="w-1/4">
-          <div className="w-8 h-8 mx-auto bg-green-500 rounded-full text-lg text-gray-100 flex items-center">
-            <FontAwesomeIcon icon={faCheck} />
+          <div className="relative">
+            <div className="w-8 h-8 mx-auto bg-green-500 rounded-full text-lg text-center text-gray-100 flex items-center">
+              <FontAwesomeIcon icon={faCheck} />
+            </div>
           </div>
         </div>
 
         <div className="w-1/4">
-          <div className="flex align-center items-center align-middle content-center">
-            <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
-              <div className="w-0 bg-green-300 py-1 rounded"></div>
+          <div className="relative">
+            <div className="absolute flex align-center items-center align-middle content-center">
+              <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+                <div className="w-0 bg-green-300 py-1 rounded"></div>
+              </div>
             </div>
-          </div>
-          <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-lg text-gray-500 flex items-center">
-            <FontAwesomeIcon icon={faHeart} />
+            <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-lg text-center text-gray-500 flex items-center">
+              <FontAwesomeIcon icon={faHeart} />
+            </div>
           </div>
         </div>
 
         <div className="w-1/4">
-          <div className="flex align-center items-center align-middle content-center">
-            <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
-              <div className="w-0 bg-green-300 py-1 rounded"></div>
+          <div className="relative">
+            <div className="absolute flex align-center items-center align-middle content-center">
+              <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+                <div className="w-0 bg-green-300 py-1 rounded"></div>
+              </div>
             </div>
-          </div>
-          <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-lg text-gray-500 flex items-center">
-            <FontAwesomeIcon icon={faMusic} />
+            <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-lg text-center text-gray-500 flex items-center">
+              <FontAwesomeIcon icon={faMusic} />
+            </div>
           </div>
         </div>
 
         <div className="w-1/4">
-          <div className="flex align-center items-center align-middle content-center">
-            <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
-              <div className="w-0 bg-green-300 py-1 rounded"></div>
+          <div className="relative">
+            <div className="absolute flex align-center items-center align-middle content-center">
+              <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+                <div className="w-0 bg-green-300 py-1 rounded"></div>
+              </div>
             </div>
-          </div>
-          <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-lg text-gray-500 flex items-center">
-            <FontAwesomeIcon icon={faFileImport} />
+            <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-lg text-center text-gray-500 flex items-center">
+              <FontAwesomeIcon icon={faFileImport} />
+            </div>
           </div>
         </div>
       </div>
