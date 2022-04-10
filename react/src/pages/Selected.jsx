@@ -100,6 +100,56 @@ export const Selected = () => {
         <a href="/setting"><FontAwesomeIcon className="text-4xl mt-3" icon={faGear} /></a>
       </div>
       <h1 className="text-3xl font-bold pt-8 pb-16">選曲完了</h1>
+
+      <div className="flex">
+        <div className="w-1/4">
+          <div className="relative">
+            <div className="w-8 h-8 mx-auto bg-green-500 rounded-full text-base text-gray-100 flex items-center justify-center">
+              <FontAwesomeIcon icon={faCheck} />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-1/4">
+          <div className="relative">
+            <div className="absolute w-3/4 flex align-center items-center align-middle content-center top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+                <div className="w-full bg-green-300 py-0.5 rounded"></div>
+              </div>
+            </div>
+            <div className="w-8 h-8 mx-auto bg-green-500 rounded-full text-base text-gray-100 flex items-center justify-center">
+              <FontAwesomeIcon icon={faHeart} />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-1/4">
+          <div className="relative">
+            <div className="absolute w-3/4 flex align-center items-center align-middle content-center top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+                <div className="w-full bg-green-300 py-0.5 rounded"></div>
+              </div>
+            </div>
+            <div className="w-8 h-8 mx-auto bg-green-500 rounded-full text-base text-gray-100 flex items-center justify-center">
+              <FontAwesomeIcon icon={faMusic} />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-1/4">
+          <div className="relative">
+            <div className="absolute w-3/4 flex align-center items-center align-middle content-center top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+                <div className="w-0 bg-green-300 py-0.5 rounded"></div>
+              </div>
+            </div>
+            <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-base text-gray-500 flex items-center justify-center">
+              <FontAwesomeIcon icon={faFileImport} />
+            </div>
+          </div>
+        </div>
+      </div>
+
       <p>あなたにピッタリな曲をご用意しました！</p>
       <div id="playlist_result" className="w-3/4 my-8 mx-auto flex overflow-scroll"></div>
       <ButtonRipples id="signin_btn"></ButtonRipples><br/>
