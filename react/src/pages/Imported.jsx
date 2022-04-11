@@ -1,4 +1,14 @@
 import axios from 'axios';
+import { createRipples } from "react-ripples";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import logo from "../img/logo_transparent.png";
+import { faCheck, faMusic, faFileImport, faGear } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faImage } from "@fortawesome/free-regular-svg-icons";
+
+const ButtonRipples = createRipples({
+  color: 'snow',
+  during: 600
+});
 
 export const Imported = () => {
   axios.get('/index', { withCredentials: true })
@@ -7,6 +17,22 @@ export const Imported = () => {
         window.location.href = "/login";
       }
     });
+
+  const token = async () => {
+    const response = await axios.get('/token', { withCredentials: true });
+    return {
+      accessToken: response.data.accessToken,
+      tokenGetTime: response.data.tokenGetTime
+    }
+  };
+
+  const refreshToken = async () => {
+    const tokenGetTime = (await token()).tokenGetTime;
+    if ((Date.now() - tokenGetTime) >= 3600000 || !tokenGetTime) {
+      window.location.href = '/spotify';
+    }
+  }
+  refreshToken();
 
   axios.get('/tracks', { withCredentials: true })
     .then(response => {
@@ -41,12 +67,71 @@ export const Imported = () => {
 
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
-      <h1 className="text-3xl font-bold pt-24 pb-16">インポート完了</h1>
-      <p>選ばれた曲をプレイリストとして<br />Spotifyにインポートしました！</p>
+      <div id="header" className="w-3/4 mx-auto pt-4 flex justify-between border-solid border-b-2 border-gray-100">
+        <a href="/"><img src={logo} alt="ロゴ" className="w-16 h-16" /></a>
+        <a href="/setting"><FontAwesomeIcon className="text-4xl mt-3" icon={faGear} /></a>
+      </div>
+      <h1 className="text-3xl font-bold pt-8 pb-16">インポート完了</h1>
+
+      <div className="flex">
+        <div className="w-1/4">
+          <div className="relative">
+            <div className="w-8 h-8 mx-auto bg-green-500 rounded-full text-base text-gray-100 flex items-center justify-center">
+              <FontAwesomeIcon icon={faCheck} />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-1/4">
+          <div className="relative">
+            <div className="absolute w-3/4 flex align-center items-center align-middle content-center top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+                <div className="w-full bg-green-300 py-0.5 rounded"></div>
+              </div>
+            </div>
+            <div className="w-8 h-8 mx-auto bg-green-500 rounded-full text-base text-gray-100 flex items-center justify-center">
+              <FontAwesomeIcon icon={faHeart} />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-1/4">
+          <div className="relative">
+            <div className="absolute w-3/4 flex align-center items-center align-middle content-center top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+                <div className="w-full bg-green-300 py-0.5 rounded"></div>
+              </div>
+            </div>
+            <div className="w-8 h-8 mx-auto bg-green-500 rounded-full text-base text-gray-100 flex items-center justify-center">
+              <FontAwesomeIcon icon={faMusic} />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-1/4">
+          <div className="relative">
+            <div className="absolute w-3/4 flex align-center items-center align-middle content-center top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+                <div className="w-full bg-green-300 py-0.5 rounded"></div>
+              </div>
+            </div>
+            <div className="w-8 h-8 mx-auto bg-green-500 rounded-full text-base text-gray-100 flex items-center justify-center">
+              <FontAwesomeIcon icon={faFileImport} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p className="mt-4">選ばれた曲をプレイリストとして<br />Spotifyにインポートしました！</p>
       <div id="playlist_result" className="w-3/4 my-8 mx-auto flex overflow-scroll"></div>
-      <a id="tweet" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2" target="_blank" rel="noopener noreferrer">結果をツイート</a><br/>
+      <ButtonRipples>
+        <a id="tweet" className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2" target="_blank" rel="noopener noreferrer">結果をツイート</a>
+      </ButtonRipples>
+      <br/>
       <div className="w-full h-12"></div>
-      <a href="/" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2">トップへ戻る</a>
+      <ButtonRipples>
+        <a href="/" className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2">トップへ戻る</a>
+      </ButtonRipples>
     </div>
   );
 };

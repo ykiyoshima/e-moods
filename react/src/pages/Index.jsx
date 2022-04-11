@@ -1,7 +1,15 @@
 import axios from "axios";
 import { useDropzone } from 'react-dropzone';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImage } from "@fortawesome/free-regular-svg-icons";
+import logo from "../img/logo_transparent.png";
+import { faCheck, faMusic, faFileImport, faGear } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faImage } from "@fortawesome/free-regular-svg-icons";
+import { createRipples } from "react-ripples";
+
+const ButtonRipples = createRipples({
+  color: 'snow',
+  during: 600
+});
 
 export const Index = () => {
   axios.get('/index', { withCredentials: true })
@@ -14,10 +22,27 @@ export const Index = () => {
           .then((response) => {
             if (response.data.status === 'NG') {
               window.location.href = "/spotify";
+              return;
             }
           });
       }
     });
+
+  const token = async () => {
+    const response = await axios.get('/token', { withCredentials: true });
+    return {
+      accessToken: response.data.accessToken,
+      tokenGetTime: response.data.tokenGetTime
+    }
+  };
+
+  const refreshToken = async () => {
+    const tokenGetTime = (await token()).tokenGetTime;
+    if ((Date.now() - tokenGetTime) >= 3600000 || !tokenGetTime) {
+      window.location.href = '/spotify';
+    }
+  }
+  refreshToken();
 
   const style = {
     width: 200,
@@ -53,40 +78,6 @@ export const Index = () => {
           document.getElementById('username').innerHTML = 'ゲスト';
         }
       });
-    refreshToken();
-  }
-
-  const token = async () => {
-    const response = await axios.get('/token', { withCredentials: true });
-    return {
-      accessToken: response.data.accessToken,
-      tokenGetTime: response.data.tokenGetTime
-    }
-  };
-
-  const refreshToken = async () => {
-    const accessToken = (await token()).accessToken;
-    const tokenGetTime = (await token()).tokenGetTime;
-    if ((Date.now() - tokenGetTime) >= 3600000 || !tokenGetTime) {
-      const signin = () => {
-        const endpoint = 'https://accounts.spotify.com/authorize';
-        const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private'];
-        const params = new URLSearchParams();
-        params.append('client_id', process.env.REACT_APP_CLIENT_ID);
-        params.append('response_type', 'code');
-        params.append('redirect_uri', 'https://e-moods.herokuapp.com/get_token');
-        params.append('scope', scopes.join(' '));
-        params.append('state', 'state');
-        document.getElementById('signin_btn').innerHTML = '';
-        window.location.href = `${endpoint}?${params.toString()}`;
-      }
-      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2">Spotifyと連携</button>';
-      document.getElementById('signin').addEventListener('click', () => {
-        signin();
-      });
-    } else {
-      document.getElementById('signin_btn').innerHTML = '';
-    }
   }
 
   const startEmotionAnalysis = () => {
@@ -116,10 +107,64 @@ export const Index = () => {
 
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
-      <h1 className="text-5xl font-bold pt-24 pb-16">e-moods</h1>
-      <p><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
-      <div id="signin_btn" className="my-8"></div>
-      <a href="/setting" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2">設定アーティスト変更</a>
+      <div id="header" className="w-3/4 mx-auto pt-4 flex justify-between border-solid border-b-2 border-gray-100">
+        <a href="/"><img src={logo} alt="ロゴ" className="w-16 h-16" /></a>
+        <a href="/setting"><FontAwesomeIcon className="text-4xl mt-3" icon={faGear} /></a>
+      </div>
+      <h1 className="text-5xl font-bold pt-8 pb-8">e-moods</h1>
+
+      <div className="flex">
+        <div className="w-1/4">
+          <div className="relative">
+            <div className="w-8 h-8 mx-auto bg-green-500 rounded-full text-base text-gray-100 flex items-center justify-center">
+              <FontAwesomeIcon icon={faCheck} />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-1/4">
+          <div className="relative">
+            <div className="absolute w-3/4 flex align-center items-center align-middle content-center top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+                <div className="w-0 bg-green-300 py-0.5 rounded"></div>
+              </div>
+            </div>
+            <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-base text-gray-500 flex items-center justify-center">
+              <FontAwesomeIcon icon={faHeart} />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-1/4">
+          <div className="relative">
+            <div className="absolute w-3/4 flex align-center items-center align-middle content-center top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+                <div className="w-0 bg-green-300 py-0.5 rounded"></div>
+              </div>
+            </div>
+            <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-base text-gray-500 flex items-center justify-center">
+              <FontAwesomeIcon icon={faMusic} />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-1/4">
+          <div className="relative">
+            <div className="absolute w-3/4 flex align-center items-center align-middle content-center top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+                <div className="w-0 bg-green-300 py-0.5 rounded"></div>
+              </div>
+            </div>
+            <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-base text-gray-500 flex items-center justify-center">
+              <FontAwesomeIcon icon={faFileImport} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p className="mt-8"><span id="username"></span>の顔写真を送信することで<br/>写真から感情を分析しその結果に基づいて<br/>あなたにぴったりな3曲を選びます！</p>
+      <br />
+
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
         <FontAwesomeIcon className="text-6xl mt-6 mb-4" icon={faImage} />
@@ -131,7 +176,9 @@ export const Index = () => {
       </div>
       <div id="image_area" className="my-8 w-full"></div>
       <div id="message"></div>
-      <button id="make_recommendations" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2" onClick={() => startEmotionAnalysis()}>感情分析を開始</button><br/><br/>
+      <ButtonRipples>
+        <button id="make_recommendations" className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2" onClick={() => startEmotionAnalysis()}>感情分析を開始</button>
+      </ButtonRipples>
     </div>
   );
 };

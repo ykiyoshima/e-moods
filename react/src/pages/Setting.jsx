@@ -1,5 +1,11 @@
 import axios from "axios";
 import noImage from "../img/no_image.png";
+import { createRipples } from "react-ripples";
+
+const ButtonRipples = createRipples({
+  color: 'snow',
+  during: 600
+});
 
 export const Setting = ({ title }) => {
   axios.get('/index', { withCredentials: true })
@@ -48,10 +54,10 @@ export const Setting = ({ title }) => {
     } catch (error) {
       console.log(error);
     }
-    let tags = '<span class="mr-6"></span>';
+    let tags = '<span class="mr-2"></span>';
     if (artistIdsArray.length !== 0) {
       for (let i = 0; i < artistIdsArray.length; i++) {
-        tags += `<div data-id=${artistIdsArray[i]} class="artist flex-none overflow-scroll mr-6"><img src=${artistImagesArray[i]} class="w-48 h-48 object-cover pointer-events-none" data-id=${artistIdsArray[i]}><p class="pointer-events-none" data-id=${artistIdsArray[i]}>${artistNamesArray[i]}</p></div>`;
+        tags += `<div data-id=${artistIdsArray[i]} class="artist flex-none overflow-scroll mr-2"><img src=${artistImagesArray[i]} class="w-48 h-48 object-cover pointer-events-none" data-id=${artistIdsArray[i]}><p class="pointer-events-none" data-id=${artistIdsArray[i]}>${artistNamesArray[i]}</p></div>`;
       }
       document.getElementById('result').innerHTML = tags;
     } else {
@@ -85,9 +91,9 @@ export const Setting = ({ title }) => {
           }
         }
         const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${query1}`, {headers: headers});
-        let selectedArtistTags = '<span class="mr-6"></span>';
+        let selectedArtistTags = '<span class="mr-2"></span>';
         for (let value of response.data.artists) {
-          selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-6" id=${value.id}><img src=${value.images[1].url} class="w-48 h-48 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
+          selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-2" id=${value.id}><img src=${value.images[1].url} class="w-24 h-24 object-cover pointer-events-none"><p class="text-xs pointer-events-none">${value.name}</p></div>`;
         }
         document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
         document.getElementById('selectedArtists').scrollLeft = 1000;
@@ -114,9 +120,9 @@ export const Setting = ({ title }) => {
                 }
                 if (query2 !== '') {
                   const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${query2}`, {headers: headers});
-                  let selectedArtistTags = '<span class="mr-6"></span>';
+                  let selectedArtistTags = '<span class="mr-2"></span>';
                   for (let value of response.data.artists) {
-                    selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-6" id=${value.id}><img src=${value.images[1].url} class="w-48 h-48 object-cover pointer-events-none"><p class="pointer-events-none">${value.name}</p></div>`;
+                    selectedArtistTags += `<div class="artist flex-none overflow-scroll mr-2" id=${value.id}><img src=${value.images[1].url} class="w-24 h-24 object-cover pointer-events-none"><p class="text-xs pointer-events-none">${value.name}</p></div>`;
                   }
                   document.getElementById('selectedArtists').innerHTML = selectedArtistTags;
                   query2 = '';
@@ -128,11 +134,11 @@ export const Setting = ({ title }) => {
             }
           }
           if (selectedArtistIdsArray[4]) {
-            document.getElementById('next').innerHTML = '<button id="next_link" class="bg-green-500 rounded-lg w-48 py-2 px-4 mt-16">選択完了</button>';
+            document.getElementById('next').innerHTML = '<button id="next_link" class="bg-green-500 hover:bg-green-600 rounded-lg w-48 py-2 px-4 mt-16">選択完了</button>';
             document.getElementById('next_link').addEventListener('click', async () => {
               const response = await axios.post('/favorite', { ids: selectedArtistIdsArray });
               if (response.data.status === 'OK') {
-                document.getElementById('main').innerHTML = '<h1 class="text-3xl font-bold pt-24 pb-16">設定完了</h1><a href="/" class="bg-green-500 rounded-lg w-48 py-2 px-4">トップへ戻る</a>';
+                document.getElementById('main').innerHTML = '<h1 class="text-3xl font-bold pt-24 pb-16">設定完了</h1><ButtonRipples><a href="/" class="bg-green-500 hover:bg-green-600 rounded-lg w-48 py-2 px-4">トップへ戻る</a></ButtonRipples>';
               }
             });
           } else {
@@ -151,15 +157,17 @@ export const Setting = ({ title }) => {
       <p>好きなアーティストを5組選んでください</p>
       <p>※アルファベットで検索してください</p>
       <p>※アーティスト名の一部で検索するとヒットしやすくなります</p>
-      <input className="text-gray-900 px-2 rounded-mb mt-8" type="text" id="keyword" /><br/>
-      <button className="bg-green-500 rounded-lg w-48 py-2 px-4 mt-4 mb-8" type="submit" value="検索" onClick={() => searchArtist()}>検索</button>
-      <div className="border-solid border-b-2 border-gray-100 w-2/3 h-62 mx-auto">
+      <div className="border-solid border-b-2 border-gray-100 h-62 mx-auto mt-8">
         <p>選んだアーティスト</p>
-        <div id="selectedArtists" className="flex overflow-scroll mx-auto"></div>
+        <div id="selectedArtists" className="flex justify-center mx-auto"></div>
       </div>
+      <input className="text-gray-900 px-2 rounded-mb mt-4 mb-2" type="text" id="keyword" /><br/>
+      <ButtonRipples>
+        <button className="bg-green-500 hover:bg-green-600 rounded-lg w-48 py-2 px-4" type="submit" value="検索" onClick={() => searchArtist()}>検索</button>
+      </ButtonRipples>
       <p>検索結果</p>
       <div id="result" className="flex overflow-scroll w-2/3 mx-auto"></div>
-      <div id="next"></div>
+      <ButtonRipples id="next"></ButtonRipples>
     </div>
   )
 };

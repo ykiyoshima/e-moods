@@ -1,4 +1,10 @@
 import axios from "axios";
+import { createRipples } from "react-ripples";
+
+const ButtonRipples = createRipples({
+  color: 'snow',
+  during: 600
+});
 
 export const Login = () => {
   const execLogin = async () => {
@@ -44,7 +50,7 @@ export const Login = () => {
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
       <h1 className="text-5xl font-bold pt-24 pb-16">e-moods</h1>
 
-      <p>あなたの<strong>"表情"</strong>で楽曲を自動分類</p>
+      <p>あなたの<strong>"顔の表情"</strong>から楽曲を自動提案！</p>
       <p className="mb-8">今の気分に合う音楽を簡単に探せます！</p>
 
       <label htmlFor="email">メールアドレス</label><br/>
@@ -52,10 +58,14 @@ export const Login = () => {
       <label htmlFor="password">パスワード</label><br/>
       <input type="password" id="password" className="text-gray-900 rounded-md px-2" name="password" required /><br/>
       <div id="message" className="mt-4 mb-8"></div>
-      <button id="login_btn" className="bg-green-500 rounded-lg w-48 py-2 px-4 mb-8" onClick={() => execLogin()}>ログイン</button>
+      <ButtonRipples>
+        <button id="login_btn" className="bg-green-500 hover:bg-green-600 rounded-lg w-48 py-2 px-4" onClick={() => execLogin()}>ログイン</button>
+      </ButtonRipples>
 
-      <p>アカウントをお持ちでない方</p>
-      <button id="signup_btn" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-4">新規登録</button>
+      <p className="mt-8 mb-4">アカウントをお持ちでない方</p>
+      <ButtonRipples>
+        <button id="signup_btn" className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2">新規登録</button>
+      </ButtonRipples>
     </div>
   );
 };

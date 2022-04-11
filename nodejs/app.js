@@ -8,7 +8,6 @@ import knexfile from "./knexfile.js";
 import session from "express-session";
 import passport from "passport";
 import local from "passport-local";
-import magic from "passport-magic-link";
 import axios from "axios";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";

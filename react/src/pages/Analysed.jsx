@@ -1,4 +1,14 @@
 import axios from "axios";
+import { createRipples } from "react-ripples";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import logo from "../img/logo_transparent.png";
+import { faCheck, faMusic, faFileImport, faGear } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faImage } from "@fortawesome/free-regular-svg-icons";
+
+const ButtonRipples = createRipples({
+  color: 'snow',
+  during: 600
+});
 
 export const Analysed = () => {
   axios.get('/index', { withCredentials: true })
@@ -7,9 +17,6 @@ export const Analysed = () => {
         window.location.href = "/login";
       }
     });
-  let emotionsResponse;
-  const playlistTrackIdArray = [];
-  let previousPlaylistTrackIdArray = [];
 
   const token = async () => {
     const response = await axios.get('/token', { withCredentials: true });
@@ -20,33 +27,18 @@ export const Analysed = () => {
   };
 
   const refreshToken = async () => {
-    const accessToken = (await token()).accessToken;
     const tokenGetTime = (await token()).tokenGetTime;
-
-    if ((Date.now() - tokenGetTime) >= 3600000) {
-      const signin = () => {
-        const endpoint = 'https://accounts.spotify.com/authorize';
-        const scopes = ['streaming', 'user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private'];
-        const params = new URLSearchParams();
-        params.append('client_id', process.env.REACT_APP_CLIENT_ID);
-        params.append('response_type', 'code');
-        params.append('redirect_uri', 'https://e-moods.herokuapp.com/get_token');
-        params.append('scope', scopes.join(' '));
-        params.append('state', 'state');
-        document.getElementById('signin_btn').innerHTML = '';
-        window.location.href = `${endpoint}?${params.toString()}`;
-      }
-      document.getElementById('signin_btn').innerHTML = '<button id="signin" class="bg-green-500 rounded-lg w-48 py-2 px-4">Spotifyと連携</button>';
-      document.getElementById('signin').addEventListener('click', () => {
-        signin();
-      });
-    } else {
-      document.getElementById('signin_btn').innerHTML = '';
+    if ((Date.now() - tokenGetTime) >= 3600000 || !tokenGetTime) {
+      window.location.href = '/spotify';
     }
   }
+  refreshToken();
+
+  let emotionsResponse;
+  const playlistTrackIdArray = [];
+  let previousPlaylistTrackIdArray = [];
 
   window.onload = async () => {
-    refreshToken();
     emotionsResponse = await axios.get('/emotions', { withCredentials: true });
     const { anger, contempt, disgust, fear, happiness, neutral, sadness, surprise } = emotionsResponse.data;
     document.getElementById('analysis_result').innerHTML = `<p>あなたの感情は以下のようです</p><p class="my-4">怒り：${(Math.round(anger * 100 * 100)) / 100}%  軽蔑：${(Math.round(contempt * 100 * 100)) / 100}%  嫌悪：${(Math.round(disgust * 100 * 100)) / 100}%  恐怖：${(Math.round(fear * 100 * 100)) / 100}%<br/>幸せ：${(Math.round(happiness * 100 * 100)) / 100}%  中立：${(Math.round(neutral * 100 * 100)) / 100}%  悲しみ：${(Math.round(sadness * 100 * 100)) / 100}%  驚き：${(Math.round(surprise * 100 * 100)) / 100}%</p>`;
@@ -54,7 +46,8 @@ export const Analysed = () => {
 
   const selectTracks = async (e) => {
     if (!document.querySelector('input[type=radio]:checked')) {
-      document.getElementById('message').innerHTML = '<p>選曲オプションを選択してください</p>'
+      document.getElementById('message').innerHTML = '<p>選曲オプションを選択してください</p>';
+      return;
     }
     const selectedOption = document.querySelector('input[type=radio]:checked').value;
     document.getElementById('main').innerHTML = '<p class="pt-24">選曲中...</p>';
@@ -162,14 +155,9 @@ export const Analysed = () => {
       const queryMinInstrumentalness = min_instrumentalness !== undefined ? `&min_instrumentalness=${min_instrumentalness}` : '';
       const queryTempo = target_tempo !== null ? `&target_tempo=${target_tempo}` : '';
       const queryValence = target_valence !== null ? `&target_valence=${target_valence}` : '';
-      console.log({ danceability: target_danceability, energy: target_energy, max_instrumentalness: max_instrumentalness, min_instrumentalness: min_instrumentalness, tempo: target_tempo, valence: target_valence });
 
       try {
         const response = await axios.get(`https://api.spotify.com/v1/recommendations?limit=1&seed_artists=${favorite_id_1},${favorite_id_2},${favorite_id_3},${favorite_id_4},${favorite_id_5}${queryDanceability}${queryEnergy}${queryMaxInstrumentalness}${queryMinInstrumentalness}${queryTempo}${queryValence}`, { headers: headers });
-        console.log(previousPlaylistTrackIdArray);
-        console.log(response.data.tracks[0].id);
-        console.log(playlistTrackIdArray.indexOf(response.data.tracks[0].id) === -1);
-        console.log(previousPlaylistTrackIdArray.indexOf(response.data.tracks[0].id) === -1);
         if (playlistTrackIdArray.indexOf(response.data.tracks[0].id) === -1 && previousPlaylistTrackIdArray.indexOf(response.data.tracks[0].id) === -1) {
           playlistTrackIdArray.push(response.data.tracks[0].id);
         }
@@ -185,20 +173,80 @@ export const Analysed = () => {
 
   return (
     <div id="main" className="sm:w-full md:w-1/3 mx-auto">
-      <h1 className="text-3xl font-bold pt-24 pb-16">分析完了</h1>
-      <div id="analysis_result"></div>
+      <div id="header" className="w-3/4 mx-auto pt-4 flex justify-between border-solid border-b-2 border-gray-100">
+        <a href="/"><img src={logo} alt="ロゴ" className="w-16 h-16" /></a>
+        <a href="/setting"><FontAwesomeIcon className="text-4xl mt-3" icon={faGear} /></a>
+      </div>
+      <h1 className="text-3xl font-bold pt-8 pb-16">分析完了</h1>
+
+      <div className="flex">
+        <div className="w-1/4">
+          <div className="relative">
+            <div className="w-8 h-8 mx-auto bg-green-500 rounded-full text-base text-gray-100 flex items-center justify-center">
+              <FontAwesomeIcon icon={faCheck} />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-1/4">
+          <div className="relative">
+            <div className="absolute w-3/4 flex align-center items-center align-middle content-center top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+                <div className="w-full bg-green-300 py-0.5 rounded"></div>
+              </div>
+            </div>
+            <div className="w-8 h-8 mx-auto bg-green-500 rounded-full text-base text-gray-100 flex items-center justify-center">
+              <FontAwesomeIcon icon={faHeart} />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-1/4">
+          <div className="relative">
+            <div className="absolute w-3/4 flex align-center items-center align-middle content-center top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+                <div className="w-0 bg-green-300 py-0.5 rounded"></div>
+              </div>
+            </div>
+            <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-base text-gray-500 flex items-center justify-center">
+              <FontAwesomeIcon icon={faMusic} />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-1/4">
+          <div className="relative">
+            <div className="absolute w-3/4 flex align-center items-center align-middle content-center top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+                <div className="w-0 bg-green-300 py-0.5 rounded"></div>
+              </div>
+            </div>
+            <div className="w-8 h-8 mx-auto bg-gray-200 rounded-full text-base text-gray-500 flex items-center justify-center">
+              <FontAwesomeIcon icon={faFileImport} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="analysis_result" className="mt-4"></div>
       <p className="pt-4 mb-2">選曲オプションを選択してください</p>
-      <div className="border-solid border-b-2 border-gray-100">
+      <div className="w-3/4 mx-auto border-solid border-b-2 border-gray-100">
         <input type="radio" id="inst_ng" name="inst_option" value="inst_ng" /><label htmlFor="inst_ng">ボーカルありだけ</label><br/>
         <input type="radio" id="inst_ok" name="inst_option" value="inst_ok" /><label htmlFor="inst_ok">ボーカルなし含む</label><br/>
         <input type="radio" id="inst_only" name="inst_option" value="inst_only" /><label htmlFor="inst_only">ボーカルなしだけ</label>
-      </div><br/>
-      <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 my-6" value="yes" onClick={(e) => selectTracks(e)}>気分に合う曲だけ</button><br/>
-      <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2" value="no" onClick={(e) => selectTracks(e)}>気分と逆の曲だけ</button><br/>
-      <button className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 my-6" value="auto" onClick={(e) => selectTracks(e)}>おまかせ</button>
-      <div id="signin_btn"></div>
+      </div><br/><br/>
+      <ButtonRipples>
+        <button className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2" value="yes" onClick={(e) => selectTracks(e)}>気分に合う曲だけ</button>
+      </ButtonRipples><br/><br/>
+      <ButtonRipples>
+      <button className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2" value="no" onClick={(e) => selectTracks(e)}>気分と逆の曲だけ</button>
+      </ButtonRipples>
+      <br/><br/>
+      <ButtonRipples>
+        <button className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2" value="auto" onClick={(e) => selectTracks(e)}>おまかせ</button>
+      </ButtonRipples><br/><br/>
+      <ButtonRipples id="signin_btn"></ButtonRipples><br/>
       <div id="message"></div>
-      <a href="/" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-8">トップへ戻る</a>
     </div>
   );
 }

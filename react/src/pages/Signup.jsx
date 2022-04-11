@@ -1,4 +1,10 @@
 import axios from "axios";
+import { createRipples } from "react-ripples";
+
+const ButtonRipples = createRipples({
+  color: 'snow',
+  during: 600
+});
 
 export const Signup = ({ title }) => {
   const execSignup = async () => {
@@ -36,7 +42,9 @@ export const Signup = ({ title }) => {
       <input type="email" required id="email" className="text-gray-900 rounded-md px-2 mb-4" /><br />
 
       <p id="message"></p>
-      <button id="send_btn" className="bg-green-500 rounded-lg inline-block w-48 h-10 align-middle py-2 mt-4" onClick={() => execSignup()}>メールを送信</button>
+      <ButtonRipples>
+        <button id="send_btn" className="bg-green-500 hover:bg-green-600 rounded-lg inline-block w-48 h-10 align-middle py-2" onClick={() => execSignup()}>メールを送信</button>
+      </ButtonRipples>
     </div>
   );
 };
